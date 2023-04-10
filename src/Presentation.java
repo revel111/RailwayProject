@@ -87,47 +87,43 @@ public class Presentation {
 //
 //        System.out.println(Arrays.toString(DataLists.getStations().get(0).getIntersections().toArray()));
 //        DataLists.printData(DataLists.getStations());
-//        Station station0 = new Station("A");
-//        Station station1 = new Station("B");
-//        Station station2 = new Station("C");
-//        Station station3 = new Station("D");
-//        Station station4 = new Station("E");
-//        Station station5 = new Station("F");
-//        Station station6 = new Station("G");
-//
-//        Station.createInterestion(station0, station1);
-//        Station.createInterestion(station0, station2);
-//        Station.createInterestion(station0, station3);
-//        Station.createInterestion(station1, station5);
-//        Station.createInterestion(station5, station6);
-//        Station.createInterestion(station6, station4);
-//
-//        Locomotive locomotive = new Locomotive("da", station1, station0, station4);
-//        ArrayList<Car> cars = new ArrayList<>();
-//        PassengerCar car1 = new PassengerCar("A");
-//        PassengerCar car2 = new PassengerCar("B");
-//        PassengerCar car3 = new PassengerCar("B");
-//
-//        cars.add(car1);
-//        cars.add(car2);
-//        cars.add(car3);
-//
-//        Trainset trainset = new Trainset("fuck", locomotive, cars);
+        Station station0 = new Station("A");
+        Station station1 = new Station("B");
+        Station station2 = new Station("C");
+        Station station3 = new Station("D");
+        Station station4 = new Station("E");
+        Station station5 = new Station("F");
+        Station station6 = new Station("G");
+
+        Station.createInterestion(station0, station1);
+        Station.createInterestion(station0, station2);
+        Station.createInterestion(station0, station3);
+        Station.createInterestion(station1, station5);
+        Station.createInterestion(station5, station6);
+        Station.createInterestion(station6, station4);
+
+        Locomotive locomotive = new Locomotive("da", station1, station0, station4);
+        ArrayList<Car> cars = new ArrayList<>();
+        PassengerCar car1 = new PassengerCar("A");
+        PassengerCar car2 = new PassengerCar("B");
+        PassengerCar car3 = new PassengerCar("B");
+
+        cars.add(car1);
+        cars.add(car2);
+        cars.add(car3);
+
+        Trainset trainset = new Trainset("fuck", locomotive, cars);
 //        Trainset.generateRoute(trainset);
 //        String string = DataLists.printRoute(trainset);
 //        System.out.println(string);
-//
-//        BaggageCar bag = new BaggageCar("bu");
-//        PassengerCar pass = new PassengerCar("bbb");
-//        DataLists.getCars().add(pass);
-//        DataLists.getCars().add(bag);
+        Rail rail = new Rail(station0, station1, 500);
+        DataLists.getRails().add(rail);
+        Rail.createRail(trainset);
+        String string = DataLists.printRouteSet(trainset);
+        System.out.println(string);
+//        Car.createCars();
+//        Car.createCars();
 //        DataLists.printData(DataLists.getCars());
-//        Rail rail = new Rail(station1,station2, 100);
-//        DataLists.printData(DataLists.getRails());
-
-        Car.createCars();
-        Car.createCars();
-        DataLists.printData(DataLists.getCars());
     }
 
     public static void boot() {

@@ -50,6 +50,10 @@ public class Trainset {
         return cars;
     }
 
+    public ArrayList<Rail> getRouteRails() {
+        return routeRails;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -64,6 +68,10 @@ public class Trainset {
 
     public void setRouteStations(ArrayList<Station> routeStations) {
         this.routeStations = routeStations;
+    }
+
+    public void setRouteRails(ArrayList<Rail> routeRails) {
+        this.routeRails = routeRails;
     }
 
     public static void createTrainset() throws TooManyCarsException {

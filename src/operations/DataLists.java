@@ -14,9 +14,15 @@ public class DataLists {
     private static ArrayList<Station> stations;
     private static ArrayList<Car> cars;
     private static ArrayList<Trainset> trainsets;
-    private static ArrayList<Rail> rails = new ArrayList<>();
+//    private static ArrayList<Rail> rails = new ArrayList<>();
 
-    public static ArrayList<Rail> getRails() {
+//    public static ArrayList<Rail> getRails() {
+//        return rails;
+//    }
+
+    public static Set<Rail> rails = new HashSet<>();
+
+    public static Set<Rail> getRails() {
         return rails;
     }
 
@@ -41,6 +47,7 @@ public class DataLists {
         stations = new ArrayList<>();
         cars = new ArrayList<>();
         trainsets = new ArrayList<>();
+        rails = new HashSet<>();
     }
 
     public static String printCarsT(Trainset trainset) {
@@ -57,6 +64,15 @@ public class DataLists {
 
         for (int i = 0; i < trainset.getRouteStations().size(); i++)
             string.append(trainset.getRouteStations().get(i).toString()).append("\n");
+
+        return string.toString();
+    }
+
+    public static String printRouteSet(Trainset trainset) {
+        StringBuilder string = new StringBuilder();
+
+        for (int i = 0; i < trainset.getRouteRails().size(); i++)
+            string.append(trainset.getRouteRails().get(i).toString()).append("\n");
 
         return string.toString();
     }
