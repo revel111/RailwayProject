@@ -13,7 +13,8 @@ public class Trainset {
     private String currentId;
     private Locomotive locomotive;
     private ArrayList<Car> cars; //10
-    private ArrayList<Station> route;
+    private ArrayList<Station> routeStations;
+    private ArrayList<Rail> routeRails;
     private double weight = 1000;
     private final double maxWeight = 10000;
 
@@ -57,12 +58,12 @@ public class Trainset {
         this.weight = weight;
     }
 
-    public ArrayList<Station> getRoute() {
-        return route;
+    public ArrayList<Station> getRouteStations() {
+        return routeStations;
     }
 
-    public void setRoute(ArrayList<Station> route) {
-        this.route = route;
+    public void setRouteStations(ArrayList<Station> routeStations) {
+        this.routeStations = routeStations;
     }
 
     public static void createTrainset() throws TooManyCarsException {
@@ -263,8 +264,8 @@ public class Trainset {
         Station start = trainset.getLocomotive().getSourceStation();
         Station end = trainset.getLocomotive().getDestinationStation();
 
-        if(generateRouteFind(start,end,visited,route))
-            trainset.setRoute(route);
+        if (generateRouteFind(start, end, visited, route))
+            trainset.setRouteStations(route);
     }
 
     public static boolean generateRouteFind(Station current, Station end, Set<Station> visited, ArrayList<Station> route) {

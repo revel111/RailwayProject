@@ -64,12 +64,22 @@ abstract public class Car {
     }
 
     public abstract void fillCar() throws TooManyException;
+
     public abstract void emptyCar() throws TooManyException;
 
     public static void createCars() {
         HashMap<String, Runnable> menu = new HashMap<>();
 
         menu.put("passenger", PassengerCar::createPassengerCar);
+        menu.put("baggage", BaggageCar::createBaggageCar);
+        menu.put("explosive", ExplosiveCar::createExposiveCar);
+        menu.put("gaseous", GaseousCar::createGaseousCar);
+        menu.put("liquid", LiquidCar::createLiquidCar);
+        menu.put("mail", MailCar::createMailCar);
+        menu.put("post", PostOfficeCar::createPostOfficeCar);
+        menu.put("refrigerated", RefrigeratedCar::createRefrigeratedCar);
+        menu.put("restaurant", RestaurantCar::createRestaurantCar);
+        menu.put("toxic", ToxicCar::createToxicCar);
 
         System.out.println("Choose car type to create");
 

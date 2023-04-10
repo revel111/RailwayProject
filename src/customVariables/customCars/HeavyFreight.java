@@ -1,9 +1,9 @@
 package customVariables.customCars;
 
-abstract public class BasicFreight extends Car {
-    private final double weightNetto = 500;
+abstract public class HeavyFreight extends Car {
+    private final double weightNetto = 1000;
     private double weightBrutto = weightNetto;
-    private final double maxFill = 1000;
+    private final double maxFill = 2000;
     private double fill;
 
     @Override
@@ -22,6 +22,6 @@ abstract public class BasicFreight extends Car {
 
     @Override
     public String toString() {
-        return super.toString() + "; Current filness: " + getFill();
+        return super.toString() + "; Current fillness: " + getFill();
     }
 }

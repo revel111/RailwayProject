@@ -5,10 +5,11 @@ import operations.DataLists;
 
 import java.util.Scanner;
 
-public class RefrigeratedCar extends BasicFreight {
-    private static Scanner scanner = new Scanner(System.in);
-    public RefrigeratedCar(String shipper) {
-        this.setGridConnection(true);
+public class LiquidCar extends BasicFreight {
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public LiquidCar(String shipper) {
+        this.setGridConnection(false);
         this.setShipper(shipper);
         this.setCurrentId("car" + Car.id++);
         this.setWeightNetto(this.getWeightNetto());
@@ -25,11 +26,11 @@ public class RefrigeratedCar extends BasicFreight {
 
     }
 
-    public static Runnable createRefrigeratedCar() {
+    public static Runnable createLiquidCar() {
         System.out.println("Enter name of a shipper");
         String shipper = scanner.nextLine();
-        RefrigeratedCar refrigeratedCar= new RefrigeratedCar(shipper);
-        DataLists.getCars().add(refrigeratedCar);
+        LiquidCar liquidCar = new LiquidCar(shipper);
+        DataLists.getCars().add(liquidCar);
         return null;
     }
 

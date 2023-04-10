@@ -3,6 +3,8 @@ package customVariables.customCars;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PassengerCar extends Car {
@@ -11,7 +13,6 @@ public class PassengerCar extends Car {
     private double weightBrutto = weightNetto;
     private final int maxAmountOfPassengers = 50;
     private int passengers;
-    private String shipper;
 
     @Override
     public double getWeightBrutto() {
@@ -25,7 +26,7 @@ public class PassengerCar extends Car {
 
     public PassengerCar(String shipper) {
         this.setGridConnection(true);
-        this.shipper = shipper;
+        this.setShipper(shipper);
         this.setCurrentId("car" + Car.id++);
         this.setWeightNetto(this.weightNetto);
         this.setWeightBrutto(this.weightBrutto);
@@ -45,17 +46,14 @@ public class PassengerCar extends Car {
                 this.setWeightBrutto(this.weightNetto + (passengersIn * 2));
             }
         } catch (TooManyException e) {
-            System.out.println("Enter 1 if you want to try to add passengers again");
-            System.out.println("Enter 0 if you don't want to add passengers");
-            int ch = scanner.nextInt();
-            scanner.nextLine();
+            System.out.println("Enter try if you want to try to add passengers again");
+            System.out.println("Enter exit if you don't want to add passengers");
+            String ch = scanner.nextLine();
 
-            switch (ch) {
-                case 0:
-                    return;
-                case 1:
-                    fillCar();
-            }
+            if (Objects.equals(ch, "try"))
+                fillCar();
+            else
+                return;
         }
     }
 
@@ -73,17 +71,14 @@ public class PassengerCar extends Car {
                 this.setWeightBrutto(this.weightNetto - (passengersOut * 2));
             }
         } catch (TooManyException e) {
-            System.out.println("Enter 1 if you want to try to delete passengers again");
-            System.out.println("Enter 0 if you don't want to delete passengers");
-            int ch = scanner.nextInt();
-            scanner.nextLine();
+            System.out.println("Enter try if you want to try to add passengers again");
+            System.out.println("Enter exit if you don't want to add passengers");
+            String ch = scanner.nextLine();
 
-            switch (ch) {
-                case 0:
-                    return;
-                case 1:
-                    emptyCar();
-            }
+            if (Objects.equals(ch, "try"))
+                emptyCar();
+            else
+                return;
         }
     }
 

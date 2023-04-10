@@ -5,10 +5,10 @@ import operations.DataLists;
 
 import java.util.Scanner;
 
-public class RefrigeratedCar extends BasicFreight {
+public class ToxicCar extends HeavyFreight {
     private static Scanner scanner = new Scanner(System.in);
-    public RefrigeratedCar(String shipper) {
-        this.setGridConnection(true);
+    public ToxicCar(String shipper) {
+        this.setGridConnection(false);
         this.setShipper(shipper);
         this.setCurrentId("car" + Car.id++);
         this.setWeightNetto(this.getWeightNetto());
@@ -25,16 +25,16 @@ public class RefrigeratedCar extends BasicFreight {
 
     }
 
-    public static Runnable createRefrigeratedCar() {
+    public static Runnable createToxicCar() {
         System.out.println("Enter name of a shipper");
         String shipper = scanner.nextLine();
-        RefrigeratedCar refrigeratedCar= new RefrigeratedCar(shipper);
-        DataLists.getCars().add(refrigeratedCar);
+        ToxicCar toxicCar= new ToxicCar(shipper);
+        DataLists.getCars().add(toxicCar);
         return null;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() + "; Current fillness: " + getFill();
     }
 }

@@ -1,6 +1,7 @@
 package customVariables.customCars;
 
 import customVariables.customExtra.TooManyException;
+import operations.DataLists;
 
 import java.util.Scanner;
 
@@ -11,7 +12,6 @@ public class MailCar extends Car {
     private double weightBrutto = weightNetto;
     private final double maxMailsWeight = 100;
     private double mailsWeight;
-    private String shipper;
 
     @Override
     public double getWeightBrutto() {
@@ -25,7 +25,7 @@ public class MailCar extends Car {
 
     public MailCar(String shipper) {
         this.setGridConnection(false);
-        this.shipper = shipper;
+        this.setShipper(shipper);
         this.setCurrentId("car" + Car.id++);
         this.setWeightNetto(this.weightNetto);
         this.setWeightBrutto(this.weightBrutto);
@@ -39,6 +39,14 @@ public class MailCar extends Car {
     @Override
     public void emptyCar() throws TooManyException {
 
+    }
+
+    public static Runnable createMailCar() {
+        System.out.println("Enter name of a shipper");
+        String shipper = scanner.nextLine();
+        MailCar mailCar = new MailCar(shipper);
+        DataLists.getCars().add(mailCar);
+        return null;
     }
 
     @Override

@@ -2,8 +2,6 @@ package customVariables;
 
 import operations.DataLists;
 
-import java.util.ArrayList;
-
 public class Rail {
     private double leftDistance;
     private Station station1;
@@ -45,8 +43,12 @@ public class Rail {
         return distance;
     }
 
-    public static void createIntersection(Station station2, Station station) {
+    public static void createRail(Trainset trainset) {
+        Trainset.generateRoute(trainset);
 
+        for (int i = 0; i < trainset.getRouteStations().size(); i++) {
+
+        }
     }
 
     @Override

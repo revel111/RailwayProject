@@ -2,6 +2,7 @@ package customVariables.customCars;
 
 import customVariables.Rail;
 import customVariables.customExtra.TooManyException;
+import operations.DataLists;
 
 import java.util.Scanner;
 
@@ -11,11 +12,10 @@ public class RestaurantCar extends Car {
     private double weightBrutto = weightNetto;
     private final int maxAmountOfTables = 40;
     private int tables;
-    private String shipper;
 
     public RestaurantCar(String shipper) {
         this.setGridConnection(true);
-        this.shipper = shipper;
+        this.setShipper(shipper);
         this.setCurrentId("car" + Car.id++);
         this.setWeightNetto(this.weightNetto);
         this.setWeightBrutto(this.weightBrutto);
@@ -29,6 +29,14 @@ public class RestaurantCar extends Car {
     @Override
     public void emptyCar() throws TooManyException {
 
+    }
+
+    public static Runnable createRestaurantCar() {
+        System.out.println("Enter name of a shipper");
+        String shipper = scanner.nextLine();
+        RestaurantCar refrigeratedCar= new RestaurantCar(shipper);
+        DataLists.getCars().add(refrigeratedCar);
+        return null;
     }
 
     @Override

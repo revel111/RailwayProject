@@ -55,8 +55,8 @@ public class DataLists {
     public static String printRoute(Trainset trainset) {
         StringBuilder string = new StringBuilder();
 
-        for (int i = 0; i < trainset.getRoute().size(); i++)
-            string.append(trainset.getRoute().get(i).toString()).append("\n");
+        for (int i = 0; i < trainset.getRouteStations().size(); i++)
+            string.append(trainset.getRouteStations().get(i).toString()).append("\n");
 
         return string.toString();
     }
