@@ -100,7 +100,7 @@ abstract public class Car {
     public static Car createCar(boolean t) { // redefined
         System.out.println("Choose car type to create");
         System.out.println("Enter 0 if you want to stop creating car");
-        DataLists.printTypesOfCars();
+//        DataLists.printTypesOfCars();
         int ch = scanner.nextInt();
 
         Car car = null;

@@ -1,7 +1,11 @@
 package customVariables;
 
+import customVariables.customCars.Car;
 import operations.DataLists;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -87,6 +91,14 @@ public class Station {
                         return null;
                 }
         }
+        return station;
+    }
+
+    public static Station generateRandomStation(String name, int number) {
+        String string = DataLists.ReadFile(name, number);
+
+        Station station = new Station(string);
+        DataLists.getStations().add(station);
         return station;
     }
 

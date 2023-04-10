@@ -2,7 +2,6 @@ import customVariables.Locomotive;
 import customVariables.Rail;
 import customVariables.Station;
 import customVariables.Trainset;
-import customVariables.customCars.BaggageCar;
 import customVariables.customCars.Car;
 import customVariables.customCars.PassengerCar;
 import customVariables.customExtra.TooManyCarsException;
@@ -10,9 +9,6 @@ import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Presentation {
     public static void main(String[] args) throws TooManyException, TooManyCarsException {
@@ -124,6 +120,10 @@ public class Presentation {
 //        Car.createCars();
 //        Car.createCars();
 //        DataLists.printData(DataLists.getCars());
+        System.out.println(trainset.getDistance());
+
+//        FilesWork.generateRandomStation();
+        DataLists.printData(DataLists.getStations());
     }
 
     public static void boot() {

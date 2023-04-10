@@ -48,10 +48,10 @@ public class Rail {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Rail))
+        if (!(o instanceof Rail otherRail))
             return false;
 
-        Rail otherRail = (Rail) o;
+        //        Rail otherRail = (Rail) o;
         return this.station1.equals(otherRail.station1) && this.station2 == otherRail.station2;
     }
 
@@ -68,7 +68,7 @@ public class Rail {
         ArrayList<Rail> rails = new ArrayList<>();
 
         for (int i = 0; i < trainset.getRouteStations().size(); i++) {
-            double distance = Math.floor(Math.random() * 951) + 50;
+            double roundedValue = Math.round(50.0 + (950.0) * Math.random() * 100.0) / 100.0;
             Station station1 = trainset.getRouteStations().get(i);
 
             if (station1 == trainset.getLocomotive().getDestinationStation()) {
@@ -78,14 +78,16 @@ public class Rail {
 
             Station station2 = trainset.getRouteStations().get(i + 1);
 
-            Rail rail = new Rail(station1, station2, distance);
+            Rail rail = new Rail(station1, station2, roundedValue);
 
             Rail toFind = ifContains(rail);
             if (toFind != null) {
                 rail = toFind;
                 rails.add(rail);
+                trainset.setDistance(trainset.getDistance() + rail.distance);
             } else {
                 rails.add(rail);
+                trainset.setDistance(trainset.getDistance() + rail.distance);
                 DataLists.getRails().add(rail);
             }
         }

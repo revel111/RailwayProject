@@ -17,6 +17,7 @@ public class Trainset {
     private ArrayList<Rail> routeRails;
     private double weight = 1000;
     private final double maxWeight = 10000;
+    private double distance = 0;
 
     public Trainset(String name, Locomotive locomotive, ArrayList<Car> cars) {
         this.locomotive = locomotive;
@@ -33,6 +34,13 @@ public class Trainset {
         return name;
     }
 
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 
     public Locomotive getLocomotive() {
         return locomotive;
@@ -215,55 +223,6 @@ public class Trainset {
 
         return cars;
     }
-
-//    public static void generateRoute(Trainset trainset) {
-//        Station destinationStation = trainset.getLocomotive().getDestinationStation();
-//        Station currentStation = trainset.getLocomotive().getSourceStation();
-//        ArrayList<Station> route = new ArrayList<>();
-//
-////        while (currentStation != destinationStation) {
-////
-////            while (true) {
-////                for (int i = 0; i < currentStation.getIntersections().size(); i++) {
-////                    if (currentStation.getIntersections().get(i) == destinationStation)
-////
-////                }
-////            }
-////            Station tempStation = currentStation;
-////        }
-//
-//        route = generateHelpful(currentStation, destinationStation, route, null);
-//
-//        trainset.setRoute(route);
-//    }
-//
-//    public static ArrayList<Station> generateHelpful(Station currentStation, Station destinationStation, ArrayList<Station> route, Station tempStation) {
-//        ArrayList<Station> visited = new ArrayList<>();
-//        for (int i = 0; i < currentStation.getIntersections().size(); i++) {
-//            if (currentStation.getIntersections().get(i) == destinationStation) {
-//                System.out.println("success");
-//                return route;
-//            } else if (currentStation.getIntersections().size() == 0) {
-//                visited.add(currentStation);
-//                currentStation = tempStation;
-////                generateHelpful(currentStation, destinationStation, route, null);
-//            } else {
-//                tempStation = currentStation;
-//                currentStation = currentStation.getIntersections().get(i);
-//                generateHelpful(currentStation, destinationStation, route, tempStation);
-//            }
-//        }
-//
-//        return route;
-//    }
-//
-//    public static boolean checkIf(ArrayList<Station> visited, Station currentStation) {
-//        for (int i = 0; i < visited.size(); i++)
-//            if (currentStation == visited.get(i))
-//                return true;
-//
-//        return false;
-//    }
 
     public static void generateRoute(Trainset trainset) {
         Set<Station> visited = new HashSet<>();
