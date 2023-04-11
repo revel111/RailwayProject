@@ -5,6 +5,7 @@ import operations.DataLists;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 abstract public class Car {
@@ -98,55 +99,80 @@ abstract public class Car {
             System.out.println("Invalid choice.");
     }
 
+    public static Car switchForCars(int ch, String shipper) {
+        Car car = null;
+
+        switch (ch) {
+            case 1:
+                car = PassengerCar.createPassengerCarReturn(shipper);
+                break;
+            case 2:
+                car = BaggageCar.createBaggageCarReturn(shipper);
+                break;
+            case 3:
+                car = ExplosiveCar.createExplosiveCarReturn(shipper);
+                break;
+            case 4:
+                car = GaseousCar.createGaseousCarReturn(shipper);
+                break;
+            case 5:
+                car = LiquidCar.createLiquidCarReturn(shipper);
+                break;
+            case 6:
+                car = MailCar.createMailCarReturn(shipper);
+                break;
+            case 7:
+                car = PostOfficeCar.createPostOfficeCarReturn(shipper);
+                break;
+            case 8:
+                car = RefrigeratedCar.createRefrigeratedCarReturn(shipper);
+                break;
+            case 9:
+                car = RestaurantCar.createRestaurantCarReturn(shipper);
+                break;
+            case 10:
+                car = ToxicCar.createToxicCarReturn(shipper);
+        }
+
+        return car;
+    }
+
     public static ArrayList<Car> generateCarRandomly(String name, int number) {
         ArrayList<Car> arrayList = new ArrayList<>();
-        HashMap<String, Runnable> menu = new HashMap<>();
-
-        menu.put("1", PassengerCar::createPassengerCar);
-        menu.put("2", BaggageCar::createBaggageCar);
-        menu.put("3", ExplosiveCar::createExposiveCar);
-        menu.put("4", GaseousCar::createGaseousCar);
-        menu.put("5", LiquidCar::createLiquidCar);
-        menu.put("6", MailCar::createMailCar);
-        menu.put("7", PostOfficeCar::createPostOfficeCar);
-        menu.put("8", RefrigeratedCar::createRefrigeratedCar);
-        menu.put("9", RestaurantCar::createRestaurantCar);
-        menu.put("10", ToxicCar::createToxicCar);
-
-        String string = DataLists.ReadFile(name, number);
+        Car car = null;
 
         for (int i = 0; i < 10; i++) {
-            int random = (int) (Math.random() * (10 - 1)) + 1;
-
-            Runnable action = menu.get(random);
-
-
+            Random random = new Random();
+            int randomNumber = random.nextInt(10) + 1;
+            String string = DataLists.ReadFile(name, number);
+            car = Car.switchForCars(randomNumber, string);
+            arrayList.add(car);
         }
 
         return arrayList;
     }
 
-    public static Car createCar(boolean t) { // redefined
-        System.out.println("Choose car type to create");
-        System.out.println("Enter 0 if you want to stop creating car");
-//        DataLists.printTypesOfCars();
-        int ch = scanner.nextInt();
-
-        Car car = null;
-
-        switch (ch) {
-            case 1:
-//                car = PassengerCar.createPassengerCar(true);
-                break;
-            case 0:
-                System.out.println("You stopped creating car");
-                return null;
-            default:
-                System.out.println("You entered a wrong number");
-        }
-
-        return car;
-    }
+//    public static Car createCar(boolean t) { // redefined
+//        System.out.println("Choose car type to create");
+//        System.out.println("Enter 0 if you want to stop creating car");
+////        DataLists.printTypesOfCars();
+//        int ch = scanner.nextInt();
+//
+//        Car car = null;
+//
+//        switch (ch) {
+//            case 1:
+////                car = PassengerCar.createPassengerCar(true);
+//                break;
+//            case 0:
+//                System.out.println("You stopped creating car");
+//                return null;
+//            default:
+//                System.out.println("You entered a wrong number");
+//        }
+//
+//        return car;
+//    }
 
     public static void deleteCarById(String id) {
         for (int i = 0; i < DataLists.getCars().size(); i++)

@@ -50,6 +50,10 @@ public class Trainset {
         return weight;
     }
 
+    public void setCars(ArrayList<Car> cars) {
+        this.cars = cars;
+    }
+
     public double getMaxWeight() {
         return maxWeight;
     }
@@ -210,18 +214,6 @@ public class Trainset {
         } catch (TooManyCarsException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public ArrayList<Car> generateRandomlyCars(Trainset trainset) {
-        ArrayList<Car> cars = new ArrayList<>();
-
-
-        for (int i = 0; i < 10; i++) {
-            int randomNumber = (int) (Math.random() * 12.0);
-
-        }
-
-        return cars;
     }
 
     public static void generateRoute(Trainset trainset) {

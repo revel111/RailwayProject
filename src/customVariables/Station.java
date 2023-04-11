@@ -7,19 +7,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Station {
     private static final Scanner scanner = new Scanner(System.in);
     private String name;
     private static int id = 0;
-    private ArrayList<Station> intersections = new ArrayList<>();
+    private Set<Station> intersections = new HashSet<>();
     private String currentId;
-    private int maximumAmountOfConnections = 10;
+    private int connection = 0;
 
     public Station(String name) {
         this.name = name;
         currentId = "st" + id++;
+        DataLists.getStations().add(this);
     }
 
     public String getCurrentId() {
@@ -30,8 +33,20 @@ public class Station {
         return name;
     }
 
-    public ArrayList<Station> getIntersections() {
+    public Set<Station> getIntersections() {
         return intersections;
+    }
+
+    public void setIntersections(Set<Station> intersections) {
+        this.intersections = intersections;
+    }
+
+    public int getConnection() {
+        return connection;
+    }
+
+    public void setConnection(int connection) {
+        this.connection = connection;
     }
 
     public void setName(String name) {
@@ -44,7 +59,6 @@ public class Station {
         String name = scanner.nextLine();
 
         Station station = new Station(name);
-        DataLists.getStations().add(station);
     }
 
     public static void createInterestion(Station stationTo, Station station) {
@@ -95,12 +109,11 @@ public class Station {
 //        return station;
 //    }
 
-    public static Station generateRandomStation(String name, int number) {
-        String string = DataLists.ReadFile(name, number);
-
-        Station station = new Station(string);
-        DataLists.getStations().add(station);
-        return station;
+    public static void generateRandomStation(String name, int number) {
+        for (int i = 0; i < 100; i++) {
+            String string = DataLists.ReadFile(name, number);
+            Station station = new Station(string);
+        }
     }
 
     @Override

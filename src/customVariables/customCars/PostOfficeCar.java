@@ -47,6 +47,13 @@ public class PostOfficeCar extends Car {
         DataLists.getCars().add(postOfficeCar);
         return null;
     }
+
+    public static Car createPostOfficeCarReturn(String shipper) { // function for cars auto generation
+        PostOfficeCar postOfficeCar = new PostOfficeCar( shipper);
+
+        return postOfficeCar;
+    }
+
     @Override
     public String toString() {
         return super.toString() + "; Current amount of people in office: " + people;

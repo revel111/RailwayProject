@@ -9,6 +9,7 @@ import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Presentation {
     public static void main(String[] args) throws TooManyException, TooManyCarsException {
@@ -104,9 +105,9 @@ public class Presentation {
         PassengerCar car2 = new PassengerCar("B");
         PassengerCar car3 = new PassengerCar("B");
 
-        cars.add(car1);
-        cars.add(car2);
-        cars.add(car3);
+//        cars.add(car1);
+//        cars.add(car2);
+//        cars.add(car3);
 
         Trainset trainset = new Trainset("fuck", locomotive, cars);
 //        Trainset.generateRoute(trainset);
@@ -125,11 +126,27 @@ public class Presentation {
         Station.generateRandomStation("stationnames.txt", 121);
         DataLists.printData(DataLists.getStations());
 
-        Car.createCars();
-        DataLists.printData(DataLists.getCars());
+//        Car.createCars();
+//        DataLists.printData(DataLists.getCars());
 
-        double random = Math.floor(Math.random() * 10) + 1;
-        System.out.println(random);
+        cars = Car.generateCarRandomly("shippingnames.txt", 100);
+        trainset.setCars(cars);
+        System.out.println(trainset);
+        DataLists.printData(DataLists.getCars());
+//        Station.generateRandomStation("stationnames.txt", 121);
+//        DataLists.printData(DataLists.getStations());
+
+        ArrayList<Integer> fufu = new ArrayList<Integer>();
+        fufu.add(0);
+        fufu.add(2);
+        fufu.add(3);
+        System.out.println(fufu.get(1));
+        Random random = new Random();
+        int randomStation = 0;
+        for (int i = 0; i < 50; i++) {
+            int randomNumber = random.nextInt(6) + 5;
+            System.out.println(randomNumber);
+        }
     }
 
     public static void boot() {

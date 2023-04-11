@@ -95,11 +95,11 @@ public class PassengerCar extends Car {
         return null;
     }
 
-//    public static Car createPassengerCar(boolean f) {
-//        PassengerCar passengerCar = new PassengerCar();
-//        DataLists.getCars().add(passengerCar);
-//        return passengerCar;
-//    }
+    public static Car createPassengerCarReturn(String shipper) { // function for cars auto generation
+        PassengerCar passengerCar = new PassengerCar(shipper);
+
+        return passengerCar;
+    }
 
     @Override
     public String toString() {

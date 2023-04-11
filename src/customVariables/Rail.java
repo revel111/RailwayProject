@@ -3,6 +3,7 @@ package customVariables;
 import operations.DataLists;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Rail {
     private double leftDistance;
@@ -68,7 +69,8 @@ public class Rail {
         ArrayList<Rail> rails = new ArrayList<>();
 
         for (int i = 0; i < trainset.getRouteStations().size(); i++) {
-            double roundedValue = Math.round(50.0 + (950.0) * Math.random() * 100.0) / 100.0;
+            Random random = new Random();
+            double randomVal = Math.round(50 + (1000 - 50) * random.nextDouble() * 100.0) / 100.0;
             Station station1 = trainset.getRouteStations().get(i);
 
             if (station1 == trainset.getLocomotive().getDestinationStation()) {
@@ -78,7 +80,7 @@ public class Rail {
 
             Station station2 = trainset.getRouteStations().get(i + 1);
 
-            Rail rail = new Rail(station1, station2, roundedValue);
+            Rail rail = new Rail(station1, station2, randomVal);
 
             Rail toFind = ifContains(rail);
             if (toFind != null) {
@@ -98,6 +100,29 @@ public class Rail {
             if (railI.equals(rail))
                 return railI;
         return null;
+    }
+
+    public static void createRailsRandomly() {
+        Station.generateRandomStation("stationnames.txt", 121);
+        for (int i = 0; i < DataLists.getStations().size(); i++) {
+            Random random = new Random();
+            double roundedValue = Math.round(50 + (1000 - 50) * random.nextDouble() * 100.0) / 100.0;
+            int randomNumber = random.nextInt(6) + 5;
+
+            if (DataLists.getStations().get(i + 1) == null)
+                return;
+            else if (DataLists.getStations().get(i).getConnection() == randomNumber)
+                continue;
+            else {
+                for (int j = 0; j < randomNumber; j++) {
+                    int randomStation = random.nextInt(100) + 0;
+                    Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(i + 1), roundedValue);
+//                    if (rail)
+                }
+            }
+            DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
+
+        }
     }
 
     @Override

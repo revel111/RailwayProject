@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class ToxicCar extends HeavyFreight {
     private static Scanner scanner = new Scanner(System.in);
+
     public ToxicCar(String shipper) {
         this.setGridConnection(false);
         this.setShipper(shipper);
@@ -28,9 +29,15 @@ public class ToxicCar extends HeavyFreight {
     public static Runnable createToxicCar() {
         System.out.println("Enter name of a shipper");
         String shipper = scanner.nextLine();
-        ToxicCar toxicCar= new ToxicCar(shipper);
+        ToxicCar toxicCar = new ToxicCar(shipper);
         DataLists.getCars().add(toxicCar);
         return null;
+    }
+
+    public static Car createToxicCarReturn(String shipper) { // function for cars auto generation
+        ToxicCar toxicCar = new ToxicCar(shipper);
+
+        return toxicCar;
     }
 
     @Override

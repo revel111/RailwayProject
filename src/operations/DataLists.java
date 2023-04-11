@@ -92,16 +92,15 @@ public class DataLists {
 
     public static String ReadFile(String type, int number) {
         String fileName = "src/txtfiles/" + type;
-        int randomNum = (int) (Math.random() * (number - 0 + 1) + 0);//     121 station
+        Random random = new Random();
+        int randomNumber = random.nextInt(number) + 1;//     121 station
         String name = "";
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             int currentLine = 1;
             while ((name = br.readLine()) != null) {
-                if (currentLine == randomNum) {
-                    System.out.println(name);
+                if (currentLine == randomNumber)
                     break;
-                }
                 currentLine++;
             }
         } catch (IOException e) {
