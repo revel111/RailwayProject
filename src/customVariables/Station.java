@@ -2,6 +2,7 @@ package customVariables;
 
 import customVariables.customCars.Car;
 import operations.DataLists;
+import operations.Files;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -109,10 +110,13 @@ public class Station {
 //        return station;
 //    }
 
-    public static void generateRandomStation(String name, int number) {
+    public static void generateRandomStation(Set<Station> set) {
+        Station station = null;
         for (int i = 0; i < 100; i++) {
-            String string = DataLists.ReadFile(name, number);
-            Station station = new Station(string);
+            String string = Files.ReadFileStations(set);
+            station = new Station(string);
+            if(!set.contains(station))
+            set.add(station);
         }
     }
 

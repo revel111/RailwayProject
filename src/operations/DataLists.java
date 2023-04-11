@@ -90,23 +90,5 @@ public class DataLists {
         });
     }
 
-    public static String ReadFile(String type, int number) {
-        String fileName = "src/txtfiles/" + type;
-        Random random = new Random();
-        int randomNumber = random.nextInt(number) + 1;//     121 station
-        String name = "";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            int currentLine = 1;
-            while ((name = br.readLine()) != null) {
-                if (currentLine == randomNumber)
-                    break;
-                currentLine++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return name;
-    }
 }

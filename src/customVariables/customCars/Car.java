@@ -2,6 +2,7 @@ package customVariables.customCars;
 
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
+import operations.Files;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,7 +145,7 @@ abstract public class Car {
         for (int i = 0; i < 10; i++) {
             Random random = new Random();
             int randomNumber = random.nextInt(10) + 1;
-            String string = DataLists.ReadFile(name, number);
+            String string = Files.ReadFile(name, number);
             car = Car.switchForCars(randomNumber, string);
             arrayList.add(car);
         }

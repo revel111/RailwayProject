@@ -9,7 +9,9 @@ import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class Presentation {
     public static void main(String[] args) throws TooManyException, TooManyCarsException {
@@ -122,8 +124,8 @@ public class Presentation {
 //        Car.createCars();
 //        DataLists.printData(DataLists.getCars());
         System.out.println(trainset.getDistance());
-
-        Station.generateRandomStation("stationnames.txt", 121);
+        Set<Station> set = new HashSet<>();
+        Station.generateRandomStation(set);
         DataLists.printData(DataLists.getStations());
 
 //        Car.createCars();
@@ -136,17 +138,6 @@ public class Presentation {
 //        Station.generateRandomStation("stationnames.txt", 121);
 //        DataLists.printData(DataLists.getStations());
 
-        ArrayList<Integer> fufu = new ArrayList<Integer>();
-        fufu.add(0);
-        fufu.add(2);
-        fufu.add(3);
-        System.out.println(fufu.get(1));
-        Random random = new Random();
-        int randomStation = 0;
-        for (int i = 0; i < 50; i++) {
-            int randomNumber = random.nextInt(6) + 5;
-            System.out.println(randomNumber);
-        }
     }
 
     public static void boot() {
