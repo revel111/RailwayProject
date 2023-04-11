@@ -110,13 +110,11 @@ public class Station {
 //        return station;
 //    }
 
-    public static void generateRandomStation(Set<Station> set) {
+    public static void generateRandomStation() {
         Station station = null;
+        Set<String> set = new HashSet<>();
         for (int i = 0; i < 100; i++) {
             String string = Files.ReadFileStations(set);
-            station = new Station(string);
-            if(!set.contains(station))
-            set.add(station);
         }
     }
 

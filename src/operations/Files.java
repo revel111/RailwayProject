@@ -30,18 +30,25 @@ public class Files {
         return name;
     }
 
-    public static String ReadFileStations(Set<Station> set) {
+    public static String ReadFileStations(Set<String> set) {
         String fileName = "src/txtfiles/stationnames.txt";
         Random random = new Random();
         int randomNumber = random.nextInt(121) + 1;//     121 station
         String name = "";
+        Station station = null;
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             int currentLine = 1;
             while ((name = br.readLine()) != null) {
-                if (currentLine == randomNumber)
+                if (currentLine == randomNumber) {
+                    if (set.contains(name))
+                        Files.ReadFileStations(set);
+                    else {
+                        station = new Station(name);
+                        set.add(name);
+                    }
                     break;
-
+                }
                 currentLine++;
             }
         } catch (IOException e) {

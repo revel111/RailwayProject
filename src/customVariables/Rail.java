@@ -105,8 +105,7 @@ public class Rail {
     }
 
     public static void createRailsRandomly() {
-        Set<Station> stations = new HashSet<>();
-        Station.generateRandomStation(stations);
+        Station.generateRandomStation();
         for (int i = 0; i < DataLists.getStations().size(); i++) {
             Random random = new Random();
             double roundedValue = Math.round(50 + (1000 - 50) * random.nextDouble() * 100.0) / 100.0;

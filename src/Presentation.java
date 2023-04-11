@@ -125,7 +125,7 @@ public class Presentation {
 //        DataLists.printData(DataLists.getCars());
         System.out.println(trainset.getDistance());
         Set<Station> set = new HashSet<>();
-        Station.generateRandomStation(set);
+        Station.generateRandomStation();
         DataLists.printData(DataLists.getStations());
 
 //        Car.createCars();
