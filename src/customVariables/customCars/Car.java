@@ -3,6 +3,7 @@ package customVariables.customCars;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -95,6 +96,34 @@ abstract public class Car {
             action.run();
         else
             System.out.println("Invalid choice.");
+    }
+
+    public static ArrayList<Car> generateCarRandomly(String name, int number) {
+        ArrayList<Car> arrayList = new ArrayList<>();
+        HashMap<String, Runnable> menu = new HashMap<>();
+
+        menu.put("1", PassengerCar::createPassengerCar);
+        menu.put("2", BaggageCar::createBaggageCar);
+        menu.put("3", ExplosiveCar::createExposiveCar);
+        menu.put("4", GaseousCar::createGaseousCar);
+        menu.put("5", LiquidCar::createLiquidCar);
+        menu.put("6", MailCar::createMailCar);
+        menu.put("7", PostOfficeCar::createPostOfficeCar);
+        menu.put("8", RefrigeratedCar::createRefrigeratedCar);
+        menu.put("9", RestaurantCar::createRestaurantCar);
+        menu.put("10", ToxicCar::createToxicCar);
+
+        String string = DataLists.ReadFile(name, number);
+
+        for (int i = 0; i < 10; i++) {
+            int random = (int) (Math.random() * (10 - 1)) + 1;
+
+            Runnable action = menu.get(random);
+
+
+        }
+
+        return arrayList;
     }
 
     public static Car createCar(boolean t) { // redefined

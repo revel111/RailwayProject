@@ -15,6 +15,7 @@ public class Station {
     private static int id = 0;
     private ArrayList<Station> intersections = new ArrayList<>();
     private String currentId;
+    private int maximumAmountOfConnections = 10;
 
     public Station(String name) {
         this.name = name;
@@ -64,35 +65,35 @@ public class Station {
     }
 
 
-    public static Station createStationIfNull(String stringName) {
-        System.out.println("Enter 1 if you want to create station with name " + stringName);
-        System.out.println("Enter 0 if you want to stop creating locomotive");
-        String ch = scanner.nextLine();
-        Station station = null;
-
-        switch (ch) {
-            case "1":
-                station = new Station(stringName);
-                DataLists.getStations().add(station);
-                break;
-            case "0":
-                System.out.println("You stopped creating locomotive");
-                return null;
-            default:
-                System.out.println("You entered wrong value");
-                System.out.println("Enter 1 if you want to try to create station again");
-                System.out.println("Enter 0 if you want to stop creating locomotive");
-                ch = scanner.nextLine();
-                switch (ch) {
-                    case "1":
-                        createStationIfNull(stringName);
-                        break;
-                    case "0":
-                        return null;
-                }
-        }
-        return station;
-    }
+//    public static Station createStationIfNull(String stringName) {
+//        System.out.println("Enter 1 if you want to create station with name " + stringName);
+//        System.out.println("Enter 0 if you want to stop creating locomotive");
+//        String ch = scanner.nextLine();
+//        Station station = null;
+//
+//        switch (ch) {
+//            case "1":
+//                station = new Station(stringName);
+//                DataLists.getStations().add(station);
+//                break;
+//            case "0":
+//                System.out.println("You stopped creating locomotive");
+//                return null;
+//            default:
+//                System.out.println("You entered wrong value");
+//                System.out.println("Enter 1 if you want to try to create station again");
+//                System.out.println("Enter 0 if you want to stop creating locomotive");
+//                ch = scanner.nextLine();
+//                switch (ch) {
+//                    case "1":
+//                        createStationIfNull(stringName);
+//                        break;
+//                    case "0":
+//                        return null;
+//                }
+//        }
+//        return station;
+//    }
 
     public static Station generateRandomStation(String name, int number) {
         String string = DataLists.ReadFile(name, number);

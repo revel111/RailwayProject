@@ -122,8 +122,14 @@ public class Presentation {
 //        DataLists.printData(DataLists.getCars());
         System.out.println(trainset.getDistance());
 
-//        FilesWork.generateRandomStation();
+        Station.generateRandomStation("stationnames.txt", 121);
         DataLists.printData(DataLists.getStations());
+
+        Car.createCars();
+        DataLists.printData(DataLists.getCars());
+
+        double random = Math.floor(Math.random() * 10) + 1;
+        System.out.println(random);
     }
 
     public static void boot() {

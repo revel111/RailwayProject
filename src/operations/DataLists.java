@@ -91,7 +91,7 @@ public class DataLists {
     }
 
     public static String ReadFile(String type, int number) {
-        String fileName = "src/txtfiles" + type;
+        String fileName = "src/txtfiles/" + type;
         int randomNum = (int) (Math.random() * (number - 0 + 1) + 0);//     121 station
         String name = "";
 
