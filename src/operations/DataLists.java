@@ -19,6 +19,15 @@ public class DataLists {
     private static ArrayList<Trainset> trainsets;
 
     public static Set<Rail> rails = new HashSet<>();
+    public static Set<Rail> reversedRails = new HashSet<>();
+
+    public static Set<Rail> getReversedRails() {
+        return reversedRails;
+    }
+
+    public static void setReversedRails(Set<Rail> reversedRails) {
+        DataLists.reversedRails = reversedRails;
+    }
 
     public static Set<Rail> getRails() {
         return rails;
@@ -81,6 +90,12 @@ public class DataLists {
         System.out.println();
     }
 
+    public static void printRails() {
+        for (Rail r : rails)
+            System.out.println(r.toString());
+        System.out.println();
+    }
+
     public static void sortTrainsetsByDistance() {
         Collections.sort(DataLists.getTrainsets(), new Comparator<Trainset>() {
             @Override
@@ -89,6 +104,4 @@ public class DataLists {
             }
         });
     }
-
-
 }

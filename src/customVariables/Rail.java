@@ -81,7 +81,6 @@ public class Rail {
             }
 
             Station station2 = trainset.getRouteStations().get(i + 1);
-
             Rail rail = new Rail(station1, station2, randomVal);
 
             Rail toFind = ifContains(rail);
@@ -111,19 +110,25 @@ public class Rail {
             double roundedValue = Math.round(50 + (1000 - 50) * random.nextDouble() * 100.0) / 100.0;
             int randomNumber = random.nextInt(6) + 5;
 
-            if (DataLists.getStations().get(i + 1) == null)
+            if (i == 100)
                 return;
-            else if (DataLists.getStations().get(i).getConnection() == randomNumber)
-                continue;
             else {
                 for (int j = 0; j < randomNumber; j++) {
                     int randomStation = random.nextInt(100) + 0;
-                    Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(i + 1), roundedValue);
-//                    if (rail)
+                    if (DataLists.getStations().get(i).getConnection() == randomNumber)
+                        break;
+                    else {
+                        Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(randomStation), roundedValue);
+                        Rail toFind = ifContains(rail);
+                        if(toFind != null)
+                            j--;
+                        else {
+                            DataLists.getRails().add(rail);
+                            DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
+                        }
+                    }
                 }
             }
-            DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
-
         }
     }
 
