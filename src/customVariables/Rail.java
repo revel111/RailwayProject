@@ -96,19 +96,19 @@ public class Rail {
         }
     }
 
-    public static Rail ifContains(Rail rail) {
-        for (Rail railI : DataLists.getRails())
-            if (railI.equals(rail))
-                return railI;
-        return null;
-    }
-
 //    public static Rail ifContains(Rail rail) {
 //        for (Rail railI : DataLists.getRails())
-//            if (railI.isEqual(rail))
+//            if (railI.equals(rail))
 //                return railI;
 //        return null;
 //    }
+
+    public static Rail ifContains(Rail rail) {
+        for (Rail railI : DataLists.getRails())
+            if (railI.isEqual(rail))
+                return railI;
+        return null;
+    }
 
     public static void createRailsRandomly() {
         Station.generateRandomStation();
@@ -129,14 +129,42 @@ public class Rail {
                         Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(randomStation), randomValue);
                         Rail toFind = ifContains(rail);
                         if (toFind != null)
-                            j--;
+                            randomNumber++;
                         else {
                             DataLists.getRails().add(rail);
                             DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
                         }
                     }
                 }
+//                while (DataLists.getStations().get(i).getConnection() == randomNumber) {
+//                    int randomStation = random.nextInt(100) + 0;
+//                    double randomValue = 50 + (1000 - 50) * random.nextDouble();
+//                    Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(randomStation), randomValue);
+//                    Rail toFind = ifContains(rail);
+//                    if (toFind != null)
+//                        randomNumber--;
+//                    else {
+//                        DataLists.getRails().add(rail);
+//                        DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
+//                    }
+//                    randomNumber++;
             }
+        }
+    }
+
+    public static void generateStationsForTrainset(Trainset trainset) {
+        Random random = new Random();
+        int randomStation1 = random.nextInt(100) + 0;
+        if (trainset.getLocomotive().getDestinationStation() != null) {
+            trainset.getLocomotive().setSourceStation(trainset.getLocomotive().getDestinationStation());
+            trainset.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
+        } else {
+            int randomStation2 = random.nextInt(100) + 0;
+            if (randomStation1 == randomStation2)
+                generateStationsForTrainset(trainset);
+
+            trainset.getLocomotive().setSourceStation(DataLists.getStations().get(randomStation1));
+            trainset.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation2));
         }
     }
 

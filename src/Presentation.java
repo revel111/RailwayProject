@@ -118,6 +118,8 @@ public class Presentation {
         Rail rail = new Rail(station0, station1, 500);
         DataLists.getRails().add(rail);
         Rail.createRail(trainset);
+//        Rail.createRailsRandomly();
+//        DataLists.printRails();
 //        DataLists.getRails().add(rail);
 //        Rail.createRail(trainset);
 //        String string = DataLists.printRouteSet(trainset);
