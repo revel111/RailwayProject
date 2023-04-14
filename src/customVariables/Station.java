@@ -7,10 +7,7 @@ import operations.Files;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Station {
     private static final Scanner scanner = new Scanner(System.in);
@@ -79,36 +76,35 @@ public class Station {
         return null;
     }
 
+    public static Station createStationIfNull(String stringName) {
+        System.out.println("Enter 1 if you want to create station with name " + stringName);
+        System.out.println("Enter 0 if you want to stop creating locomotive");
+        String ch = scanner.nextLine();
+        Station station = null;
 
-//    public static Station createStationIfNull(String stringName) {
-//        System.out.println("Enter 1 if you want to create station with name " + stringName);
-//        System.out.println("Enter 0 if you want to stop creating locomotive");
-//        String ch = scanner.nextLine();
-//        Station station = null;
-//
-//        switch (ch) {
-//            case "1":
-//                station = new Station(stringName);
-//                DataLists.getStations().add(station);
-//                break;
-//            case "0":
-//                System.out.println("You stopped creating locomotive");
-//                return null;
-//            default:
-//                System.out.println("You entered wrong value");
-//                System.out.println("Enter 1 if you want to try to create station again");
-//                System.out.println("Enter 0 if you want to stop creating locomotive");
-//                ch = scanner.nextLine();
-//                switch (ch) {
-//                    case "1":
-//                        createStationIfNull(stringName);
-//                        break;
-//                    case "0":
-//                        return null;
-//                }
-//        }
-//        return station;
-//    }
+        switch (ch) {
+            case "1":
+                station = new Station(stringName);
+                DataLists.getStations().add(station);
+                break;
+            case "0":
+                System.out.println("You stopped creating locomotive");
+                return null;
+            default:
+                System.out.println("You entered wrong value");
+                System.out.println("Enter 1 if you want to try to create station again");
+                System.out.println("Enter 0 if you want to stop creating locomotive");
+                ch = scanner.nextLine();
+                switch (ch) {
+                    case "1":
+                        createStationIfNull(stringName);
+                        break;
+                    case "0":
+                        return null;
+                }
+        }
+        return station;
+    }
 
     public static void generateRandomStation() {
         Station station = null;
@@ -116,6 +112,14 @@ public class Station {
         for (int i = 0; i < 100; i++) {
             String string = Files.ReadFileStations(set);
         }
+    }
+
+    public static Station chooseRandomStation() {
+        Random random = new Random();
+        Station station = null;
+        int randomValue = random.nextInt(100) + 0;
+
+        return DataLists.getStations().get(randomValue);
     }
 
     @Override

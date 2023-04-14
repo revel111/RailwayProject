@@ -1,121 +1,50 @@
-Central Station
-Union Station
-Grand Central Station
-Penn Station
-Kings Cross Station
-Waterloo Station
-Paddington Station
-Victoria Station
-St Pancras Station
-Euston Station
-Liverpool Street Station
-London Bridge Station
-Birmingham New Street Station
-Manchester Piccadilly Station
-Glasgow Central Station
-Edinburgh Waverley Station
-Leeds Station
-Sheffield Station
-Bristol Temple Meads Station
-Newcastle Station
-Nottingham Station
-Leicester Station
-Derby Station
-York Station
-Cambridge Station
-Oxford Station
-Brighton Station
-Southampton Station
-Portsmouth Harbour Station
-Bournemouth Station
-Exeter St David's Station
-Plymouth Station
-Cardiff Central Station
-Swansea Station
-Belfast Central Station
-Dublin Connolly Station
-Galway Station
-Cork Station
-Limerick Station
-Shannon Station
-Aberdeen Station
-Inverness Station
-Dundee Station
-Perth Station
-Stirling Station
-Falkirk Grahamston Station
-Paisley Gilmour Street Station
-Ayr Station
-Dumfries Station
-Oban Station
-Fort William Station
-Aviemore Station
-Pitlochry Station
-Dunfermline Town Station
-Kirkcaldy Station
-Montrose Station
-Arbroath Station
-Stonehaven Station
-Elgin Station
-Keith Station
-Wick Station
-Thurso Station
-Stromness Station
-Lerwick Station
-Stornoway Station
-Kyle of Lochalsh Station
-Mallaig Station
-Helensburgh Central Station
-Greenock Central Station
-Hamilton Central Station
-Motherwell Station
-Perth Amboy Station
-Hoboken Station
-Newark Penn Station
-Jersey City Station
-Secaucus Junction Station
-Trenton Transit Center Station
-Wilmington Station
-Baltimore Penn Station
-Philadelphia 30th Street Station
-New Haven Station
-Stamford Station
-Providence Station
-Boston South Station
-Washington Union Station
-Chicago Union Station
-Los Angeles Union Station
-Denver Union Station
-Seattle King Street Station
-San Francisco 4th and King Station
-San Diego Santa Fe Station
-Portland Union Station
-Salt Lake City Station
-Dallas Union Station
-Houston Amtrak Station
-New Orleans Union Passenger Terminal
-Atlanta Peachtree Station
-Miami Station
-Orlando Station
-Tampa Union Station
-Charlotte Station
-Nashville Union Station
-Memphis Central Station
-Louisville Station
-Cincinnati Union Terminal Station
-Cleveland Station
-Pittsburgh Station
-Buffalo Exchange Street Station
-Toronto Union Station
-Montreal Central Station
-Quebec City Station
-Ottawa Station
-Vancouver Pacific Central Station
-Edmonton Station
-Calgary Station
-Winnipeg Station
-Regina Station
-Saskatoon Station
-Halifax Station
-Saint John Station
-Moncton Station
+Iron Giant
+Thunderbolt
+Silver Streak
+Big Red
+Steel Titan
+Lightning Bolt
+Golden Spike
+Blue Thunder
+Black Knight
+Electric Warrior
+Green Hornet
+Oceanic Express
+Mountain Mover
+Desert King
+Northern Star
+Southern Cross
+Western Warrior
+Eastern Eagle
+Prairie Prince
+Valley Vindicator
+Coastal Crusader
+Canyon Crusher
+Highland Hero
+River Rambler
+Sunset Sentinel
+Bay State Beast
+Sea Serpent
+Summit Slayer
+Glacier Guardian
+Sunshine Sentinel
+Sandstorm
+Jet Setter
+Royal Regal
+Sunflower Superpower
+Diamond Dragon
+Ghost Rider
+Gulf Guardian
+Lakeshore Locomotive
+Thundering Thor
+Arctic Avenger
+Purple Powerhouse
+Patriot Puller
+Magic Machine
+Wild Wolf
+Dream Driver
+Tropic Thunder
+Emerald Enforcer
+Starlight Steamer
+Bullet Train
+Ironclad Challenger

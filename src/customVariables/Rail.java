@@ -47,24 +47,24 @@ public class Rail {
         return distance;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Rail otherRail))
-            return false;
-
-        //        Rail otherRail = (Rail) o;
-        return this.station1.equals(otherRail.station1) && this.station2 == otherRail.station2;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = 17;
-        result = 31 * result + station1.hashCode();
-        result = 31 * result + station2.hashCode();
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (o == this)
+//            return true;
+//        if (!(o instanceof Rail otherRail))
+//            return false;
+//
+//        //        Rail otherRail = (Rail) o;
+//        return this.station1.equals(otherRail.station1) && this.station2 == otherRail.station2;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = 17;
+//        result = 31 * result + station1.hashCode();
+//        result = 31 * result + station2.hashCode();
+//        return result;
+//    }
 
     public static void createRail(Trainset trainset) {
         Trainset.generateRoute(trainset);
@@ -84,15 +84,19 @@ public class Rail {
             Rail rail = new Rail(station1, station2, randomVal);
 
             Rail toFind = ifContains(rail);
+            Rail toFindReversed = ifContainsReversed(rail);
             if (toFind != null) {
                 rail = toFind;
-                rails.add(rail);
-                trainset.setDistance(trainset.getDistance() + rail.distance);
+//                trainset.setDistance(trainset.getDistance() + rail.distance);
+            } else if (toFindReversed != null) {
+                rail = toFindReversed;
+//                trainset.setDistance(trainset.getDistance() + rail.distance);
             } else {
                 rails.add(rail);
-                trainset.setDistance(trainset.getDistance() + rail.distance);
+//                trainset.setDistance(trainset.getDistance() + rail.distance);
                 DataLists.getRails().add(rail);
             }
+            trainset.setDistance(trainset.getDistance() + rail.distance);
         }
     }
 
@@ -105,6 +109,13 @@ public class Rail {
 
     public static Rail ifContains(Rail rail) {
         for (Rail railI : DataLists.getRails())
+            if (railI.isEqual(rail))
+                return railI;
+        return null;
+    }
+
+    public static Rail ifContainsReversed(Rail rail) {
+        for (Rail railI : DataLists.getRailsReversed())
             if (railI.isEqual(rail))
                 return railI;
         return null;
@@ -128,26 +139,19 @@ public class Rail {
                     else {
                         Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(randomStation), randomValue);
                         Rail toFind = ifContains(rail);
+                        Rail toFindReversed = ifContainsReversed(rail);
                         if (toFind != null)
                             randomNumber++;
+                        else if (toFindReversed != null)
+                            randomNumber++;
                         else {
+                            Rail railReversed = new Rail(DataLists.getStations().get(randomStation), DataLists.getStations().get(i), randomValue);
                             DataLists.getRails().add(rail);
+                            DataLists.getRailsReversed().add(railReversed);
                             DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
                         }
                     }
                 }
-//                while (DataLists.getStations().get(i).getConnection() == randomNumber) {
-//                    int randomStation = random.nextInt(100) + 0;
-//                    double randomValue = 50 + (1000 - 50) * random.nextDouble();
-//                    Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(randomStation), randomValue);
-//                    Rail toFind = ifContains(rail);
-//                    if (toFind != null)
-//                        randomNumber--;
-//                    else {
-//                        DataLists.getRails().add(rail);
-//                        DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
-//                    }
-//                    randomNumber++;
             }
         }
     }
@@ -169,7 +173,7 @@ public class Rail {
     }
 
     public boolean isEqual(Rail rail) {
-        if ((rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName())) || (rail.getStation1().getName().equals(this.getStation2().getName()) && rail.getStation2().getName().equals(this.getStation1().getName())))
+        if (rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName()))
             return true;
         return false;
     }

@@ -3,6 +3,7 @@ package customVariables;
 import customVariables.customCars.Car;
 import customVariables.customExtra.TooManyCarsException;
 import operations.DataLists;
+import operations.Files;
 
 import java.util.*;
 
@@ -220,10 +221,8 @@ public class Trainset {
         Set<Station> visited = new HashSet<>();
         ArrayList<Station> route = new ArrayList<>();
 
-//        Station start = trainset.getLocomotive().getSourceStation();
         Station start = trainset.getLocomotive().getSourceStation();
         Station end = trainset.getLocomotive().getDestinationStation();
-
 
         if (generateRouteFind(start, end, visited, route))
             trainset.setRouteStations(route);
@@ -243,11 +242,12 @@ public class Trainset {
         return false;
     }
 
-    public void pickRandomDestination() {
-
+    public static void generateTrainsetRandomly() {
+        String string = Files.ReadFile("trainsetnames.txt", 50);
+        Locomotive locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
+        ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
+        DataLists.getTrainsets().add(new Trainset(string, locomotive, cars));
     }
-
-
 
     @Override
     public String toString() {
