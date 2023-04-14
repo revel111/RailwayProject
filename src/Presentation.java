@@ -118,26 +118,15 @@ public class Presentation {
         Rail rail = new Rail(station0, station1, 500);
         DataLists.getRails().add(rail);
         Rail.createRail(trainset);
-        String string = DataLists.printRouteSet(trainset);
-        System.out.println(string);
+//        DataLists.getRails().add(rail);
+//        Rail.createRail(trainset);
+//        String string = DataLists.printRouteSet(trainset);
+//        System.out.println(string);
 //        Car.createCars();
 //        Car.createCars();
 //        DataLists.printData(DataLists.getCars());
-        System.out.println(trainset.getDistance());
+//        System.out.println(trainset.getDistance());
         Set<Station> set = new HashSet<>();
-//        Station.generateRandomStation();
-//        DataLists.printData(DataLists.getStations());
-            Rail.createRailsRandomly();
-            DataLists.printRails();
-//        Car.createCars();
-//        DataLists.printData(DataLists.getCars());
-
-//        cars = Car.generateCarRandomly("shippingnames.txt", 100);
-//        trainset.setCars(cars);
-//        System.out.println(trainset);
-//        DataLists.printData(DataLists.getCars());
-//        Station.generateRandomStation("stationnames.txt", 121);
-//        DataLists.printData(DataLists.getStations());
 
     }
 

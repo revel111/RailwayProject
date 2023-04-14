@@ -103,11 +103,18 @@ public class Rail {
         return null;
     }
 
+//    public static Rail ifContains(Rail rail) {
+//        for (Rail railI : DataLists.getRails())
+//            if (railI.isEqual(rail))
+//                return railI;
+//        return null;
+//    }
+
     public static void createRailsRandomly() {
         Station.generateRandomStation();
         for (int i = 0; i < DataLists.getStations().size(); i++) {
             Random random = new Random();
-            double roundedValue = Math.round(50 + (1000 - 50) * random.nextDouble() * 100.0) / 100.0;
+
             int randomNumber = random.nextInt(6) + 5;
 
             if (i == 100)
@@ -115,12 +122,13 @@ public class Rail {
             else {
                 for (int j = 0; j < randomNumber; j++) {
                     int randomStation = random.nextInt(100) + 0;
+                    double randomValue = 50 + (1000 - 50) * random.nextDouble();
                     if (DataLists.getStations().get(i).getConnection() == randomNumber)
                         break;
                     else {
-                        Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(randomStation), roundedValue);
+                        Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(randomStation), randomValue);
                         Rail toFind = ifContains(rail);
-                        if(toFind != null)
+                        if (toFind != null)
                             j--;
                         else {
                             DataLists.getRails().add(rail);
@@ -130,6 +138,12 @@ public class Rail {
                 }
             }
         }
+    }
+
+    public boolean isEqual(Rail rail) {
+        if ((rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName())) || (rail.getStation1().getName().equals(this.getStation2().getName()) && rail.getStation2().getName().equals(this.getStation1().getName())))
+            return true;
+        return false;
     }
 
     @Override

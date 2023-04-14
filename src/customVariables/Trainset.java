@@ -220,8 +220,10 @@ public class Trainset {
         Set<Station> visited = new HashSet<>();
         ArrayList<Station> route = new ArrayList<>();
 
+//        Station start = trainset.getLocomotive().getSourceStation();
         Station start = trainset.getLocomotive().getSourceStation();
         Station end = trainset.getLocomotive().getDestinationStation();
+
 
         if (generateRouteFind(start, end, visited, route))
             trainset.setRouteStations(route);
@@ -240,6 +242,12 @@ public class Trainset {
         route.remove(current);
         return false;
     }
+
+    public void pickRandomDestination() {
+
+    }
+
+
 
     @Override
     public String toString() {
