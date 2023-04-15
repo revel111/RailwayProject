@@ -122,22 +122,6 @@ public class Rail {
         }
     }
 
-    public static void generateStationsForTrainset(Trainset trainset) {
-        Random random = new Random();
-        int randomStation1 = random.nextInt(100) + 0;
-        if (trainset.getLocomotive().getDestinationStation() != null) {
-            trainset.getLocomotive().setSourceStation(trainset.getLocomotive().getDestinationStation());
-            trainset.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
-        } else {
-            int randomStation2 = random.nextInt(100) + 0;
-            if (randomStation1 == randomStation2)
-                generateStationsForTrainset(trainset);
-
-            trainset.getLocomotive().setSourceStation(DataLists.getStations().get(randomStation1));
-            trainset.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation2));
-        }
-    }
-
     public boolean isEqual(Rail rail) {
         if (rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName()))
             return true;

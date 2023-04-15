@@ -303,6 +303,22 @@ public class Trainset implements Runnable {
         System.out.println(string);
     }
 
+    public void generateStationsForTrainset() {
+        Random random = new Random();
+        int randomStation1 = random.nextInt(100) + 0;
+        if (this.getLocomotive().getDestinationStation() != null) {
+            this.getLocomotive().setSourceStation(this.getLocomotive().getDestinationStation());
+            this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
+        } else {
+            int randomStation2 = random.nextInt(100) + 0;
+            if (randomStation1 == randomStation2)
+                generateStationsForTrainset();
+
+            this.getLocomotive().setSourceStation(DataLists.getStations().get(randomStation1));
+            this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation2));
+        }
+    }
+
     @Override
     public void run() {
 //        if ()

@@ -6,11 +6,7 @@ import customVariables.Station;
 import customVariables.Trainset;
 import customVariables.customCars.Car;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
-//import java.util.HashMap;
 
 public class DataLists {
     private static ArrayList<Locomotive> locomotives;
