@@ -7,7 +7,7 @@ import operations.Files;
 
 import java.util.*;
 
-public class Trainset {
+public class Trainset implements Runnable {
     private static final Scanner scanner = new Scanner(System.in);
     private String name;
     private static int id = 0;
@@ -17,6 +17,7 @@ public class Trainset {
     private ArrayList<Station> routeStations;
     private ArrayList<Rail> routeRails;
     private double weight = 1000;
+    private Rail currentRail;
     private final double maxWeight = 10000;
     private double distance = 0;
 
@@ -225,15 +226,15 @@ public class Trainset {
         }
     }
 
-    public static void generateRoute(Trainset trainset) {
+    public void generateRoute() {
         Set<Station> visited = new HashSet<>();
         ArrayList<Station> route = new ArrayList<>();
 
-        Station start = trainset.getLocomotive().getSourceStation();
-        Station end = trainset.getLocomotive().getDestinationStation();
+        Station start = this.getLocomotive().getSourceStation();
+        Station end = this.getLocomotive().getDestinationStation();
 
         if (generateRouteFind(start, end, visited, route))
-            trainset.setRouteStations(route);
+            this.setRouteStations(route);
     }
 
     public static boolean generateRouteFind(Station current, Station end, Set<Station> visited, ArrayList<Station> route) {
@@ -257,6 +258,54 @@ public class Trainset {
             ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
             DataLists.getTrainsets().add(new Trainset(string, locomotive, cars));
         }
+    }
+
+    public void createRail() {
+        this.generateRoute();
+        ArrayList<Rail> rails = new ArrayList<>();
+
+        for (int i = 0; i < this.getRouteStations().size(); i++) {
+            Random random = new Random();
+            double randomVal = Math.round(50 + (1000 - 50) * random.nextDouble() * 100.0) / 100.0;
+            Station station1 = this.getRouteStations().get(i);
+
+            if (station1 == this.getLocomotive().getDestinationStation()) {
+                this.setRouteRails(rails);
+                return;
+            }
+
+            Station station2 = this.getRouteStations().get(i + 1);
+            Rail rail = new Rail(station1, station2, randomVal);
+
+            Rail toFind = Rail.ifContains(rail);
+            Rail toFindReversed = Rail.ifContainsReversed(rail);
+            if (toFind != null) {
+                rail = toFind;
+//                trainset.setDistance(trainset.getDistance() + rail.distance);
+            } else if (toFindReversed != null) {
+                rail = toFindReversed;
+//                trainset.setDistance(trainset.getDistance() + rail.distance);
+            } else {
+                rails.add(rail);
+//                trainset.setDistance(trainset.getDistance() + rail.distance);
+                DataLists.getRails().add(rail);
+            }
+            this.setDistance(this.getDistance() + rail.getDistance());
+        }
+    }
+
+    public void printRouteSet() {
+        StringBuilder string = new StringBuilder();
+
+        for (int i = 0; i < getRouteRails().size(); i++)
+            string.append(getRouteRails().get(i).toString()).append("\n");
+
+        System.out.println(string);
+    }
+
+    @Override
+    public void run() {
+//        if ()
     }
 
     @Override

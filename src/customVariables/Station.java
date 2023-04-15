@@ -1,12 +1,8 @@
 package customVariables;
 
-import customVariables.customCars.Car;
 import operations.DataLists;
 import operations.Files;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 public class Station {

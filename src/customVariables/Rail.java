@@ -66,40 +66,6 @@ public class Rail {
 //        return result;
 //    }
 
-    public static void createRail(Trainset trainset) {
-        Trainset.generateRoute(trainset);
-        ArrayList<Rail> rails = new ArrayList<>();
-
-        for (int i = 0; i < trainset.getRouteStations().size(); i++) {
-            Random random = new Random();
-            double randomVal = Math.round(50 + (1000 - 50) * random.nextDouble() * 100.0) / 100.0;
-            Station station1 = trainset.getRouteStations().get(i);
-
-            if (station1 == trainset.getLocomotive().getDestinationStation()) {
-                trainset.setRouteRails(rails);
-                return;
-            }
-
-            Station station2 = trainset.getRouteStations().get(i + 1);
-            Rail rail = new Rail(station1, station2, randomVal);
-
-            Rail toFind = ifContains(rail);
-            Rail toFindReversed = ifContainsReversed(rail);
-            if (toFind != null) {
-                rail = toFind;
-//                trainset.setDistance(trainset.getDistance() + rail.distance);
-            } else if (toFindReversed != null) {
-                rail = toFindReversed;
-//                trainset.setDistance(trainset.getDistance() + rail.distance);
-            } else {
-                rails.add(rail);
-//                trainset.setDistance(trainset.getDistance() + rail.distance);
-                DataLists.getRails().add(rail);
-            }
-            trainset.setDistance(trainset.getDistance() + rail.distance);
-        }
-    }
-
 //    public static Rail ifContains(Rail rail) {
 //        for (Rail railI : DataLists.getRails())
 //            if (railI.equals(rail))

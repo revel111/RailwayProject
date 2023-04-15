@@ -63,35 +63,17 @@ public class DataLists {
         return string.toString();
     }
 
-//    public static String printRoute(Trainset trainset) {
-//        StringBuilder string = new StringBuilder();
-//
-//        for (int i = 0; i < trainset.getRouteStations().size(); i++)
-//            string.append(trainset.getRouteStations().get(i).toString()).append("\n");
-//
-//        return string.toString();
-//    }
-
-    public static String printRouteSet(Trainset trainset) {
-        StringBuilder string = new StringBuilder();
-
-        for (int i = 0; i < trainset.getRouteRails().size(); i++)
-            string.append(trainset.getRouteRails().get(i).toString()).append("\n");
-
-        return string.toString();
-    }
-
     public static <T> void printData(ArrayList<T> arrayList) {
         for (T t : arrayList)
             System.out.println(t.toString());
         System.out.println();
     }
 
-    public static void printRails() {
-        for (Rail r : rails)
-            System.out.println(r.toString());
-        System.out.println();
-    }
+//    public static void printRails() {
+//        for (Rail r : rails)
+//            System.out.println(r.toString());
+//        System.out.println();
+//    }
 
     public static void sortTrainsetsByDistance() {
         Collections.sort(DataLists.getTrainsets(), new Comparator<Trainset>() {

@@ -30,10 +30,14 @@ public class Presentation {
         Station.createInterestion(station6, station4);
 
         Locomotive locomotive = new Locomotive("da", station1, station0, station4);
-        ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt",100);
+        ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
         Trainset trainset = new Trainset("fuck", locomotive, cars);
         DataLists.getTrainsets().add(trainset);
         DataLists.printData(DataLists.getTrainsets());
+
+        trainset.createRail();
+        trainset.printRouteSet();
+
 //        PassengerCar car1 = new PassengerCar("A");
 //        PassengerCar car2 = new PassengerCar("B");
 //        PassengerCar car3 = new PassengerCar("B");
