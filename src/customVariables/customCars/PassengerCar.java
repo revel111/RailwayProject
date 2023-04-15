@@ -95,12 +95,6 @@ public class PassengerCar extends Car {
         return null;
     }
 
-    public static Car createPassengerCarReturn(String shipper) { // function for cars auto generation
-        PassengerCar passengerCar = new PassengerCar(shipper);
-
-        return passengerCar;
-    }
-
     @Override
     public String toString() {
         return super.toString() + "; Current amount of passengers: " + passengers;

@@ -33,12 +33,6 @@ public class GaseousCar extends BasicFreight{
         return null;
     }
 
-    public static Car createGaseousCarReturn(String shipper) { // function for cars auto generation
-        GaseousCar gaseousCar = new GaseousCar(shipper);
-
-        return gaseousCar;
-    }
-
     @Override
     public String toString() {
         return super.toString();

@@ -70,7 +70,7 @@ abstract public class Car {
 
     public abstract void emptyCar() throws TooManyException;
 
-    public static void createCars() {
+    public static void createCar() {
         HashMap<String, Runnable> menu = new HashMap<>();
 
         menu.put("passenger", PassengerCar::createPassengerCar);
@@ -105,34 +105,35 @@ abstract public class Car {
 
         switch (ch) {
             case 1:
-                car = PassengerCar.createPassengerCarReturn(shipper);
+                car = new PassengerCar(shipper);
                 break;
             case 2:
-                car = BaggageCar.createBaggageCarReturn(shipper);
+                car = new BaggageCar(shipper);
                 break;
             case 3:
-                car = ExplosiveCar.createExplosiveCarReturn(shipper);
+                car = new ExplosiveCar(shipper);
                 break;
             case 4:
-                car = GaseousCar.createGaseousCarReturn(shipper);
+                car = new GaseousCar(shipper);
                 break;
             case 5:
-                car = LiquidCar.createLiquidCarReturn(shipper);
+                car = new LiquidCar(shipper);
                 break;
             case 6:
-                car = MailCar.createMailCarReturn(shipper);
+                car = new MailCar(shipper);
                 break;
             case 7:
-                car = PostOfficeCar.createPostOfficeCarReturn(shipper);
+                car = new PostOfficeCar(shipper);
                 break;
             case 8:
-                car = RefrigeratedCar.createRefrigeratedCarReturn(shipper);
+                car = new RefrigeratedCar(shipper);
                 break;
             case 9:
-                car = RestaurantCar.createRestaurantCarReturn(shipper);
+                car = new RestaurantCar(shipper);
                 break;
             case 10:
-                car = ToxicCar.createToxicCarReturn(shipper);
+                car = new ToxicCar(shipper);
+                break;
         }
 
         return car;

@@ -8,32 +8,32 @@ import customVariables.customExtra.TooManyCarsException;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Presentation {
     public static void main(String[] args) throws TooManyException, TooManyCarsException {
         boot();
 
-//        Station station0 = new Station("A");
-//        Station station1 = new Station("B");
-//        Station station2 = new Station("C");
-//        Station station3 = new Station("D");
-//        Station station4 = new Station("E");
-//        Station station5 = new Station("F");
-//        Station station6 = new Station("G");
-//
-//        Station.createInterestion(station0, station1);
-//        Station.createInterestion(station0, station2);
-//        Station.createInterestion(station0, station3);
-//        Station.createInterestion(station1, station5);
-//        Station.createInterestion(station5, station6);
-//        Station.createInterestion(station6, station4);
-//
-//        Locomotive locomotive = new Locomotive("da", station1, station0, station4);
-//        ArrayList<Car> cars = new ArrayList<>();
+        Station station0 = new Station("A");
+        Station station1 = new Station("B");
+        Station station2 = new Station("C");
+        Station station3 = new Station("D");
+        Station station4 = new Station("E");
+        Station station5 = new Station("F");
+        Station station6 = new Station("G");
+
+        Station.createInterestion(station0, station1);
+        Station.createInterestion(station0, station2);
+        Station.createInterestion(station0, station3);
+        Station.createInterestion(station1, station5);
+        Station.createInterestion(station5, station6);
+        Station.createInterestion(station6, station4);
+
+        Locomotive locomotive = new Locomotive("da", station1, station0, station4);
+        ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt",100);
+        Trainset trainset = new Trainset("fuck", locomotive, cars);
+        DataLists.getTrainsets().add(trainset);
+        DataLists.printData(DataLists.getTrainsets());
 //        PassengerCar car1 = new PassengerCar("A");
 //        PassengerCar car2 = new PassengerCar("B");
 //        PassengerCar car3 = new PassengerCar("B");
@@ -42,7 +42,6 @@ public class Presentation {
 ////        cars.add(car2);
 ////        cars.add(car3);
 //
-//        Trainset trainset = new Trainset("fuck", locomotive, cars);
 ////        Trainset.generateRoute(trainset);
 ////        String string = DataLists.printRoute(trainset);
 ////        System.out.println(string);
@@ -59,9 +58,10 @@ public class Presentation {
 ////        Car.createCars();
 ////        DataLists.printData(DataLists.getCars());
 ////        System.out.println(trainset.getDistance());
-        Station.generateRandomStation();
-        Trainset.generateTrainsetRandomly();
-        DataLists.printData(DataLists.getTrainsets());
+//        Station.generateRandomStation();
+//        Trainset.generateTrainsetRandomly();
+//        DataLists.printData(DataLists.getTrainsets());
+
     }
 
     public static void boot() {

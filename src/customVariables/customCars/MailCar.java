@@ -49,12 +49,6 @@ public class MailCar extends Car {
         return null;
     }
 
-    public static Car createMailCarReturn(String shipper) { // function for cars auto generation
-        MailCar mailCar = new MailCar(shipper);
-
-        return mailCar;
-    }
-
     @Override
     public String toString() {
         return super.toString() + "; Current weight of mails: " + mailsWeight;

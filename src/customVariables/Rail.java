@@ -127,14 +127,14 @@ public class Rail {
             Random random = new Random();
 
             int randomNumber = random.nextInt(6) + 5;
-
+            int maxConnections = randomNumber;
             if (i == 100)
                 return;
             else {
                 for (int j = 0; j < randomNumber; j++) {
                     int randomStation = random.nextInt(100) + 0;
                     double randomValue = 50 + (1000 - 50) * random.nextDouble();
-                    if (DataLists.getStations().get(i).getConnection() == randomNumber)
+                    if (DataLists.getStations().get(i).getConnection() == maxConnections)
                         break;
                     else {
                         Rail rail = new Rail(DataLists.getStations().get(i), DataLists.getStations().get(randomStation), randomValue);

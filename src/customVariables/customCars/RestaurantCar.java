@@ -39,12 +39,6 @@ public class RestaurantCar extends Car {
         return null;
     }
 
-    public static Car createRestaurantCarReturn(String shipper) { // function for cars auto generation
-        RestaurantCar restaurantCar = new RestaurantCar(shipper);
-
-        return restaurantCar;
-    }
-
     @Override
     public String toString() {
         return super.toString() + "; Current amount of people in restaurant: " + tables;

@@ -34,12 +34,6 @@ public class LiquidCar extends BasicFreight {
         return null;
     }
 
-    public static Car createLiquidCarReturn(String shipper) { // function for cars auto generation
-        LiquidCar liquidCar = new LiquidCar(shipper);
-
-        return liquidCar;
-    }
-
     @Override
     public String toString() {
         return super.toString();

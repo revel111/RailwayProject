@@ -34,12 +34,6 @@ public class ToxicCar extends HeavyFreight {
         return null;
     }
 
-    public static Car createToxicCarReturn(String shipper) { // function for cars auto generation
-        ToxicCar toxicCar = new ToxicCar(shipper);
-
-        return toxicCar;
-    }
-
     @Override
     public String toString() {
         return super.toString() + "; Current fillness: " + getFill();

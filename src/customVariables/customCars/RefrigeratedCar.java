@@ -34,12 +34,6 @@ public class RefrigeratedCar extends BasicFreight {
         return null;
     }
 
-    public static Car createRefrigeratedCarReturn(String shipper) { // function for cars auto generation
-        RefrigeratedCar refrigeratedCar = new RefrigeratedCar(shipper);
-
-        return refrigeratedCar;
-    }
-
     @Override
     public String toString() {
         return super.toString();

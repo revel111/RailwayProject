@@ -49,12 +49,6 @@ public class BaggageCar extends Car {
         return null;
     }
 
-    public static Car createBaggageCarReturn(String shipper) { // function for cars auto generation
-        BaggageCar baggageCar = new BaggageCar(shipper);
-
-        return baggageCar;
-    }
-
     @Override
     public String toString() {
         return super.toString() + "; Current weight of baggage: " + baggageWeight;
