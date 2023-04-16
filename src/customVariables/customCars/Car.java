@@ -176,6 +176,36 @@ abstract public class Car {
 //        return car;
 //    }
 
+//    public static Car createCarForTrainest() {
+//        HashMap<String, Runnable> menu = new HashMap<>();
+//
+//        menu.put("passenger", () -> new PassengerCar());
+//        menu.put("baggage", BaggageCar::createBaggageCar);
+//        menu.put("explosive", ExplosiveCar::createExposiveCar);
+//        menu.put("gaseous", GaseousCar::createGaseousCar);
+//        menu.put("liquid", LiquidCar::createLiquidCar);
+//        menu.put("mail", MailCar::createMailCar);
+//        menu.put("post", PostOfficeCar::createPostOfficeCar);
+//        menu.put("refrigerated", RefrigeratedCar::createRefrigeratedCar);
+//        menu.put("restaurant", RestaurantCar::createRestaurantCar);
+//        menu.put("toxic", ToxicCar::createToxicCar);
+//
+//        System.out.println("Choose car type to create");
+//
+//        for (String option : menu.keySet())
+//            System.out.println(option);
+//
+//        String type = scanner.nextLine();
+//        Runnable action = menu.get(type);
+//        if (type.equals("exit"))
+//            return null;
+//
+//        if (action != null)
+//            action.run();
+//        else
+//            System.out.println("Invalid choice.");
+//    }
+
     public static void deleteCarById(String id) {
         for (int i = 0; i < DataLists.getCars().size(); i++)
             if (id.equalsIgnoreCase(DataLists.getCars().get(i).getCurrentId()))

@@ -71,8 +71,8 @@ public class PassengerCar extends Car {
                 this.setWeightBrutto(this.weightNetto - (passengersOut * 2));
             }
         } catch (TooManyException e) {
-            System.out.println("Enter try if you want to try to add passengers again");
-            System.out.println("Enter exit if you don't want to add passengers");
+            System.out.println("Enter try if you want to try to delete passengers again");
+            System.out.println("Enter exit if you don't want to delete passengers");
             String ch = scanner.nextLine();
 
             if (Objects.equals(ch, "try"))

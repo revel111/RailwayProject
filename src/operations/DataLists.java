@@ -16,7 +16,6 @@ public class DataLists {
     public static ArrayList<Rail> rails = new ArrayList<>();
     public static ArrayList<Rail> railsReversed = new ArrayList<>();
 
-
     public static ArrayList<Rail> getRails() {
         return rails;
     }

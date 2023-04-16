@@ -2,25 +2,35 @@ package customVariables;
 
 import operations.DataLists;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Rail {
+    private static final Scanner scanner = new Scanner(System.in);
     private double leftDistance;
     private Station station1;
     private Station station2;
+    private boolean isAvailable;
     private final double distance;
 
     public Rail(Station station1, Station station2, double distance) {
         this.station1 = station1;
         this.station2 = station2;
         this.distance = distance;
+        this.isAvailable = true;
+        station1.getIntersections().add(station2);
+        station2.getIntersections().add(station1);
     }
 
     public double getLeftDistance() {
         return leftDistance;
+    }
+
+    public boolean getisAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public void setLeftDistance(double leftDistance) {
@@ -72,6 +82,34 @@ public class Rail {
 //                return railI;
 //        return null;
 //    }
+
+    public static void createRail() {
+        System.out.println("Enter id of a first station");
+        String id1 = scanner.nextLine();
+        Station station1 = Station.findStationByID(id1);
+        System.out.println("Enter id of a second station");
+        String id2 = scanner.nextLine();
+        Station station2 = Station.findStationByID(id1);
+        System.out.println("Enter distance between stations");
+        double distance = scanner.nextDouble();
+        scanner.nextLine();
+
+        if (station1 == null || station2 == null) {
+            System.out.println("Wrong input");
+            System.out.println("Enter 1 if you want to try to create rail again");
+            System.out.println("Enter 0 if you want to stop creating");
+            String ch = scanner.nextLine();
+            if (ch.equals("1"))
+                createRail();
+            else
+                return;
+        }
+
+        Rail rail = new Rail(station1, station2, distance);
+        Rail railRev = new Rail(station2, station1, distance);
+        DataLists.getRails().add(rail);
+        DataLists.getRailsReversed().add(railRev);
+    }
 
     public static Rail ifContains(Rail rail) {
         for (Rail railI : DataLists.getRails())

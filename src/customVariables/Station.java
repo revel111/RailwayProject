@@ -55,9 +55,10 @@ public class Station {
         Station station = new Station(name);
     }
 
-    public static void createInterestion(Station stationTo, Station station) {
-        stationTo.getIntersections().add(station);
-    }
+//    public static void createIntersection(Station stationTo, Station station) {
+//        stationTo.getIntersections().add(station);
+//        station.getIntersections().add(stationTo);
+//    }
 
     public static void deleteStationById(String id) {
         for (int i = 0; i < DataLists.getStations().size(); i++)

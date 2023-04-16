@@ -3,7 +3,6 @@ import customVariables.Rail;
 import customVariables.Station;
 import customVariables.Trainset;
 import customVariables.customCars.Car;
-import customVariables.customCars.PassengerCar;
 import customVariables.customExtra.TooManyCarsException;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
@@ -22,22 +21,30 @@ public class Presentation {
         Station station5 = new Station("F");
         Station station6 = new Station("G");
 
-        Station.createInterestion(station0, station1);
-        Station.createInterestion(station0, station2);
-        Station.createInterestion(station0, station3);
-        Station.createInterestion(station1, station5);
-        Station.createInterestion(station5, station6);
-        Station.createInterestion(station6, station4);
+//        Station.createIntersection(station0, station1);
+//        Station.createIntersection(station0, station2);
+//        Station.createIntersection(station0, station3);
+//        Station.createIntersection(station1, station5);
+//        Station.createIntersection(station5, station6);
+//        Station.createIntersection(station6, station4);
+
+        Rail rail0 = new Rail(station0, station1, 100);
+        Rail rail1 = new Rail(station0, station2, 400);
+        Rail rail2 = new Rail(station0, station3, 200);
+        Rail rail3 = new Rail(station1, station5, 300);
+        Rail rail4 = new Rail(station5, station6, 600);
+        Rail rail5 = new Rail(station6, station4, 700);
+
 
         Locomotive locomotive = new Locomotive("da", station1, station0, station4);
         ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
         Trainset trainset = new Trainset("fuck", locomotive, cars);
         DataLists.getTrainsets().add(trainset);
         DataLists.printData(DataLists.getTrainsets());
-
-        trainset.createRail();
-        trainset.printRouteSet();
-
+//        Rail.createRailsRandomly();
+//        trainset.createRail();
+//        trainset.printRouteSet();
+        trainset.run();
 //        PassengerCar car1 = new PassengerCar("A");
 //        PassengerCar car2 = new PassengerCar("B");
 //        PassengerCar car3 = new PassengerCar("B");
