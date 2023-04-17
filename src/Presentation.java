@@ -41,16 +41,15 @@ public class Presentation {
         Trainset trainset1 = new Trainset("fuck", locomotive1, cars);
         Trainset trainset2 = new Trainset("blya", locomotive2, cars);
 //        DataLists.getTrainsets().add(trainset1);
-//        Rail.createRailsRandomly();
 //        trainset.createRail();
 //        trainset.printRouteSet();
-//        Rail.createRailsRandomly();
-//        DataLists.printData(DataLists.getRails());
+        Rail.createRailsRandomly();
+        DataLists.printData(DataLists.getRails());
 //        System.out.println("######################");
 //        DataLists.printData(DataLists.getRailsReversed());
-        Thread t1 = new Thread(trainset1);
+//        Thread t1 = new Thread(trainset1);
 //        Thread t2 = new Thread(trainset2);
-        t1.start();
+//        t1.start();
 //        t2.start();
 
 //        Trainset.createTrainset();

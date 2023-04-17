@@ -211,7 +211,7 @@ public class Rail {
 //                        Rail railReversed = new Rail(DataLists.getStations().get(randomStation), DataLists.getStations().get(i), randomValue);
                         DataLists.getRails().add(rail);
                         DataLists.getRailsReversed().add(railReversed);
-                        DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
+                        DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1); //???
 //                        DataLists.getStations().get(randomStation).setConnection(DataLists.getStations().get(randomStation).getConnection() + 1);
                     }
                 }
