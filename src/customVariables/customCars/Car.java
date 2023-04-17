@@ -1,5 +1,6 @@
 package customVariables.customCars;
 
+import customVariables.Trainset;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 import operations.Files;
@@ -142,9 +143,10 @@ abstract public class Car {
     public static ArrayList<Car> generateCarRandomly(String name, int number) {
         ArrayList<Car> arrayList = new ArrayList<>();
         Car car = null;
+        Random random = new Random();
+        int randomAmount = random.nextInt(10) + 5;
 
-        for (int i = 0; i < 10; i++) {
-            Random random = new Random();
+        for (int i = 0; i < randomAmount; i++) {
             int randomNumber = random.nextInt(10) + 1;
             String string = Files.ReadFile(name, number);
             car = Car.switchForCars(randomNumber, string);
@@ -154,57 +156,61 @@ abstract public class Car {
         return arrayList;
     }
 
-//    public static Car createCar(boolean t) { // redefined
-//        System.out.println("Choose car type to create");
-//        System.out.println("Enter 0 if you want to stop creating car");
-////        DataLists.printTypesOfCars();
-//        int ch = scanner.nextInt();
-//
-//        Car car = null;
-//
-//        switch (ch) {
-//            case 1:
-////                car = PassengerCar.createPassengerCar(true);
-//                break;
-//            case 0:
-//                System.out.println("You stopped creating car");
-//                return null;
-//            default:
-//                System.out.println("You entered a wrong number");
-//        }
-//
-//        return car;
-//    }
+    public static Car createCarForTrainest() {
+        System.out.println("Choose type of a car");
+        Car.printTypesOfCars();
+        String type = scanner.nextLine();
+        System.out.println("Enter shipper's name");
+        String shipper = scanner.nextLine();
+        Car car = null;
 
-//    public static Car createCarForTrainest() {
-//        HashMap<String, Runnable> menu = new HashMap<>();
-//
-//        menu.put("passenger", () -> new PassengerCar());
-//        menu.put("baggage", BaggageCar::createBaggageCar);
-//        menu.put("explosive", ExplosiveCar::createExposiveCar);
-//        menu.put("gaseous", GaseousCar::createGaseousCar);
-//        menu.put("liquid", LiquidCar::createLiquidCar);
-//        menu.put("mail", MailCar::createMailCar);
-//        menu.put("post", PostOfficeCar::createPostOfficeCar);
-//        menu.put("refrigerated", RefrigeratedCar::createRefrigeratedCar);
-//        menu.put("restaurant", RestaurantCar::createRestaurantCar);
-//        menu.put("toxic", ToxicCar::createToxicCar);
-//
-//        System.out.println("Choose car type to create");
-//
-//        for (String option : menu.keySet())
-//            System.out.println(option);
-//
-//        String type = scanner.nextLine();
-//        Runnable action = menu.get(type);
-//        if (type.equals("exit"))
-//            return null;
-//
-//        if (action != null)
-//            action.run();
-//        else
-//            System.out.println("Invalid choice.");
-//    }
+        switch (type) {
+            case "passenger":
+                car = new PassengerCar(shipper);
+                break;
+            case "postoffice":
+                car = new PostOfficeCar(shipper);
+                break;
+            case "baggage":
+                car = new BaggageCar(shipper);
+                break;
+            case "mail":
+                car = new MailCar(shipper);
+                break;
+            case "restaurant":
+                car = new RestaurantCar(shipper);
+                break;
+            case "refrigerated":
+                car = new RefrigeratedCar(shipper);
+                break;
+            case "liquid":
+                car = new LiquidCar(shipper);
+                break;
+            case "gaseous":
+                car = new GaseousCar(shipper);
+                break;
+            case "explosive":
+                car = new ExplosiveCar(shipper);
+                break;
+            case "toxic":
+                car = new ToxicCar(shipper);
+                break;
+//            case "liquidtoxic":
+//                car = new LiquidToxicCar(shipper);
+//                break;
+            default:
+                System.out.println("Wrong input");
+                System.out.println("Enter 1 if you want to try to create car again");
+                System.out.println("Enter something else if you want to stop creating car");
+                String ch1 = scanner.nextLine();
+
+                if (ch1.equals("1"))
+                    Car.createCarForTrainest();
+                else
+                    return null;
+        }
+        return car;
+    }
 
     public static void deleteCarById(String id) {
         for (int i = 0; i < DataLists.getCars().size(); i++)
@@ -217,6 +223,22 @@ abstract public class Car {
             if (id.equalsIgnoreCase(DataLists.getCars().get(i).getCurrentId()))
                 return DataLists.getCars().get(i);
         return null;
+    }
+
+    public static void printTypesOfCars() {
+        System.out.println();
+        System.out.println("Enter \"passenger\" to create passenger car");
+        System.out.println("Enter \"postoffice\" to create post office car");
+        System.out.println("Enter \"baggage\" to create baggage car");
+        System.out.println("Enter \"mail\" to create mail car");
+        System.out.println("Enter \"restaurant\" to create restaurant car");
+        System.out.println("Enter \"refrigerated\" to create refrigerated car");
+        System.out.println("Enter \"liquid\" to create car for liquid material");
+        System.out.println("Enter \"gaseous\" to create car for gaseous material");
+        System.out.println("Enter \"explosive\" to create car for explosive material");
+        System.out.println("Enter \"toxic\" to create car for toxic material");
+        System.out.println("Enter \"liquidtoxic\" to create car for toxic and liquid material");
+        System.out.println();
     }
 
     @Override

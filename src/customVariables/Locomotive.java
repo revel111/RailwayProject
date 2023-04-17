@@ -178,7 +178,6 @@ public class Locomotive {
         }
 
         Locomotive locomotive = new Locomotive(name, homeStation, sourceStation, destinationStation);
-        DataLists.getLocomotives().add(locomotive);
 
         return locomotive;
     }

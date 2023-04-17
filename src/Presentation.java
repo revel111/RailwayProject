@@ -28,23 +28,32 @@ public class Presentation {
 //        Station.createIntersection(station5, station6);
 //        Station.createIntersection(station6, station4);
 
-        Rail rail0 = new Rail(station0, station1, 100);
-        Rail rail1 = new Rail(station0, station2, 400);
-        Rail rail2 = new Rail(station0, station3, 200);
-        Rail rail3 = new Rail(station1, station5, 300);
-        Rail rail4 = new Rail(station5, station6, 600);
-        Rail rail5 = new Rail(station6, station4, 700);
+        Rail.createRail(station0, station1, 100);
+        Rail.createRail(station0, station2, 200);
+        Rail.createRail(station0, station3, 300);
+        Rail.createRail(station1, station5, 400);
+        Rail.createRail(station5, station6, 500);
+        Rail.createRail(station6, station4, 600);
 
-
-        Locomotive locomotive = new Locomotive("da", station1, station0, station4);
+        Locomotive locomotive1 = new Locomotive("da", station1, station0, station4);
+        Locomotive locomotive2 = new Locomotive("da", station1, station4, station0);
         ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
-        Trainset trainset = new Trainset("fuck", locomotive, cars);
-        DataLists.getTrainsets().add(trainset);
-        DataLists.printData(DataLists.getTrainsets());
+//        Trainset trainset1 = new Trainset("fuck", locomotive1, cars);
+//        Trainset trainset2 = new Trainset("blya", locomotive2, cars);
+//        DataLists.getTrainsets().add(trainset1);
 //        Rail.createRailsRandomly();
 //        trainset.createRail();
 //        trainset.printRouteSet();
-        trainset.run();
+//        Thread t1 = new Thread(trainset1);
+//        Thread t2 = new Thread(trainset2);
+//        t1.start();
+//        t2.start();
+
+//        Trainset.createTrainset();
+//        DataLists.printData(DataLists.getTrainsets());
+        Rail.createRailsRandomly();
+        DataLists.printData(DataLists.getRails());
+//        trainset2.run();
 //        PassengerCar car1 = new PassengerCar("A");
 //        PassengerCar car2 = new PassengerCar("B");
 //        PassengerCar car3 = new PassengerCar("B");

@@ -100,27 +100,37 @@ public class Trainset implements Runnable {
         String ch = scanner.nextLine();
 
         switch (ch) {
-            case "1":
+            case "1" -> {
                 locomotive = Locomotive.createLocomotive(true);
-                Locomotive.deleteLocomotiveById(locomotive.getCurrentId());
-                break;
-            case "2":
+                if (locomotive == null)
+                    return;
+            }
+            case "2" -> {
                 System.out.println("Enter locomotive's id");
                 DataLists.printData(DataLists.getLocomotives());
                 String id = scanner.nextLine();
-
                 locomotive = Locomotive.findLocomotiveById(id);
+                if (locomotive == null) {
+                    System.out.println("Wrong input");
+                    System.out.println("Enter 1 if you want to try to create trainset again");
+                    System.out.println("Enter something else if you want to stop creating trainset");
+                    String ch1 = scanner.nextLine();
+
+                    if (ch1.equals("1"))
+                        Trainset.createTrainset();
+                    else
+                        return;
+                }
                 Locomotive.deleteLocomotiveById(locomotive.getCurrentId());
-                break;
-            case "3":
-                locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
-                break;
-            default:
+            }
+            case "3" -> locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
+            default -> {
                 System.out.println("You stopped creating trainset");
                 return;
+            }
         }
 
-        System.out.println("Enter name: ");
+        System.out.println("Enter name of a trainset: ");
         String name = scanner.nextLine();
 
         Trainset trainset = new Trainset(name, locomotive, cars);
@@ -134,29 +144,50 @@ public class Trainset implements Runnable {
             ch = scanner.nextLine();
 
             switch (ch) {
-                case "1":
-//                    car = Car.createCar(true);
-//                    Car.deleteCarById(car.getCurrentId());
-                    break;
-                case "2":
+                case "1" -> {
+                    car = Car.createCarForTrainest();
+                    if (car == null)
+                        return;
+                }
+                case "2" -> {
                     System.out.println("Enter car's id");
                     DataLists.printData(DataLists.getCars());
                     String id = scanner.nextLine();
-
                     car = Car.findCarById(id);
+                    if (car == null) {
+                        System.out.println("Wrong input");
+                        System.out.println("Enter 1 if you want to try to create trainset again");
+                        System.out.println("Enter something else if you want to stop creating trainset");
+                        String ch1 = scanner.nextLine();
+
+                        if (ch1.equals("1"))
+                            Trainset.createTrainset();
+                        else
+                            return;
+                    }
                     Car.deleteCarById(car.getCurrentId());
-                    break;
-                case "3":
+                }
+                case "3" -> {
                     cars = Car.generateCarRandomly("shippingnames.txt", 100);
                     DataLists.getTrainsets().add(new Trainset(name, locomotive, cars));
                     return;
-                case "0":
+                }
+                case "0" -> {
                     System.out.println("You stopped creating trainset");
                     return;
-                default:
+                }
+                default -> {
                     System.out.println("Wrong input");
+                    System.out.println("Enter 1 if you want to try to create trainset again");
+                    System.out.println("Enter something else if you want to stop creating trainset");
+                    String ch1 = scanner.nextLine();
+                    if (ch1.equals("1"))
+                        Trainset.createTrainset();
+                    else
+                        return;
+                    return;
+                }
             }
-
             trainset.connectCarToTrainset(car);
 
             System.out.println("Enter 1 if you want to add one more car");
@@ -171,6 +202,14 @@ public class Trainset implements Runnable {
                     return;
                 default:
                     System.out.println("Wrong input");
+                    System.out.println("Enter 1 if you want to try to create trainset again");
+                    System.out.println("Enter something else if you want to stop creating trainset");
+                    String ch1 = scanner.nextLine();
+
+                    if (ch1.equals("1"))
+                        Trainset.createTrainset();
+                    else
+                        return;
             }
         }
     }
@@ -272,12 +311,12 @@ public class Trainset implements Runnable {
                 rail = toFindReversed;
 //                trainset.setDistance(trainset.getDistance() + rail.distance);
             } else {
-                rails.add(rail);
 //                trainset.setDistance(trainset.getDistance() + rail.distance);
                 DataLists.getRails().add(rail);
                 Rail railRev = new Rail(station2, station1, randomVal);
                 DataLists.getRailsReversed().add(railRev);
             }
+            rails.add(rail);
             this.setDistance(this.getDistance() + rail.getDistance());
         }
     }
@@ -295,6 +334,8 @@ public class Trainset implements Runnable {
         Random random = new Random();
         int randomStation1 = random.nextInt(DataLists.getStations().size()) + 0;
         if (this.getLocomotive().getDestinationStation() == null) {
+            if (this.getLocomotive().getSourceStation() == DataLists.getStations().get(randomStation1))
+                generateStationsForTrainset();
             this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
         } else {
             int randomStation2 = random.nextInt(DataLists.getStations().size()) + 0;
@@ -342,6 +383,7 @@ public class Trainset implements Runnable {
                     try {
                         throw new RailroadHazardException();
                     } catch (RailroadHazardException e) {
+                        this.getLocomotive().setSpeed(100);
                         System.out.println(this);
                     }
             }
@@ -352,7 +394,7 @@ public class Trainset implements Runnable {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("Trainset is on " + this.getLocomotive().getDestinationStation().getName());
+        System.out.println("Trainset " + this.getName() + " is on " + this.getLocomotive().getDestinationStation().getName());
         routeRails = null;
         routeStations = null;
         this.getLocomotive().setSourceStation(this.getLocomotive().getDestinationStation());

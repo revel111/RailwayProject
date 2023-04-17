@@ -75,7 +75,7 @@ public class Station {
 
     public static Station createStationIfNull(String stringName) {
         System.out.println("Enter 1 if you want to create station with name " + stringName);
-        System.out.println("Enter 0 if you want to stop creating locomotive");
+        System.out.println("Enter 0 if you want to stop creating station");
         String ch = scanner.nextLine();
         Station station = null;
 
@@ -85,20 +85,18 @@ public class Station {
                 DataLists.getStations().add(station);
                 break;
             case "0":
-                System.out.println("You stopped creating locomotive");
+                System.out.println("You stopped creating station");
                 return null;
             default:
-                System.out.println("You entered wrong value");
+                System.out.println("Wrong input");
                 System.out.println("Enter 1 if you want to try to create station again");
-                System.out.println("Enter 0 if you want to stop creating locomotive");
-                ch = scanner.nextLine();
-                switch (ch) {
-                    case "1":
-                        createStationIfNull(stringName);
-                        break;
-                    case "0":
-                        return null;
-                }
+                System.out.println("Enter something else if you want to stop creating station");
+                String ch1 = scanner.nextLine();
+
+                if (ch1.equals("1"))
+                    Station.createStationIfNull(stringName);
+                else
+                    return null;
         }
         return station;
     }
@@ -114,7 +112,7 @@ public class Station {
     public static Station chooseRandomStation() {
         Random random = new Random();
         Station station = null;
-        int randomValue = random.nextInt(100) + 0;
+        int randomValue = random.nextInt(DataLists.getStations().size()) + 0;
 
         return DataLists.getStations().get(randomValue);
     }
