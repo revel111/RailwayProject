@@ -120,8 +120,8 @@ public class Trainset implements Runnable {
                         Trainset.createTrainset();
                     else
                         return;
-                }
-                Locomotive.deleteLocomotiveById(locomotive.getCurrentId());
+                } else
+                    Locomotive.deleteLocomotiveById(locomotive.getCurrentId());
             }
             case "3" -> locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
             default -> {
@@ -148,6 +148,20 @@ public class Trainset implements Runnable {
                     car = Car.createCarForTrainest();
                     if (car == null)
                         return;
+                    try {
+                        if (trainset.getWeight() + car.getWeightBrutto() >= trainset.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 2)
+                            throw new TooManyCarsException();
+                        else {
+                            trainset.setWeight(car.getWeightBrutto() + trainset.getWeight());
+                            if (car.isGridConnection())
+                                locomotive.setCurElecRailRoad(locomotive.getCurElecRailRoad() + 1);
+                            cars.add(car);
+                        }
+                    } catch (TooManyCarsException e) {
+                        System.out.println(e.getMessage());
+                        DataLists.getTrainsets().add(trainset);
+                        return;
+                    }
                 }
                 case "2" -> {
                     System.out.println("Enter car's id");
@@ -164,10 +178,26 @@ public class Trainset implements Runnable {
                             Trainset.createTrainset();
                         else
                             return;
+                    } else {
+                        Car.deleteCarById(car.getCurrentId());
+                        try {
+                            if (trainset.getWeight() + car.getWeightBrutto() >= trainset.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 2)
+                                throw new TooManyCarsException();
+                            else {
+                                trainset.setWeight(car.getWeightBrutto() + trainset.getWeight());
+                                if (car.isGridConnection())
+                                    locomotive.setCurElecRailRoad(locomotive.getCurElecRailRoad() + 1);
+                                cars.add(car);
+                            }
+                        } catch (TooManyCarsException e) {
+                            System.out.println(e.getMessage());
+                            DataLists.getTrainsets().add(trainset);
+                            return;
+                        }
                     }
-                    Car.deleteCarById(car.getCurrentId());
                 }
                 case "3" -> {
+                    cars = null;
                     cars = Car.generateCarRandomly("shippingnames.txt", 100);
                     DataLists.getTrainsets().add(new Trainset(name, locomotive, cars));
                     return;
@@ -185,13 +215,11 @@ public class Trainset implements Runnable {
                         Trainset.createTrainset();
                     else
                         return;
-                    return;
                 }
             }
-            trainset.connectCarToTrainset(car);
 
             System.out.println("Enter 1 if you want to add one more car");
-            System.out.println("Enter 0 if you want to end creating trainset");
+            System.out.println("Enter 0 if you want to create trainset");
             ch = scanner.nextLine();
 
             switch (ch) {
@@ -228,27 +256,12 @@ public class Trainset implements Runnable {
     }
 
     public void sortCarsByWeight() {
-        Collections.sort(cars, new Comparator<Car>() {
+        cars.sort(new Comparator<Car>() {
             @Override
             public int compare(Car car1, Car car2) {
                 return Double.compare(car1.getWeightBrutto(), car2.getWeightBrutto());
             }
         });
-    }
-
-    public void connectCarToTrainset(Car car) throws TooManyCarsException {
-        try {
-            if (this.getWeight() + car.getWeightBrutto() >= this.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 2)
-                throw new TooManyCarsException();
-            else {
-                this.setWeight(car.getWeightBrutto() + this.getWeight());
-                if (car.isGridConnection())
-                    locomotive.setCurElecRailRoad(locomotive.getCurElecRailRoad() + 1);
-                cars.add(car);
-            }
-        } catch (TooManyCarsException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     public void generateRoute() {
@@ -288,6 +301,11 @@ public class Trainset implements Runnable {
     public void createRail() {
         this.generateRoute();
         ArrayList<Rail> rails = new ArrayList<>();
+
+        if(this.getRouteStations() == null) {
+            this.generateStationsForTrainset();
+            this.createRail();
+        }
 
         for (int i = 0; i < this.getRouteStations().size(); i++) {
             Random random = new Random();
@@ -332,18 +350,20 @@ public class Trainset implements Runnable {
 
     public void generateStationsForTrainset() {
         Random random = new Random();
-        int randomStation1 = random.nextInt(DataLists.getStations().size()) + 0;
+        int randomStation1 = random.nextInt(DataLists.getStations().size() - 0) + 0;
         if (this.getLocomotive().getDestinationStation() == null) {
-            if (this.getLocomotive().getSourceStation() == DataLists.getStations().get(randomStation1))
+            if (this.getLocomotive().getSourceStation() == DataLists.getStations().get(randomStation1) || DataLists.getStations().get(randomStation1).getIntersections().size() == 0)
                 generateStationsForTrainset();
-            this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
+            else
+                this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
         } else {
-            int randomStation2 = random.nextInt(DataLists.getStations().size()) + 0;
-            if (randomStation1 == randomStation2)
+            int randomStation2 = random.nextInt(DataLists.getStations().size() - 0) + 0;
+            if (randomStation1 == randomStation2 || DataLists.getStations().get(randomStation2).getIntersections().size() == 0)
                 generateStationsForTrainset();
-
-            this.getLocomotive().setSourceStation(DataLists.getStations().get(randomStation1));
-            this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation2));
+            else {
+                this.getLocomotive().setSourceStation(DataLists.getStations().get(randomStation1));
+                this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation2));
+            }
         }
     }
 
@@ -366,7 +386,7 @@ public class Trainset implements Runnable {
             double distance = routeRails.get(i).getDistance();
 
             while (distance > 0) {
-                distance -= this.getLocomotive().getSpeed() / 2;
+                distance -= this.getLocomotive().getSpeed();
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -383,18 +403,22 @@ public class Trainset implements Runnable {
                     try {
                         throw new RailroadHazardException();
                     } catch (RailroadHazardException e) {
+                        System.out.println(e.getMessage());
                         this.getLocomotive().setSpeed(100);
                         System.out.println(this);
                     }
             }
             routeRails.get(i).setAvailable(true);
+            if (this.getLocomotive().getDestinationStation() == routeRails.get(i).getStation2())
+                System.out.println("Trainset " + this.getName() + " is on destination station " + this.getLocomotive().getDestinationStation().getName());
+            else
+                System.out.println("Trainset " + this.getName() + " is on station " + routeRails.get(i).getStation2().getName());
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("Trainset " + this.getName() + " is on " + this.getLocomotive().getDestinationStation().getName());
         routeRails = null;
         routeStations = null;
         this.getLocomotive().setSourceStation(this.getLocomotive().getDestinationStation());

@@ -35,7 +35,6 @@ public class BaggageCar extends Car {
     @Override
     public void fillCar() throws TooManyException {
         System.out.println("Enter weight of baggage to add");
-        scanner = new Scanner(System.in);
         double baggageIn = scanner.nextDouble();
         scanner.nextLine();
 
@@ -47,11 +46,11 @@ public class BaggageCar extends Car {
                 this.setWeightBrutto(this.weightNetto + (baggageIn * 2));
             }
         } catch (TooManyException e) {
-            System.out.println("Enter try if you want to try to add baggage again");
-            System.out.println("Enter exit if you don't want to add baggage");
+            System.out.println("Enter 1 if you want to try to delete baggage again");
+            System.out.println("Enter something else if you don't want to delete baggage");
             String ch = scanner.nextLine();
 
-            if (Objects.equals(ch, "try"))
+            if (ch.equals("1"))
                 fillCar();
             else
                 return;
@@ -61,7 +60,6 @@ public class BaggageCar extends Car {
     @Override
     public void emptyCar() throws TooManyException {
         System.out.println("Enter weight of baggage to delete");
-        scanner = new Scanner(System.in);
         double baggageOut = scanner.nextDouble();
         scanner.nextLine();
 
@@ -73,11 +71,11 @@ public class BaggageCar extends Car {
                 this.setWeightBrutto(this.weightNetto - (baggageOut * 2));
             }
         } catch (TooManyException e) {
-            System.out.println("Enter try if you want to try to delete baggage again");
-            System.out.println("Enter exit if you don't want to delete baggage");
+            System.out.println("Enter 1 if you want to try to delete baggage again");
+            System.out.println("Enter something else if you don't want to delete baggage");
             String ch = scanner.nextLine();
 
-            if (Objects.equals(ch, "try"))
+            if (ch.equals("1"))
                 emptyCar();
             else
                 return;

@@ -34,12 +34,6 @@ public class ExplosiveCar extends HeavyFreight {
         return null;
     }
 
-    public static Car createExplosiveCarReturn(String shipper) { // function for cars auto generation
-        ExplosiveCar explosiveCar = new ExplosiveCar(shipper);
-
-        return explosiveCar;
-    }
-
     @Override
     public String toString() {
         return super.toString() + "; Current fillness: " + getFill();

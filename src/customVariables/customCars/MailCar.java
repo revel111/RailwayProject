@@ -33,7 +33,27 @@ public class MailCar extends Car {
 
     @Override
     public void fillCar() throws TooManyException {
+        System.out.println("Enter weight of mails to add");
+        double weightTo = scanner.nextInt();
+        scanner.nextLine();
 
+        try {
+            if (this.mailsWeight + weightTo > mailsWeight)
+                throw new TooManyException("Too many mails");
+            else {
+                this.mailsWeight += weightTo;
+                this.setWeightBrutto(this.weightNetto + (weightTo * 2));
+            }
+        } catch (TooManyException e) {
+            System.out.println("Enter 1 if you want to try to add mails again");
+            System.out.println("Enter something else if you don't want to add mails");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                fillCar();
+            else
+                return;
+        }
     }
 
     @Override

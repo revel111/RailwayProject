@@ -9,7 +9,7 @@ public class Station {
     private static final Scanner scanner = new Scanner(System.in);
     private String name;
     private static int id = 0;
-    private Set<Station> intersections = new HashSet<>();
+    private ArrayList<Station> intersections = new ArrayList<>();
     private String currentId;
     private int connection = 0;
 
@@ -27,11 +27,11 @@ public class Station {
         return name;
     }
 
-    public Set<Station> getIntersections() {
+    public ArrayList<Station> getIntersections() {
         return intersections;
     }
 
-    public void setIntersections(Set<Station> intersections) {
+    public void setIntersections(ArrayList<Station> intersections) {
         this.intersections = intersections;
     }
 
@@ -49,7 +49,7 @@ public class Station {
 
     public static void createStation() {
         System.out.println("Adding new station");
-        System.out.println("Type name: ");
+        System.out.println("Enter the name: ");
         String name = scanner.nextLine();
 
         Station station = new Station(name);
@@ -59,6 +59,38 @@ public class Station {
 //        stationTo.getIntersections().add(station);
 //        station.getIntersections().add(stationTo);
 //    }
+
+    public static void deleteStation() {
+        System.out.println("Deleting statiob");
+        System.out.println("Enter id of a station");
+        DataLists.printData(DataLists.getStations());
+        String id = scanner.nextLine();
+        Station station = findStationByID(id);
+
+        if (station == null) {
+            System.out.println("There is no station with id " + id);
+            System.out.println("Enter 1 if you want to try to delete station again");
+            System.out.println("Enter something else if you want to stop deleting station");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                deleteStation();
+            else
+                return;
+        } else {
+            for (int i = 0; i < station.getIntersections().size(); i++) {
+                Rail rail = new Rail(station, station.getIntersections().get(i), 0);
+                Rail railReversed = new Rail(station.getIntersections().get(i), station, 0);
+                Rail toFind = Rail.ifContains(rail);
+                Rail toFindReversed = Rail.ifContainsReversed(railReversed);
+                if (toFind != null) {
+                    DataLists.getRails().remove(toFind);
+                    DataLists.getRailsReversed().remove(toFindReversed);
+                }
+            }
+            DataLists.getStations().remove(station);
+        }
+    }
 
     public static void deleteStationById(String id) {
         for (int i = 0; i < DataLists.getStations().size(); i++)
@@ -72,6 +104,7 @@ public class Station {
                 return DataLists.getStations().get(i);
         return null;
     }
+
 
     public static Station createStationIfNull(String stringName) {
         System.out.println("Enter 1 if you want to create station with name " + stringName);
@@ -104,7 +137,7 @@ public class Station {
     public static void generateRandomStation() {
         Station station = null;
         Set<String> set = new HashSet<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             String string = Files.ReadFileStations(set);
         }
     }

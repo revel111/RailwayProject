@@ -34,7 +34,6 @@ public class PassengerCar extends Car {
 
     public void fillCar() throws TooManyException {
         System.out.println("Enter amount of passengers to add");
-        scanner = new Scanner(System.in);
         int passengersIn = scanner.nextInt();
         scanner.nextLine();
 
@@ -46,11 +45,11 @@ public class PassengerCar extends Car {
                 this.setWeightBrutto(this.weightNetto + (passengersIn * 2));
             }
         } catch (TooManyException e) {
-            System.out.println("Enter try if you want to try to add passengers again");
-            System.out.println("Enter exit if you don't want to add passengers");
+            System.out.println("Enter 1 if you want to try to add passengers again");
+            System.out.println("Enter something elss if you don't want to add passengers");
             String ch = scanner.nextLine();
 
-            if (Objects.equals(ch, "try"))
+            if (ch.equals("1"))
                 fillCar();
             else
                 return;
@@ -59,7 +58,6 @@ public class PassengerCar extends Car {
 
     public void emptyCar() {
         System.out.println("Enter amount of passengers to delete");
-        scanner = new Scanner(System.in);
         int passengersOut = scanner.nextInt();
         scanner.nextLine();
 
@@ -71,11 +69,11 @@ public class PassengerCar extends Car {
                 this.setWeightBrutto(this.weightNetto - (passengersOut * 2));
             }
         } catch (TooManyException e) {
-            System.out.println("Enter try if you want to try to delete passengers again");
-            System.out.println("Enter exit if you don't want to delete passengers");
+            System.out.println("Enter 1 if you want to try to delete passengers again");
+            System.out.println("Enter something elss if you don't want to delete passengers");
             String ch = scanner.nextLine();
 
-            if (Objects.equals(ch, "try"))
+            if (ch.equals("1"))
                 emptyCar();
             else
                 return;

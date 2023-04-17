@@ -144,10 +144,10 @@ abstract public class Car {
         ArrayList<Car> arrayList = new ArrayList<>();
         Car car = null;
         Random random = new Random();
-        int randomAmount = random.nextInt(10) + 5;
+        int randomAmount = random.nextInt(10 - 5 - 1) + 5;
 
         for (int i = 0; i < randomAmount; i++) {
-            int randomNumber = random.nextInt(10) + 1;
+            int randomNumber = random.nextInt(10 - 1 - 1) + 1;
             String string = Files.ReadFile(name, number);
             car = Car.switchForCars(randomNumber, string);
             arrayList.add(car);

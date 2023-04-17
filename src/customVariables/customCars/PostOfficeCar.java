@@ -32,12 +32,52 @@ public class PostOfficeCar extends Car {
 
     @Override
     public void fillCar() throws TooManyException {
+        System.out.println("Enter amount of people to add");
+        int peopleIn = scanner.nextInt();
+        scanner.nextLine();
 
+        try {
+            if (this.people + peopleIn > maxAmountOfPeople)
+                throw new TooManyException("Too many people");
+            else {
+                this.people += peopleIn;
+                this.setWeightBrutto(this.weightNetto + (peopleIn * 2));
+            }
+        } catch (TooManyException e) {
+            System.out.println("Enter 1 if you want to try to add people again");
+            System.out.println("Enter something elss if you don't want to add people");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                fillCar();
+            else
+                return;
+        }
     }
 
     @Override
     public void emptyCar() throws TooManyException {
+        System.out.println("Enter amount of people to delete");
+        int peopleOut = scanner.nextInt();
+        scanner.nextLine();
 
+        try {
+            if (this.people - peopleOut < 0)
+                throw new TooManyException("There are no such amount of people");
+            else {
+                this.people -= peopleOut;
+                this.setWeightBrutto(this.weightNetto - (peopleOut * 2));
+            }
+        } catch (TooManyException e) {
+            System.out.println("Enter 1 if you want to try to delete people again");
+            System.out.println("Enter something else if you don't want to delete people");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                emptyCar();
+            else
+                return;
+        }
     }
 
     public static Runnable createPostOfficeCar() {
