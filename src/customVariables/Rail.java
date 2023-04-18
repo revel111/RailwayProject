@@ -65,13 +65,6 @@ public class Rail {
         return distance;
     }
 
-//    public static Rail ifContains(Rail rail) {
-//        for (Rail railI : DataLists.getRails())
-//            if (railI.equals(rail))
-//                return railI;
-//        return null;
-//    }
-
     public static void createRail() {
         System.out.println("Enter id of a first station");
         String id1 = scanner.nextLine();
@@ -96,6 +89,10 @@ public class Rail {
 
         Rail rail = new Rail(station1, station2, distance);
         Rail railRev = new Rail(station2, station1, distance);
+//        rail.station1.getIntersections().add(rail.station2); // ready
+//        rail.station2.getIntersections().add(rail.station1);
+//        railRev.station1.getIntersections().add(railRev.station2);
+//        railRev.station2.getIntersections().add(railRev.station1);
         DataLists.getRails().add(rail);
         DataLists.getRailsReversed().add(railRev);
     }
@@ -129,7 +126,17 @@ public class Rail {
                 findRailById(id);
             else
                 return;
-        } else {
+        }
+
+        for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
+            for (int j = 0; j < DataLists.getTrainsets().get(i).getRouteRails().size(); j++) {
+                if (DataLists.getTrainsets().get(i).getRouteRails().get(j) == rail) {
+                    System.out.println("We can not delete rail because it is in a route");
+                    return;
+                }
+            }
+        }
+
 //            for (int i = 0; i < station.getIntersections().size(); i++) {
 //                Rail rail = new Rail(station, station.getIntersections().get(i), 0);
 //                Rail railReversed = new Rail(station.getIntersections().get(i), station, 0);
@@ -140,9 +147,10 @@ public class Rail {
 //                    DataLists.getRailsReversed().remove(toFindReversed);
 //                }
 //            }
-            rail.getStation1().getIntersections().remove(rail.getStation2());
-            DataLists.getRails().remove(rail);
-        }
+//        rail.getStation1().getIntersections().remove(rail.getStation2());
+//        rail.getStation2().getIntersections().remove(rail.getStation1());
+        DataLists.getRails().remove(rail);
+
     }
 
     public static void createRail(Station station1, Station station2, double distance) {
@@ -169,6 +177,8 @@ public class Rail {
 
         Rail rail = new Rail(station1, station2, distance);
         Rail railRev = new Rail(station2, station1, distance);
+//        station1.getIntersections().add(station2); // ready
+//        station2.getIntersections().add(station1);
         DataLists.getRails().add(rail);
         DataLists.getRailsReversed().add(railRev);
     }
@@ -209,6 +219,8 @@ public class Rail {
                         randomNumber++;
                     else {
 //                        Rail railReversed = new Rail(DataLists.getStations().get(randomStation), DataLists.getStations().get(i), randomValue);
+//                        station1.getIntersections().add(station2); // ready
+//                        station2.getIntersections().add(station1);
                         DataLists.getRails().add(rail);
                         DataLists.getRailsReversed().add(railReversed);
                         DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1); //???

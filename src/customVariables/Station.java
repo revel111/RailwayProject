@@ -77,19 +77,30 @@ public class Station {
                 deleteStation();
             else
                 return;
-        } else {
-            for (int i = 0; i < station.getIntersections().size(); i++) {
-                Rail rail = new Rail(station, station.getIntersections().get(i), 0);
-                Rail railReversed = new Rail(station.getIntersections().get(i), station, 0);
-                Rail toFind = Rail.ifContains(rail);
-                Rail toFindReversed = Rail.ifContainsReversed(railReversed);
-                if (toFind != null) {
-                    DataLists.getRails().remove(toFind);
-                    DataLists.getRailsReversed().remove(toFindReversed);
+        }
+
+        for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
+            for (int j = 0; j < DataLists.getTrainsets().get(i).getRouteStations().size(); j++) {
+                if (DataLists.getTrainsets().get(i).getRouteStations().get(j) == station) {
+                    System.out.println("We can not delete station because it is in a route");
+                    return;
                 }
             }
-            DataLists.getStations().remove(station);
         }
+
+        station.removeConnections();
+//        for (int i = 0; i < station.getIntersections().size(); i++) {
+//            Rail rail = new Rail(station, station.getIntersections().get(i), 0);
+//            Rail railReversed = new Rail(station.getIntersections().get(i), station, 0);
+//            Rail toFind = Rail.ifContains(rail);
+//            Rail toFindReversed = Rail.ifContainsReversed(railReversed);
+//            if (toFind != null) {
+//                DataLists.getRails().remove(toFind);
+//                DataLists.getRailsReversed().remove(toFindReversed);
+//            }
+//        }
+
+        DataLists.getStations().remove(station);
     }
 
     public static void deleteStationById(String id) {
@@ -105,6 +116,11 @@ public class Station {
         return null;
     }
 
+    public void removeConnections() {
+        for (int i = 0; i < this.getIntersections().size(); i++)
+            this.getIntersections().get(i).getIntersections().remove(this);
+        this.setIntersections(null);
+    }
 
     public static Station createStationIfNull(String stringName) {
         System.out.println("Enter 1 if you want to create station with name " + stringName);

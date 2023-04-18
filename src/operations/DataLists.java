@@ -71,7 +71,7 @@ public class DataLists {
 //    }
 
     public static void sortTrainsetsByDistance() {
-        Collections.sort(DataLists.getTrainsets(), new Comparator<Trainset>() {
+        DataLists.getTrainsets().sort(new Comparator<Trainset>() {
             @Override
             public int compare(Trainset trainset1, Trainset trainset2) {
                 return Double.compare(trainset1.getDistance(), trainset2.getDistance());

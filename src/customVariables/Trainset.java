@@ -302,9 +302,9 @@ public class Trainset implements Runnable {
         this.generateRoute();
         ArrayList<Rail> rails = new ArrayList<>();
 
-        if(this.getRouteStations() == null) {
-            this.generateStationsForTrainset();
-            this.createRail();
+        if (this.getRouteStations() == null) {
+//            this.generateStationsForTrainset();
+            return;
         }
 
         for (int i = 0; i < this.getRouteStations().size(); i++) {
@@ -348,35 +348,41 @@ public class Trainset implements Runnable {
         System.out.println(string);
     }
 
-    public void generateStationsForTrainset() {
-        Random random = new Random();
-        int randomStation1 = random.nextInt(DataLists.getStations().size() - 0) + 0;
-        if (this.getLocomotive().getDestinationStation() == null) {
-            if (this.getLocomotive().getSourceStation() == DataLists.getStations().get(randomStation1) || DataLists.getStations().get(randomStation1).getIntersections().size() == 0)
-                generateStationsForTrainset();
-            else
-                this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
-        } else {
-            int randomStation2 = random.nextInt(DataLists.getStations().size() - 0) + 0;
-            if (randomStation1 == randomStation2 || DataLists.getStations().get(randomStation2).getIntersections().size() == 0)
-                generateStationsForTrainset();
-            else {
-                this.getLocomotive().setSourceStation(DataLists.getStations().get(randomStation1));
-                this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation2));
-            }
-        }
-    }
+//    public void generateStationsForTrainset() {
+//        Random random = new Random();
+//        int randomStation1 = random.nextInt(DataLists.getStations().size() - 0) + 0;
+//        if (this.getLocomotive().getDestinationStation() == null) {
+//            if (this.getLocomotive().getSourceStation() == DataLists.getStations().get(randomStation1) || DataLists.getStations().get(randomStation1).getIntersections().size() == 0)
+//                generateStationsForTrainset();
+//            else
+//                this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
+//        } else {
+//            int randomStation2 = random.nextInt(DataLists.getStations().size() - 0) + 0;
+//            if (randomStation1 == randomStation2 || DataLists.getStations().get(randomStation2).getIntersections().size() == 0)
+//                generateStationsForTrainset();
+//            else {
+//                this.getLocomotive().setSourceStation(DataLists.getStations().get(randomStation1));
+//                this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation2));
+//            }
+//        }
+//    }
 
     @Override
-    public void run() {
+    public void run() {//rail logica
         Random random = new Random();
-        if (routeRails == null)
+        if (routeRails == null) {
             this.createRail();
+            if(this.getRouteRails() == null) {
+                System.out.println("Stations are not connected");
+                return;
+            }
+        }
         getLocomotive().setSpeed(150.0);
 
         for (int i = 0; i < routeRails.size(); i++) {
             while (!routeRails.get(i).getisAvailable()) {
                 try {
+                    System.out.println("Waiting...");
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -421,9 +427,11 @@ public class Trainset implements Runnable {
         }
         routeRails = null;
         routeStations = null;
+        Station tmp = this.getLocomotive().getSourceStation();
         this.getLocomotive().setSourceStation(this.getLocomotive().getDestinationStation());
-        this.getLocomotive().setDestinationStation(null);
-        this.generateStationsForTrainset();
+        this.getLocomotive().setDestinationStation(tmp);
+//        this.generateStationsForTrainset();
+
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
