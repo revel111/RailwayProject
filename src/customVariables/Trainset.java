@@ -435,11 +435,11 @@ public class Trainset implements Runnable {
         this.getLocomotive().setDestinationStation(temp);
 //        this.generateStationsForTrainset();
 
-//        try {
-//            Thread.sleep(10000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         this.run();
     }
 
