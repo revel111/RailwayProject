@@ -1,15 +1,20 @@
 package operations;
 
 import customVariables.Station;
+import customVariables.Trainset;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class Files {
+public class Files extends Thread {
+    public Files() {
+    }
+
     public static String ReadFile(String type, int number) {
         String fileName = "src/txtfiles/" + type;
         Random random = new Random();
@@ -56,5 +61,25 @@ public class Files {
         }
 
         return name;
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            try (FileWriter bw = new FileWriter("src/txtfiles/AppState.txt", true)) {
+                DataLists.sortTrainsetsByDistance();
+                for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
+                    bw.write(DataLists.getTrainsets().get(i) + "\n");
+                }
+                bw.write("\n");
+            } catch (IOException e) {
+                System.out.println("...");
+            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                System.out.println("...");
+            }
+        }
     }
 }

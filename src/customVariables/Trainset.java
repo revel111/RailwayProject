@@ -20,7 +20,8 @@ public class Trainset implements Runnable {
     private double weight = 1000;
     private Rail currentRail;
     private final double maxWeight = 10000;
-    private double distance = 0;
+    private double wholeDistance = 0;
+    private double currentDistance = 0;
 
     public Trainset(String name, Locomotive locomotive, ArrayList<Car> cars) {
         this.locomotive = locomotive;
@@ -37,12 +38,12 @@ public class Trainset implements Runnable {
         return name;
     }
 
-    public double getDistance() {
-        return distance;
+    public double getWholeDistance() {
+        return wholeDistance;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setWholeDistance(double wholeDistance) {
+        this.wholeDistance = wholeDistance;
     }
 
     public Locomotive getLocomotive() {
@@ -51,6 +52,14 @@ public class Trainset implements Runnable {
 
     public double getWeight() {
         return weight;
+    }
+
+    public double getCurrentDistance() {
+        return currentDistance;
+    }
+
+    public void setCurrentDistance(double currentDistance) {
+        this.currentDistance = currentDistance;
     }
 
     public void setCars(ArrayList<Car> cars) {
@@ -67,6 +76,14 @@ public class Trainset implements Runnable {
 
     public ArrayList<Rail> getRouteRails() {
         return routeRails;
+    }
+
+    public Rail getCurrentRail() {
+        return currentRail;
+    }
+
+    public void setCurrentRail(Rail currentRail) {
+        this.currentRail = currentRail;
     }
 
     public void setName(String name) {
@@ -331,11 +348,13 @@ public class Trainset implements Runnable {
             } else {
 //                trainset.setDistance(trainset.getDistance() + rail.distance);
                 DataLists.getRails().add(rail);
+                rail.getStation1().getIntersections().add(rail.getStation2()); // ready
+                rail.getStation2().getIntersections().add(rail.getStation1());
                 Rail railRev = new Rail(station2, station1, randomVal);
                 DataLists.getRailsReversed().add(railRev);
             }
             rails.add(rail);
-            this.setDistance(this.getDistance() + rail.getDistance());
+            this.setWholeDistance(this.getWholeDistance() + rail.getDistance());
         }
     }
 
@@ -368,7 +387,7 @@ public class Trainset implements Runnable {
 //    }
 
     @Override
-    public void run() {//rail logica
+    public void run() {
         Random random = new Random();
         if (routeRails == null) {
             this.createRail();
@@ -377,7 +396,7 @@ public class Trainset implements Runnable {
                 return;
             }
         }
-        getLocomotive().setSpeed(150.0);
+        getLocomotive().setSpeed(200.0);
 
         for (int i = 0; i < routeRails.size(); i++) {
 //            Rail temp = routeRails.get(i).findRailByRail();
@@ -389,12 +408,25 @@ public class Trainset implements Runnable {
                     throw new RuntimeException(e);
                 }
             }
+            this.setCurrentRail(routeRails.get(i));
             routeRails.get(i).setAvailable(false);
 //            Trainset.setRailIsAvailable(routeRails.get(i), false);
-            double distance = routeRails.get(i).getDistance();
+            double distanceBetween = routeRails.get(i).getDistance();
+            double distanceTmp = distanceBetween;
+            double distanceWhole = this.getWholeDistance();
 
-            while (distance > 0) {
-                distance -= this.getLocomotive().getSpeed();
+
+            while (distanceBetween > 0) {
+                distanceBetween -= this.getLocomotive().getSpeed();
+//                this.setWholeDistance(distanceWhole - distanceBetween * 100 / this.getWholeDistance());
+//                this.setCurrentDistance(distanceBetween * 100 / distanceTmp);
+//
+//                if(this.getWholeDistance() < 0)
+//                    this.setWholeDistance(0);
+////                if(this.getCurrentDistance() < 0)
+////                    this.setCurrentDistance(0);
+
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -456,6 +488,6 @@ public class Trainset implements Runnable {
     @Override
     public String toString() {
         String string = DataLists.printCarsT(this);
-        return "Name: " + name + "; Id: " + currentId + "; Speed: " + locomotive.getSpeed() + "; Distance %: " + "; Weight: " + weight + "\nLocomotive: " + "\n" + locomotive + "\nCars: " + "\n" + string;
+        return "Name: " + name + "; Id: " + currentId + "; Speed: " + locomotive.getSpeed() + "; Whole Distance %: " + wholeDistance + "; Current Distance " + currentDistance + "; Weight: " + weight + "\nLocomotive: " + "\n" + locomotive + "\nCars: " + "\n" + string;
     }
 }

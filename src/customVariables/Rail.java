@@ -21,8 +21,8 @@ public class Rail {
         this.distance = distance;
         this.isAvailable = true;
         currentId = "ra" + id++;
-        station1.getIntersections().add(station2);
-        station2.getIntersections().add(station1);
+//        station1.getIntersections().add(station2);
+//        station2.getIntersections().add(station1);
     }
 
     public String getCurrentId() {
@@ -89,10 +89,8 @@ public class Rail {
 
         Rail rail = new Rail(station1, station2, distance);
         Rail railRev = new Rail(station2, station1, distance);
-//        rail.station1.getIntersections().add(rail.station2); // ready
-//        rail.station2.getIntersections().add(rail.station1);
-//        railRev.station1.getIntersections().add(railRev.station2);
-//        railRev.station2.getIntersections().add(railRev.station1);
+        rail.station1.getIntersections().add(rail.station2); // ready
+        rail.station2.getIntersections().add(rail.station1);
         DataLists.getRails().add(rail);
         DataLists.getRailsReversed().add(railRev);
     }
@@ -188,8 +186,8 @@ public class Rail {
 
         Rail rail = new Rail(station1, station2, distance);
         Rail railRev = new Rail(station2, station1, distance);
-//        station1.getIntersections().add(station2); // ready
-//        station2.getIntersections().add(station1);
+        station1.getIntersections().add(station2); // ready
+        station2.getIntersections().add(station1);
         DataLists.getRails().add(rail);
         DataLists.getRailsReversed().add(railRev);
     }
@@ -229,9 +227,8 @@ public class Rail {
                     if (DataLists.getStations().get(i) == DataLists.getStations().get(randomStation) || toFind != null || toFindReversed != null)
                         randomNumber++;
                     else {
-//                        Rail railReversed = new Rail(DataLists.getStations().get(randomStation), DataLists.getStations().get(i), randomValue);
-//                        station1.getIntersections().add(station2); // ready
-//                        station2.getIntersections().add(station1);
+                        rail.station1.getIntersections().add(rail.station2); // ready
+                        rail.station2.getIntersections().add(rail.station1);
                         DataLists.getRails().add(rail);
                         DataLists.getRailsReversed().add(railReversed);
                         DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1); //???

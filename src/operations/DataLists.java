@@ -64,17 +64,11 @@ public class DataLists {
         System.out.println();
     }
 
-//    public static void printRails() {
-//        for (Rail r : rails)
-//            System.out.println(r.toString());
-//        System.out.println();
-//    }
-
     public static void sortTrainsetsByDistance() {
         DataLists.getTrainsets().sort(new Comparator<Trainset>() {
             @Override
             public int compare(Trainset trainset1, Trainset trainset2) {
-                return Double.compare(trainset1.getDistance(), trainset2.getDistance());
+                return Double.compare(trainset1.getWholeDistance(), trainset2.getWholeDistance());
             }
         });
     }
