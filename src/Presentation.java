@@ -22,14 +22,14 @@ public class Presentation {
         Station station6 = new Station("G");
 
         Rail.createRail(station0, station1, 100);
-        Rail.createRail(station0, station2, 200);
+        Rail.createRail(station0, station2, 150);
         Rail.createRail(station0, station3, 200);
-        Rail.createRail(station1, station5, 200);
+        Rail.createRail(station1, station4, 150);
         Rail.createRail(station5, station6, 200);
         Rail.createRail(station6, station4, 200);
 
-        Locomotive locomotive1 = new Locomotive("da", station1, station1, station0);
-        Locomotive locomotive2 = new Locomotive("da", station1, station0, station5);
+        Locomotive locomotive1 = new Locomotive("da", station1, station4, station1);
+        Locomotive locomotive2 = new Locomotive("da", station1, station0, station4);
         ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
         Trainset trainset1 = new Trainset("fuck", locomotive1, cars);
         Trainset trainset2 = new Trainset("blya", locomotive2, cars);
@@ -42,6 +42,7 @@ public class Presentation {
 //        DataLists.printData(DataLists.getRailsReversed());
         Thread t1 = new Thread(trainset1);
         Thread t2 = new Thread(trainset2);
+
         t1.start();
         t2.start();
 //        DataLists.printData(DataLists.getTrainsets());

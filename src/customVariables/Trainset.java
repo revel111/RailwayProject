@@ -372,7 +372,7 @@ public class Trainset implements Runnable {
         Random random = new Random();
         if (routeRails == null) {
             this.createRail();
-            if(this.getRouteRails() == null) {
+            if (this.getRouteRails() == null) {
                 System.out.println("Stations are not connected");
                 return;
             }
@@ -380,15 +380,17 @@ public class Trainset implements Runnable {
         getLocomotive().setSpeed(150.0);
 
         for (int i = 0; i < routeRails.size(); i++) {
+//            Rail temp = routeRails.get(i).findRailByRail();
             while (!routeRails.get(i).getisAvailable()) {
                 try {
-                    System.out.println("Waiting...");
+                    System.out.println(this.getName() + " is waiting...");
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
             routeRails.get(i).setAvailable(false);
+//            Trainset.setRailIsAvailable(routeRails.get(i), false);
             double distance = routeRails.get(i).getDistance();
 
             while (distance > 0) {
@@ -415,6 +417,7 @@ public class Trainset implements Runnable {
                     }
             }
             routeRails.get(i).setAvailable(true);
+//            Trainset.setRailIsAvailable(routeRails.get(i), true);
             if (this.getLocomotive().getDestinationStation() == routeRails.get(i).getStation2())
                 System.out.println("Trainset " + this.getName() + " is on destination station " + this.getLocomotive().getDestinationStation().getName());
             else
@@ -427,18 +430,28 @@ public class Trainset implements Runnable {
         }
         routeRails = null;
         routeStations = null;
-        Station tmp = this.getLocomotive().getSourceStation();
+        Station temp = this.getLocomotive().getSourceStation();
         this.getLocomotive().setSourceStation(this.getLocomotive().getDestinationStation());
-        this.getLocomotive().setDestinationStation(tmp);
+        this.getLocomotive().setDestinationStation(temp);
 //        this.generateStationsForTrainset();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         this.run();
     }
+
+//    public static void setRailIsAvailable(Rail rail, boolean bool) {
+//        for (int i = 0; i < DataLists.getRails().size(); i++)
+//            if (rail == DataLists.getRails().get(i))
+//                DataLists.getRails().get(i).setAvailable(bool);
+//
+//        for (int i = 0; i < DataLists.getRailsReversed().size(); i++)
+//            if (rail == DataLists.getRailsReversed().get(i))
+//                DataLists.getRailsReversed().get(i).setAvailable(bool);
+//    }
 
     @Override
     public String toString() {

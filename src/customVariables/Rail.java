@@ -104,6 +104,17 @@ public class Rail {
         return null;
     }
 
+//    public Rail findRailByRail() {
+//        for (int i = 0; i < DataLists.getRails().size(); i++)
+//            if (this == DataLists.getRails().get(i))
+//                return DataLists.getRails().get(i);
+//
+//        for (int i = 0; i < DataLists.getRailsReversed().size(); i++)
+//            if (this == DataLists.getRailsReversed().get(i))
+//                return DataLists.getRailsReversed().get(i);
+//        return null;
+//    }
+
     public static void deleteRailById(String id) {
         for (int i = 0; i < DataLists.getRails().size(); i++)
             if (id.equalsIgnoreCase(DataLists.getRails().get(i).getCurrentId()))
