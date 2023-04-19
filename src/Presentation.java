@@ -44,14 +44,18 @@ public class Presentation {
 //        DataLists.printData(DataLists.getRails());
 //        System.out.println("######################");
 //        DataLists.printData(DataLists.getRailsReversed());
-        Thread t1 = new Thread(trainset1);
-        Thread t2 = new Thread(trainset2);
-        Files files = new Files();
-        Thread file = new Thread(files);
+//        Thread t1 = new Thread(trainset1);
+//        Thread t2 = new Thread(trainset2);
+//        Files files = new Files();
+//        Thread file = new Thread(files);
 
-        t1.start();
-        t2.start();
-
+//        t1.start();
+//        t2.start();
+        DataLists.printData(DataLists.getRails());
+        DataLists.printData(DataLists.getRailsReversed());
+        Rail.deleteRails(station0);
+        DataLists.printData(DataLists.getRails());
+        DataLists.printData(DataLists.getRailsReversed());
 //        DataLists.printData(DataLists.getTrainsets());
 //        Trainset.createTrainset();
 //        System.out.println(trainset1);

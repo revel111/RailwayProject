@@ -88,18 +88,11 @@ public class Station {
             }
         }
 
-        station.removeConnections();
-//        for (int i = 0; i < station.getIntersections().size(); i++) {
-//            Rail rail = new Rail(station, station.getIntersections().get(i), 0);
-//            Rail railReversed = new Rail(station.getIntersections().get(i), station, 0);
-//            Rail toFind = Rail.ifContains(rail);
-//            Rail toFindReversed = Rail.ifContainsReversed(railReversed);
-//            if (toFind != null) {
-//                DataLists.getRails().remove(toFind);
-//                DataLists.getRailsReversed().remove(toFindReversed);
-//            }
-//        }
+        for (int i = 0; i < station.getIntersections().size(); i++)
+            station.getIntersections().get(i).getIntersections().remove(station);
+        station.setIntersections(null);
 
+        Rail.deleteRails(station);
         DataLists.getStations().remove(station);
     }
 
@@ -114,12 +107,6 @@ public class Station {
             if (id.equalsIgnoreCase(DataLists.getStations().get(i).getCurrentId()))
                 return DataLists.getStations().get(i);
         return null;
-    }
-
-    public void removeConnections() {
-        for (int i = 0; i < this.getIntersections().size(); i++)
-            this.getIntersections().get(i).getIntersections().remove(this);
-        this.setIntersections(null);
     }
 
     public static Station createStationIfNull(String stringName) {

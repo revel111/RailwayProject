@@ -145,21 +145,24 @@ public class Rail {
                 }
             }
         }
+        Rail railReversed = new Rail(rail.getStation2(), rail.getStation1(), 0);
+        railReversed = Rail.ifContainsReversed(railReversed);
+        Station temp = rail.getStation1();
+        rail.getStation1().getIntersections().remove(rail.getStation2());
+        rail.getStation2().getIntersections().remove(temp);
 
-//            for (int i = 0; i < station.getIntersections().size(); i++) {
-//                Rail rail = new Rail(station, station.getIntersections().get(i), 0);
-//                Rail railReversed = new Rail(station.getIntersections().get(i), station, 0);
-//                Rail toFind = Rail.ifContains(rail);
-//                Rail toFindReversed = Rail.ifContainsReversed(railReversed);
-//                if (toFind != null) {
-//                    DataLists.getRails().remove(toFind);
-//                    DataLists.getRailsReversed().remove(toFindReversed);
-//                }
-//            }
-//        rail.getStation1().getIntersections().remove(rail.getStation2());
-//        rail.getStation2().getIntersections().remove(rail.getStation1());
+        DataLists.getRailsReversed().remove(railReversed);
         DataLists.getRails().remove(rail);
+    }
 
+    public static void deleteRails(Station station) {
+        for (int i = 0; i < DataLists.getRails().size(); i++)
+            if (DataLists.getRails().get(i).getStation1().getCurrentId().equals(station.getCurrentId()) || DataLists.getRails().get(i).getStation2().getCurrentId().equals(station.getCurrentId()))
+                DataLists.getRails().remove(i);
+
+        for (int i = 0; i < DataLists.getRailsReversed().size(); i++)
+            if (DataLists.getRailsReversed().get(i).getStation1().getCurrentId().equals(station.getCurrentId()) || DataLists.getRailsReversed().get(i).getStation2().getCurrentId().equals(station.getCurrentId()))
+                DataLists.getRailsReversed().remove(i);
     }
 
     public static void createRail(Station station1, Station station2, double distance) {

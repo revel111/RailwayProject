@@ -1,7 +1,6 @@
 package operations;
 
 import customVariables.Station;
-import customVariables.Trainset;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

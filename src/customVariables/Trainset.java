@@ -311,7 +311,9 @@ public class Trainset implements Runnable {
             String string = Files.ReadFile("trainsetnames.txt", 50);
             Locomotive locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
             ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
-            DataLists.getTrainsets().add(new Trainset(string, locomotive, cars));
+            Trainset trainset = new Trainset(string, locomotive, cars);
+            trainset.sortCarsByWeight();
+            DataLists.getTrainsets().add(trainset);
         }
     }
 
