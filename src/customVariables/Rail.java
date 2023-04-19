@@ -82,9 +82,10 @@ public class Rail {
             System.out.println("Enter 1 if you want to try to create rail again");
             System.out.println("Enter 0 if you want to stop creating rail");
             String ch = scanner.nextLine();
-            if (ch.equals("1"))
+            if (ch.equals("1")) {
                 createRail();
-            else
+                return;
+            } else
                 return;
         }
 
@@ -102,17 +103,6 @@ public class Rail {
                 return DataLists.getRails().get(i);
         return null;
     }
-
-//    public Rail findRailByRail() {
-//        for (int i = 0; i < DataLists.getRails().size(); i++)
-//            if (this == DataLists.getRails().get(i))
-//                return DataLists.getRails().get(i);
-//
-//        for (int i = 0; i < DataLists.getRailsReversed().size(); i++)
-//            if (this == DataLists.getRailsReversed().get(i))
-//                return DataLists.getRailsReversed().get(i);
-//        return null;
-//    }
 
     public static void deleteRailById(String id) {
         for (int i = 0; i < DataLists.getRails().size(); i++)
@@ -132,16 +122,20 @@ public class Rail {
             System.out.println("Enter something else if you want to stop deleting rail");
             String ch = scanner.nextLine();
 
-            if (ch.equals("1"))
+            if (ch.equals("1")) {
                 findRailById(id);
-            else
+                return;
+            } else
                 return;
         }
 
         for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
+            if (DataLists.getTrainsets().get(i).getRouteRails() == null)
+                continue;
             for (int j = 0; j < DataLists.getTrainsets().get(i).getRouteRails().size(); j++) {
                 if (DataLists.getTrainsets().get(i).getRouteRails().get(j) == rail) {
-                    System.out.println("We can not delete rail because it is in a route");
+                    System.out.println("We can not delete rail because it is in a route, we stopped the trainset, so enter try again later to delete");
+                    DataLists.getTrainsets().get(i).setAvailable(false);
                     return;
                 }
             }
@@ -159,11 +153,11 @@ public class Rail {
 
     public static void deleteRails(Station station) {
         for (int i = 0; i < DataLists.getRails().size(); i++)
-            if (DataLists.getRails().get(i).getStation1().getCurrentId().equals(station.getCurrentId()) || DataLists.getRails().get(i).getStation2().getCurrentId().equals(station.getCurrentId()))
+            if (DataLists.getRails().get(i).getStation1().getName().equals(station.getName()) || DataLists.getRails().get(i).getStation2().getName().equals(station.getName()))
                 DataLists.getRails().remove(i);
 
         for (int i = 0; i < DataLists.getRailsReversed().size(); i++)
-            if (DataLists.getRailsReversed().get(i).getStation1().getCurrentId().equals(station.getCurrentId()) || DataLists.getRailsReversed().get(i).getStation2().getCurrentId().equals(station.getCurrentId()))
+            if (DataLists.getRailsReversed().get(i).getStation1().getName().equals(station.getName()) || DataLists.getRailsReversed().get(i).getStation2().getName().equals(station.getName()))
                 DataLists.getRailsReversed().remove(i);
     }
 
@@ -217,7 +211,6 @@ public class Rail {
             Random random = new Random();
             int randomNumber = random.nextInt(6) + 5;
             int maxConnections = randomNumber;
-//            DataLists.getStations().get(i).setMaxConnection(maxConnections-DataLists.getStations().get(i).g);
 
             for (int j = 0; j < randomNumber; j++) {
                 int randomStation = random.nextInt(DataLists.getStations().size()) + 0;
@@ -229,7 +222,7 @@ public class Rail {
                     Rail railReversed = new Rail(DataLists.getStations().get(randomStation), DataLists.getStations().get(i), randomValue);
                     Rail toFind = ifContains(rail);
                     Rail toFindReversed = ifContainsReversed(railReversed);
-                    if (DataLists.getStations().get(i) == DataLists.getStations().get(randomStation) || toFind != null || toFindReversed != null)
+                    if (DataLists.getStations().get(i) == DataLists.getStations().get(randomStation) || toFind != null || toFindReversed != null || DataLists.getStations().get(randomStation).getIntersections().size() > 10)//
                         randomNumber++;
                     else {
                         rail.station1.getIntersections().add(rail.station2); // ready
@@ -237,7 +230,7 @@ public class Rail {
                         DataLists.getRails().add(rail);
                         DataLists.getRailsReversed().add(railReversed);
                         DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1); //???
-//                        DataLists.getStations().get(randomStation).setConnection(DataLists.getStations().get(randomStation).getConnection() + 1);
+                        DataLists.getStations().get(randomStation).setConnection(DataLists.getStations().get(randomStation).getConnection() + 1); // ydali
                     }
                 }
             }
@@ -252,6 +245,6 @@ public class Rail {
 
     @Override
     public String toString() {
-        return "Station 1: " + station1 + " Station 2: " + station2 + " Distance: " + distance;
+        return "Id: " + currentId + " Station 1: " + station1 + " Station 2: " + station2 + " Distance: " + distance;
     }
 }

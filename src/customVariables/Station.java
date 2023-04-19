@@ -55,13 +55,8 @@ public class Station {
         Station station = new Station(name);
     }
 
-//    public static void createIntersection(Station stationTo, Station station) {
-//        stationTo.getIntersections().add(station);
-//        station.getIntersections().add(stationTo);
-//    }
-
     public static void deleteStation() {
-        System.out.println("Deleting statiob");
+        System.out.println("Deleting station");
         System.out.println("Enter id of a station");
         DataLists.printData(DataLists.getStations());
         String id = scanner.nextLine();
@@ -73,16 +68,20 @@ public class Station {
             System.out.println("Enter something else if you want to stop deleting station");
             String ch = scanner.nextLine();
 
-            if (ch.equals("1"))
+            if (ch.equals("1")) {
                 deleteStation();
-            else
+                return;
+            } else
                 return;
         }
 
         for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
+            if (DataLists.getTrainsets().get(i).getRouteStations() == null)
+                continue;
             for (int j = 0; j < DataLists.getTrainsets().get(i).getRouteStations().size(); j++) {
                 if (DataLists.getTrainsets().get(i).getRouteStations().get(j) == station) {
-                    System.out.println("We can not delete station because it is in a route");
+                    System.out.println("We can not delete station because it is in a route, we stopped the trainset, so enter try again later to delete");
+                    DataLists.getTrainsets().get(i).setAvailable(false);
                     return;
                 }
             }
@@ -129,9 +128,10 @@ public class Station {
                 System.out.println("Enter something else if you want to stop creating station");
                 String ch1 = scanner.nextLine();
 
-                if (ch1.equals("1"))
+                if (ch1.equals("1")) {
                     Station.createStationIfNull(stringName);
-                else
+                    return null;
+                } else
                     return null;
         }
         return station;

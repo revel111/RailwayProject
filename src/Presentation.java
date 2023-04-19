@@ -23,7 +23,7 @@ public class Presentation {
         Station station5 = new Station("F");
         Station station6 = new Station("G");
 
-        Rail.createRail(station0, station1, 100);
+        Rail.createRail(station0, station1, 400);
         Rail.createRail(station0, station2, 150);
         Rail.createRail(station0, station3, 200);
         Rail.createRail(station1, station4, 150);
@@ -44,16 +44,18 @@ public class Presentation {
 //        DataLists.printData(DataLists.getRails());
 //        System.out.println("######################");
 //        DataLists.printData(DataLists.getRailsReversed());
-//        Thread t1 = new Thread(trainset1);
+        Thread t1 = new Thread(trainset1);
 //        Thread t2 = new Thread(trainset2);
 //        Files files = new Files();
 //        Thread file = new Thread(files);
-
+//        file.start();
 //        t1.start();
 //        t2.start();
-        DataLists.printData(DataLists.getRails());
-        DataLists.printData(DataLists.getRailsReversed());
-        Rail.deleteRails(station0);
+//        DataLists.printData(DataLists.getRails());
+//        DataLists.printData(DataLists.getRailsReversed());
+//        Rail.deleteRail();
+        Station.deleteStation();
+        DataLists.printData(DataLists.getStations());
         DataLists.printData(DataLists.getRails());
         DataLists.printData(DataLists.getRailsReversed());
 //        DataLists.printData(DataLists.getTrainsets());

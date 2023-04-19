@@ -12,6 +12,7 @@ public class Locomotive {
     private String name;
     private double speed = 0;
     private int curElecRailRoad;
+    private final double weight = 2000;
     private Station homeStation;
     private Station sourceStation;
     private Station destinationStation;
@@ -65,6 +66,10 @@ public class Locomotive {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 
     public void setSpeed(double speed) {
@@ -188,6 +193,18 @@ public class Locomotive {
         String id = scanner.nextLine();
         Locomotive locomotive = findLocomotiveById(id);
 
+        if (locomotive == null) {
+            System.out.println("There is no station with id " + id);
+            System.out.println("Enter 1 if you want to try to delete station again");
+            System.out.println("Enter something else if you want to stop deleting station");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1")) {
+                deleteLocomotive();
+                return;
+            } else
+                return;
+        }
 
     }
 
@@ -198,7 +215,7 @@ public class Locomotive {
         Station sourceStation = Station.chooseRandomStation();
         Station destinationStation = Station.chooseRandomStation();
 
-        if(sourceStation.equals(destinationStation))
+        if (sourceStation.equals(destinationStation))
             generateLocomotiveRandomly(name, number);
         return new Locomotive(string, homeStation, sourceStation, destinationStation);
     }

@@ -17,9 +17,10 @@ public class Trainset implements Runnable {
     private ArrayList<Car> cars; //10
     private ArrayList<Station> routeStations;
     private ArrayList<Rail> routeRails;
-    private double weight = 1000;
+    private double weight = 0;
+    private boolean isAvailable;
     private Rail currentRail;
-    private final double maxWeight = 10000;
+    private final double maxWeight = 15000;
     private double wholeDistance = 0;
     private double currentDistance = 0;
 
@@ -48,6 +49,14 @@ public class Trainset implements Runnable {
 
     public Locomotive getLocomotive() {
         return locomotive;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     public double getWeight() {
@@ -133,9 +142,10 @@ public class Trainset implements Runnable {
                     System.out.println("Enter something else if you want to stop creating trainset");
                     String ch1 = scanner.nextLine();
 
-                    if (ch1.equals("1"))
+                    if (ch1.equals("1")) {
                         Trainset.createTrainset();
-                    else
+                        return;
+                    } else
                         return;
                 } else
                     Locomotive.deleteLocomotiveById(locomotive.getCurrentId());
@@ -151,6 +161,7 @@ public class Trainset implements Runnable {
         String name = scanner.nextLine();
 
         Trainset trainset = new Trainset(name, locomotive, cars);
+        trainset.setWeight(locomotive.getWeight());
 
         while (true) {
             System.out.println("Enter 1 if you want to create new car");
@@ -191,9 +202,10 @@ public class Trainset implements Runnable {
                         System.out.println("Enter something else if you want to stop creating trainset");
                         String ch1 = scanner.nextLine();
 
-                        if (ch1.equals("1"))
+                        if (ch1.equals("1")) {
                             Trainset.createTrainset();
-                        else
+                            return;
+                        } else
                             return;
                     } else {
                         Car.deleteCarById(car.getCurrentId());
@@ -231,9 +243,10 @@ public class Trainset implements Runnable {
                     System.out.println("Enter 1 if you want to try to create trainset again");
                     System.out.println("Enter something else if you want to stop creating trainset");
                     String ch1 = scanner.nextLine();
-                    if (ch1.equals("1"))
+                    if (ch1.equals("1")) {
                         Trainset.createTrainset();
-                    else
+                        return;
+                    } else
                         return;
                 }
             }
@@ -255,9 +268,10 @@ public class Trainset implements Runnable {
                     System.out.println("Enter something else if you want to stop creating trainset");
                     String ch1 = scanner.nextLine();
 
-                    if (ch1.equals("1"))
+                    if (ch1.equals("1")) {
                         Trainset.createTrainset();
-                    else
+                        return;
+                    } else
                         return;
             }
         }
@@ -334,9 +348,10 @@ public class Trainset implements Runnable {
                 System.out.println("Enter 1 if you want to try to attach car again");
                 System.out.println("Enter something else if you want to stop attaching car");
                 String ch1 = scanner.nextLine();
-                if (ch1.equals("1"))
+                if (ch1.equals("1")) {
                     this.attachCar();
-                else
+                    return;
+                } else
                     return;
         }
     }
@@ -362,11 +377,15 @@ public class Trainset implements Runnable {
             System.out.println("Enter something else if you want to stop creating trainset");
             String ch1 = scanner.nextLine();
 
-            if (ch1.equals("1"))
+            if (ch1.equals("1")) {
                 this.unhookCar();
-            else
+                return;
+            } else
                 return;
         } else {
+            this.setWeight(this.getWeight() - car.getWeightBrutto());
+            if (car.isGridConnection())
+                this.getLocomotive().setCurElecRailRoad(this.getLocomotive().getCurElecRailRoad() - 1);
             this.getCars().remove(car);
             this.sortCarsByWeight();
         }
@@ -384,9 +403,10 @@ public class Trainset implements Runnable {
             System.out.println("Enter something else if you want to stop deleting trainset");
             String ch = scanner.nextLine();
 
-            if (ch.equals("1"))
+            if (ch.equals("1")) {
                 deleteTrainset();
-            else
+                return;
+            } else
                 return;
         }
 
@@ -450,6 +470,11 @@ public class Trainset implements Runnable {
             Locomotive locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
             ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
             Trainset trainset = new Trainset(string, locomotive, cars);
+
+            for (int j = 0; j < cars.size(); j++)
+                trainset.setWeight(trainset.getWeight() + cars.get(i).getWeightBrutto());
+
+            trainset.setWeight(locomotive.getWeight() + trainset.getWeight());
             trainset.sortCarsByWeight();
             DataLists.getTrainsets().add(trainset);
         }
@@ -459,10 +484,8 @@ public class Trainset implements Runnable {
         this.generateRoute();
         ArrayList<Rail> rails = new ArrayList<>();
 
-        if (this.getRouteStations() == null) {
-//            this.generateStationsForTrainset();
+        if (this.getRouteStations() == null)
             return;
-        }
 
         for (int i = 0; i < this.getRouteStations().size(); i++) {
             Random random = new Random();
@@ -479,14 +502,11 @@ public class Trainset implements Runnable {
 
             Rail toFind = Rail.ifContains(rail);
             Rail toFindReversed = Rail.ifContainsReversed(rail);
-            if (toFind != null) {
+            if (toFind != null)
                 rail = toFind;
-//                trainset.setDistance(trainset.getDistance() + rail.distance);
-            } else if (toFindReversed != null) {
+            else if (toFindReversed != null)
                 rail = toFindReversed;
-//                trainset.setDistance(trainset.getDistance() + rail.distance);
-            } else {
-//                trainset.setDistance(trainset.getDistance() + rail.distance);
+            else {
                 DataLists.getRails().add(rail);
                 rail.getStation1().getIntersections().add(rail.getStation2()); // ready
                 rail.getStation2().getIntersections().add(rail.getStation1());
@@ -527,10 +547,10 @@ public class Trainset implements Runnable {
                 return;
             }
         }
-        getLocomotive().setSpeed(200.0);
+        getLocomotive().setSpeed(50.0);
+        double distanceWtmp = this.getWholeDistance();
 
         for (int i = 0; i < routeRails.size(); i++) {
-//            Rail temp = routeRails.get(i).findRailByRail();
             while (!routeRails.get(i).getisAvailable()) {
                 try {
                     System.out.println(this.getName() + " is waiting...");
@@ -541,22 +561,18 @@ public class Trainset implements Runnable {
             }
             this.setCurrentRail(routeRails.get(i));
             routeRails.get(i).setAvailable(false);
-//            Trainset.setRailIsAvailable(routeRails.get(i), false);
             double distanceBetween = routeRails.get(i).getDistance();
             double distanceTmp = distanceBetween;
-            double distanceWhole = this.getWholeDistance();
-
+            double distanceWhole = +routeRails.get(i).getDistance();
 
             while (distanceBetween > 0) {
                 distanceBetween -= this.getLocomotive().getSpeed();
-//                this.setWholeDistance(distanceWhole - distanceBetween * 100 / this.getWholeDistance());
-//                this.setCurrentDistance(distanceBetween * 100 / distanceTmp);
-//
-//                if(this.getWholeDistance() < 0)
-//                    this.setWholeDistance(0);
-////                if(this.getCurrentDistance() < 0)
-////                    this.setCurrentDistance(0);
-
+                this.setWholeDistance(distanceWhole / distanceWtmp * 100);
+                this.setCurrentDistance(distanceBetween / distanceTmp * 100);
+                if (this.getWholeDistance() < 0)
+                    this.setWholeDistance(0);
+                if (this.getCurrentDistance() < 0)
+                    this.setCurrentDistance(0);
 
                 try {
                     Thread.sleep(1000);
@@ -580,7 +596,6 @@ public class Trainset implements Runnable {
                     }
             }
             routeRails.get(i).setAvailable(true);
-//            Trainset.setRailIsAvailable(routeRails.get(i), true);
             if (this.getLocomotive().getDestinationStation() == routeRails.get(i).getStation2())
                 System.out.println("Trainset " + this.getName() + " is on destination station " + this.getLocomotive().getDestinationStation().getName());
             else
@@ -596,25 +611,16 @@ public class Trainset implements Runnable {
         Station temp = this.getLocomotive().getSourceStation();
         this.getLocomotive().setSourceStation(this.getLocomotive().getDestinationStation());
         this.getLocomotive().setDestinationStation(temp);
-//        this.generateStationsForTrainset();
 
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        this.run();
-    }
 
-//    public static void setRailIsAvailable(Rail rail, boolean bool) {
-//        for (int i = 0; i < DataLists.getRails().size(); i++)
-//            if (rail == DataLists.getRails().get(i))
-//                DataLists.getRails().get(i).setAvailable(bool);
-//
-//        for (int i = 0; i < DataLists.getRailsReversed().size(); i++)
-//            if (rail == DataLists.getRailsReversed().get(i))
-//                DataLists.getRailsReversed().get(i).setAvailable(bool);
-//    }
+        if (this.isAvailable)
+            run();
+    }
 
     @Override
     public String toString() {

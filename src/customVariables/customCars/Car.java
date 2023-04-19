@@ -204,9 +204,10 @@ abstract public class Car {
                 System.out.println("Enter something else if you want to stop creating car");
                 String ch1 = scanner.nextLine();
 
-                if (ch1.equals("1"))
+                if (ch1.equals("1")) {
                     Car.createCarForTrainest();
-                else
+                    return null;
+                } else
                     return null;
         }
         return car;

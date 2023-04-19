@@ -68,7 +68,7 @@ public class BaggageCar extends Car {
                 throw new TooManyException("There are no such weight of baggage");
             else {
                 this.baggageWeight -= baggageOut;
-                this.setWeightBrutto(this.weightNetto - (baggageOut * 2));
+                this.setWeightBrutto(this.getWeightBrutto() - (baggageOut * 2));
             }
         } catch (TooManyException e) {
             System.out.println("Enter 1 if you want to try to delete baggage again");
