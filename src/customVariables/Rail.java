@@ -67,6 +67,7 @@ public class Rail {
 
     public static void createRail() {
         System.out.println("Enter id of a first station");
+        DataLists.printData(DataLists.getStations());
         String id1 = scanner.nextLine();
         Station station1 = Station.findStationByID(id1);
         System.out.println("Enter id of a second station");
@@ -120,8 +121,8 @@ public class Rail {
     }
 
     public static void deleteRail() {
-        System.out.println("Deleting rail");
-        System.out.println("Enter id of a rail");
+        System.out.println("Enter id of a rail to delete");
+        DataLists.printData(DataLists.getRails());
         String id = scanner.nextLine();
         Rail rail = findRailById(id);
 
@@ -145,6 +146,7 @@ public class Rail {
                 }
             }
         }
+
         Rail railReversed = new Rail(rail.getStation2(), rail.getStation1(), 0);
         railReversed = Rail.ifContainsReversed(railReversed);
         Station temp = rail.getStation1();

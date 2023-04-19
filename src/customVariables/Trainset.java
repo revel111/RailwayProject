@@ -208,6 +208,7 @@ public class Trainset implements Runnable {
                             }
                         } catch (TooManyCarsException e) {
                             System.out.println(e.getMessage());
+                            trainset.sortCarsByWeight();
                             DataLists.getTrainsets().add(trainset);
                             return;
                         }
@@ -216,7 +217,9 @@ public class Trainset implements Runnable {
                 case "3" -> {
                     cars = null;
                     cars = Car.generateCarRandomly("shippingnames.txt", 100);
-                    DataLists.getTrainsets().add(new Trainset(name, locomotive, cars));
+                    Trainset trainset1 = new Trainset(name, locomotive, cars);
+                    trainset1.sortCarsByWeight();
+                    DataLists.getTrainsets().add(trainset1);
                     return;
                 }
                 case "0" -> {
@@ -243,6 +246,7 @@ public class Trainset implements Runnable {
                 case "1":
                     break;
                 case "0":
+                    trainset.sortCarsByWeight();
                     DataLists.getTrainsets().add(trainset);
                     return;
                 default:
@@ -257,6 +261,140 @@ public class Trainset implements Runnable {
                         return;
             }
         }
+    }
+
+    public void attachCar() {
+        if (this.getRouteRails() != null) {
+            System.out.println("The train is moving so we can not attach the car");
+            return;
+        }
+        System.out.println("Enter 1 if you want to create new car to attach");
+        System.out.println("Enter 2 if you want to choose particular car");
+        System.out.println("Enter 0 if you want to exit");
+        String ch = scanner.nextLine();
+        Car car = null;
+
+        switch (ch) {
+            case "1":
+                car = Car.createCarForTrainest();
+                if (car == null)
+                    return;
+                try {
+                    if (this.getWeight() + car.getWeightBrutto() >= this.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 2)
+                        throw new TooManyCarsException();
+                    else {
+                        this.setWeight(car.getWeightBrutto() + this.getWeight());
+                        if (car.isGridConnection())
+                            locomotive.setCurElecRailRoad(locomotive.getCurElecRailRoad() + 1);
+                        cars.add(car);
+                    }
+                } catch (TooManyCarsException e) {
+                    System.out.println(e.getMessage());
+                    DataLists.getTrainsets().add(this);
+                    return;
+                }
+            case "2":
+                System.out.println("Enter car's id");
+                DataLists.printData(DataLists.getCars());
+                String id = scanner.nextLine();
+                car = Car.findCarById(id);
+                if (car == null) {
+                    System.out.println("Wrong input");
+                    System.out.println("Enter 1 if you want to try to create trainset again");
+                    System.out.println("Enter something else if you want to stop creating trainset");
+                    String ch1 = scanner.nextLine();
+
+                    if (ch1.equals("1"))
+                        this.attachCar();
+                    else
+                        return;
+                } else {
+                    Car.deleteCarById(car.getCurrentId());
+                    try {
+                        if (this.getWeight() + car.getWeightBrutto() >= this.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 2)
+                            throw new TooManyCarsException();
+                        else {
+                            this.setWeight(car.getWeightBrutto() + this.getWeight());
+                            if (car.isGridConnection())
+                                locomotive.setCurElecRailRoad(locomotive.getCurElecRailRoad() + 1);
+                            cars.add(car);
+                        }
+                    } catch (TooManyCarsException e) {
+                        System.out.println(e.getMessage());
+                        this.sortCarsByWeight();
+                        DataLists.getTrainsets().add(this);
+                        return;
+                    }
+                }
+            case "0":
+                System.out.println("You stopped attaching car");
+                return;
+            default:
+                System.out.println("Wrong input");
+                System.out.println("Enter 1 if you want to try to attach car again");
+                System.out.println("Enter something else if you want to stop attaching car");
+                String ch1 = scanner.nextLine();
+                if (ch1.equals("1"))
+                    this.attachCar();
+                else
+                    return;
+        }
+    }
+
+    public void unhookCar() {
+        if (this.getRouteRails() != null) {
+            System.out.println("The trainset is moving so we can not unhook the car");
+            return;
+        }
+
+        System.out.println("Enter id of car which you want to unhook");
+        String id = scanner.nextLine();
+        String string = DataLists.printCarsT(this);
+        Car car = null;
+
+        for (int i = 0; i < this.getCars().size(); i++)
+            if (this.getCars().get(i).equals(id))
+                car = getCars().get(i);
+
+        if (car == null) {
+            System.out.println("Wrong input");
+            System.out.println("Enter 1 if you want to try to create trainset again");
+            System.out.println("Enter something else if you want to stop creating trainset");
+            String ch1 = scanner.nextLine();
+
+            if (ch1.equals("1"))
+                this.unhookCar();
+            else
+                return;
+        } else {
+            this.getCars().remove(car);
+            this.sortCarsByWeight();
+        }
+    }
+
+    public static void deleteTrainset() {
+        System.out.println("Enter id of a trainset you want to delete");
+        DataLists.printData(DataLists.getTrainsets());
+        String id = scanner.nextLine();
+        Trainset trainset = findTrainsetById(id);
+
+        if (trainset == null) {
+            System.out.println("There is no trainset with id " + id);
+            System.out.println("Enter 1 if you want to try to delete trainset again");
+            System.out.println("Enter something else if you want to stop deleting trainset");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                deleteTrainset();
+            else
+                return;
+        }
+
+        if (trainset.getRouteRails() != null) {
+            System.out.println("We can not delete trainset because it is moving");
+            return;
+        } else
+            DataLists.getTrainsets().remove(trainset);
     }
 
     public static void deleteTrainsetById(String id) {
@@ -358,15 +496,6 @@ public class Trainset implements Runnable {
             rails.add(rail);
             this.setWholeDistance(this.getWholeDistance() + rail.getDistance());
         }
-    }
-
-    public void printRouteSet() {
-        StringBuilder string = new StringBuilder();
-
-        for (int i = 0; i < getRouteRails().size(); i++)
-            string.append(getRouteRails().get(i).toString()).append("\n");
-
-        System.out.println(string);
     }
 
 //    public void generateStationsForTrainset() {

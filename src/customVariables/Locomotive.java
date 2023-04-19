@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Locomotive {
     private static final Scanner scanner = new Scanner(System.in);
     private String name;
-    private double speed = 100;
+    private double speed = 0;
     private int curElecRailRoad;
     private Station homeStation;
     private Station sourceStation;
@@ -180,6 +180,15 @@ public class Locomotive {
         Locomotive locomotive = new Locomotive(name, homeStation, sourceStation, destinationStation);
 
         return locomotive;
+    }
+
+    public static void deleteLocomotive() {
+        System.out.println("Enter id of a locomotive you want to delete");
+        DataLists.printData(DataLists.getTrainsets());
+        String id = scanner.nextLine();
+        Locomotive locomotive = findLocomotiveById(id);
+
+
     }
 
     public static Locomotive generateLocomotiveRandomly(String name, int number) {

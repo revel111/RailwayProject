@@ -59,6 +59,7 @@ public class DataLists {
     }
 
     public static <T> void printData(ArrayList<T> arrayList) {
+        System.out.println();
         for (T t : arrayList)
             System.out.println(t.toString());
         System.out.println();
