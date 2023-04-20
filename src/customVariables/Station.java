@@ -108,12 +108,6 @@ public class Station {
         DataLists.getStations().remove(station);
     }
 
-    public static void deleteStationById(String id) {
-        for (int i = 0; i < DataLists.getStations().size(); i++)
-            if (id.equalsIgnoreCase(DataLists.getStations().get(i).getCurrentId()))
-                DataLists.getStations().remove(i);
-    }
-
     public static Station findStationByID(String id) {
         for (int i = 0; i < DataLists.getStations().size(); i++)
             if (id.equalsIgnoreCase(DataLists.getStations().get(i).getCurrentId()))
@@ -121,38 +115,38 @@ public class Station {
         return null;
     }
 
-    public static Station createStationIfNull(String stringName) {
-        System.out.println("Enter 1 if you want to create station with name " + stringName);
-        System.out.println("Enter 0 if you want to stop creating station");
-        String ch = scanner.nextLine();
-        Station station = null;
+//    public static Station createStationIfNull(String stringName) { //create station if it does not exist
+//        System.out.println("Enter 1 if you want to create station with name " + stringName);
+//        System.out.println("Enter 0 if you want to stop creating station");
+//        String ch = scanner.nextLine();
+//        Station station = null;
+//
+//        for (int i = 0; i < DataLists.getStations().size(); i++)
+//            if (DataLists.getStations().get(i).getName().equalsIgnoreCase(stringName))
+//                return null;
+//
+//        switch (ch) {
+//            case "1" -> {
+//                station = new Station(stringName);
+//            }
+//            case "0" -> {
+//                System.out.println("You stopped creating station");
+//                return null;
+//            }
+//            default -> {
+//                System.out.println("Wrong input");
+//                System.out.println("Enter 1 if you want to try to create station again");
+//                System.out.println("Enter something else if you want to stop creating station");
+//                String ch1 = scanner.nextLine();
+//                if (ch1.equals("1"))
+//                    Station.createStationIfNull(stringName);
+//                return null;
+//            }
+//        }
+//        return station;
+//    }
 
-        for (int i = 0; i < DataLists.getStations().size(); i++)
-            if (DataLists.getStations().get(i).getName().equalsIgnoreCase(stringName))
-                return null;
-
-        switch (ch) {
-            case "1" -> {
-                station = new Station(stringName);
-            }
-            case "0" -> {
-                System.out.println("You stopped creating station");
-                return null;
-            }
-            default -> {
-                System.out.println("Wrong input");
-                System.out.println("Enter 1 if you want to try to create station again");
-                System.out.println("Enter something else if you want to stop creating station");
-                String ch1 = scanner.nextLine();
-                if (ch1.equals("1"))
-                    Station.createStationIfNull(stringName);
-                return null;
-            }
-        }
-        return station;
-    }
-
-    public static void generateRandomStation() {
+    public static void generateRandomStation() { // random stations generation
         Station station = null;
         Set<String> set = new HashSet<>();
         for (int i = 0; i < 100; i++) {
@@ -160,7 +154,7 @@ public class Station {
         }
     }
 
-    public static Station chooseRandomStation() {
+    public static Station chooseRandomStation() { //choose random station for locomotive
         Random random = new Random();
         int randomValue = random.nextInt(DataLists.getStations().size()) + 0;
 

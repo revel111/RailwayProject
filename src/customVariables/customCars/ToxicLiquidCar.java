@@ -11,6 +11,8 @@ public class ToxicLiquidCar extends Car implements HeavyFreightInter {
     private static final Scanner scanner = new Scanner(System.in);
     private final double maxFill = 2000;
     private double fill = 0;
+    private double weightNetto = 2000;
+    private double weightBrutto = weightNetto;
 
     public ToxicLiquidCar(String shipper) {
         this.setGridConnection(false);
@@ -31,13 +33,23 @@ public class ToxicLiquidCar extends Car implements HeavyFreightInter {
     }
 
     @Override
+    public double getWeightBrutto() {
+        return weightBrutto;
+    }
+
+    @Override
+    public void setWeightBrutto(double weightBrutto) {
+        this.weightBrutto = weightBrutto;
+    }
+
+    @Override
     public void fillCar() throws TooManyException {
         System.out.println("Enter weight of toxic liquid to add");
         double toxicIn = scanner.nextDouble();
         scanner.nextLine();
 
         try {
-            if (this.getWeightBrutto() + toxicIn > getMaxFill())
+            if (this.getWeightBrutto() + toxicIn > maxFill)
                 throw new TooManyException("Too many toxic liquid");
             else {
                 this.fill += toxicIn;
@@ -86,6 +98,6 @@ public class ToxicLiquidCar extends Car implements HeavyFreightInter {
 
     @Override
     public String toString() {
-        return super.toString() + "; Current amount of weight " + getFill();
+        return super.toString() + "; Current weight " + fill;
     }
 }

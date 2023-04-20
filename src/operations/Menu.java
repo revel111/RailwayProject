@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class Menu {
     private static final Scanner scanner = new Scanner(System.in);
-    boolean isAvailable = true;
 
     public static void menu() throws TooManyCarsException, TooManyException {
         while (true) {
@@ -38,64 +37,30 @@ public class Menu {
             String ch = scanner.nextLine();
 
             switch (ch) {
-                case "1":
-                    Station.createStation();
-                    break;
-                case "2":
-                    Rail.createRail();
-                    break;
-                case "3":
-                    Locomotive.createLocomotive();
-                    break;
-                case "4":
-                    Car.createCar();
-                    break;
-                case "5":
-                    Trainset.createTrainset();
-                    break;
-                case "6":
-                    Trainset.manageTrainset();
-                    break;
-                case "7":
-                    Trainset.launchTrainset();
-                    break;
-                case "8":
-                    Station.deleteStation();
-                    break;
-                case "9":
-                    Rail.deleteRail();
-                    break;
-                case "10":
-                    Locomotive.deleteLocomotive();
-                    break;
-                case "11":
-                    Car.deleteCar();
-                    break;
-                case "12":
-                    Trainset.deleteTrainset();
-                    break;
-                case "13":
-                    DataLists.printData(DataLists.getStations());
-                    break;
-                case "14":
-                    DataLists.printData(DataLists.getRails());
-                    DataLists.printData(DataLists.getRailsReversed());
-                    break;
-                case "15":
-                    DataLists.printData(DataLists.getLocomotives());
-                    break;
-                case "16":
-                    DataLists.printData(DataLists.getCars());
-                    break;
-                case "17":
-                    DataLists.printData(DataLists.getTrainsets());
-                    break;
-                case "0":
+                case "1" -> Station.createStation();
+                case "2" -> Rail.createRail();
+                case "3" -> Locomotive.createLocomotive();
+                case "4" -> Car.createCar();
+                case "5" -> Trainset.createTrainset();
+                case "6" -> Trainset.manageTrainset();
+                case "7" -> Trainset.launchTrainset();
+                case "8" -> Station.deleteStation();
+                case "9" -> Rail.deleteRail();
+                case "10" -> Locomotive.deleteLocomotive();
+                case "11" -> Car.deleteCar();
+                case "12" -> Trainset.deleteTrainset();
+                case "13" -> DataLists.printData(DataLists.getStations());
+                case "14" -> DataLists.printData(DataLists.getRails());
+                case "15" -> DataLists.printData(DataLists.getLocomotives());
+                case "16" -> DataLists.printData(DataLists.getCars());
+                case "17" -> DataLists.printData(DataLists.getTrainsets());
+                case "0" -> {
+                    DataLists.getFiles().interrupt();
                     for (int i = 0; i < DataLists.getThreads().size(); i++)
                         DataLists.getThreads().get(i).interrupt();
-                    return;
-                default:
-                    System.out.println("Wrong input");
+                    System.exit(0);
+                }
+                default -> System.out.println("Wrong input");
             }
         }
     }

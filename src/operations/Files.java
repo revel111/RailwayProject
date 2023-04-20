@@ -10,10 +10,9 @@ import java.util.Random;
 import java.util.Set;
 
 public class Files extends Thread {
-    public Files() {
-    }
+    public Files() {}
 
-    public static String ReadFile(String type, int number) {
+    public static String ReadFile(String type, int number) { // function for convenient file reading for random generation of locomotive, shipping, trainset names
         String fileName = "src/txtfiles/" + type;
         Random random = new Random();
         int randomNumber = random.nextInt(number) + 1;
@@ -33,7 +32,7 @@ public class Files extends Thread {
         return name;
     }
 
-    public static String ReadFileStations(Set<String> set) {
+    public static String ReadFileStations(Set<String> set) { // function for convenient file reading for random generation of station names (names must be unique)
         String fileName = "src/txtfiles/stationnames.txt";
         Random random = new Random();
         int randomNumber = random.nextInt(121) + 1;
@@ -62,7 +61,7 @@ public class Files extends Thread {
     }
 
     @Override
-    public void run() {
+    public void run() { // function for AppState
         while (true) {
             try (FileWriter bw = new FileWriter("src/txtfiles/AppState.txt", true)) {
                 DataLists.sortTrainsetsByDistance();
@@ -71,12 +70,12 @@ public class Files extends Thread {
                 }
                 bw.write("\n");
             } catch (IOException e) {
-                System.out.println("...");
+                System.out.println(" ");
             }
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                System.out.println("...");
+                System.out.println(" ");
             }
         }
     }

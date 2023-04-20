@@ -1,7 +1,5 @@
 package customVariables.customCars;
 
-import customVariables.Station;
-import customVariables.Trainset;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 import operations.Files;
@@ -14,7 +12,7 @@ import java.util.Scanner;
 abstract public class Car {
     private static final Scanner scanner = new Scanner(System.in);
     private String shipper;
-    private boolean gridConnection; //5
+    private boolean gridConnection;
     private double weightNetto;
     private double weightBrutto;
     protected static int id = 0;
@@ -267,7 +265,7 @@ abstract public class Car {
 
     @Override
     public String toString() {
-        String string = "Shipper: " + shipper + "; Id: " + currentId + "; Weight: " + weightBrutto;
+        String string = "Shipper: " + shipper + "; Id: " + currentId + "; Weight: " + getWeightBrutto();
 
         if (!gridConnection)
             string += "; No grid locomotive’s electrical grid required";

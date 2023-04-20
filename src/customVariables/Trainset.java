@@ -15,7 +15,7 @@ public class Trainset extends Thread {
     private static int id = 0;
     private String currentId;
     private Locomotive locomotive;
-    private ArrayList<Car> cars; //10
+    private ArrayList<Car> cars;
     private ArrayList<Station> routeStations;
     private ArrayList<Rail> routeRails;
     private double weight = 0;
@@ -70,10 +70,6 @@ public class Trainset extends Thread {
 
     public void setCurrentDistance(double currentDistance) {
         this.currentDistance = currentDistance;
-    }
-
-    public void setCars(ArrayList<Car> cars) {
-        this.cars = cars;
     }
 
     public double getMaxWeight() {
@@ -272,7 +268,7 @@ public class Trainset extends Thread {
         }
     }
 
-    public static void launchTrainset() {
+    public static void launchTrainset() { // launch trainset
         DataLists.printData(DataLists.getTrainsets());
         System.out.println("Enter id of a trainset");
         String id = scanner.nextLine();
@@ -414,12 +410,6 @@ public class Trainset extends Thread {
         DataLists.getTrainsets().remove(trainset);
     }
 
-    public static void deleteTrainsetById(String id) {
-        for (int i = 0; i < DataLists.getTrainsets().size(); i++)
-            if (id.equalsIgnoreCase(DataLists.getTrainsets().get(i).getCurrentId()))
-                DataLists.getTrainsets().remove(i);
-    }
-
     public static Trainset findTrainsetById(String id) {
         for (int i = 0; i < DataLists.getTrainsets().size(); i++)
             if (id.equalsIgnoreCase(DataLists.getTrainsets().get(i).getCurrentId()))
@@ -427,7 +417,7 @@ public class Trainset extends Thread {
         return null;
     }
 
-    public static void manageTrainset() throws TooManyException {
+    public static void manageTrainset() throws TooManyException { // function which allows us to deal with cars
         System.out.println("Enter id of a trainset you want to manage");
         DataLists.printData(DataLists.getTrainsets());
         String id = scanner.nextLine();
@@ -525,7 +515,7 @@ public class Trainset extends Thread {
         cars.sort(Comparator.comparingDouble(Car::getWeightBrutto));
     }
 
-    public void generateRoute() {
+    public void generateRoute() { // creating path(stations) for trainset
         Set<Station> visited = new HashSet<>();
         ArrayList<Station> route = new ArrayList<>();
 
@@ -536,7 +526,7 @@ public class Trainset extends Thread {
             this.setRouteStations(route);
     }
 
-    public static boolean generateRouteFind(Station current, Station end, Set<Station> visited, ArrayList<Station> route) {
+    public static boolean generateRouteFind(Station current, Station end, Set<Station> visited, ArrayList<Station> route) { // creating path(stations) for trainset
         visited.add(current);
         route.add(current);
         if (current == end)
@@ -551,7 +541,7 @@ public class Trainset extends Thread {
     }
 
     public static void generateTrainsetsRandomly() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 25; i++) {
             String string = Files.ReadFile("trainsetnames.txt", 50);
             Locomotive locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
             ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
@@ -573,7 +563,7 @@ public class Trainset extends Thread {
         }
     }
 
-    public void createRail() {
+    public void createRail() { // creating path(rails) for trainset
         this.generateRoute();
         ArrayList<Rail> rails = new ArrayList<>();
 
@@ -601,7 +591,7 @@ public class Trainset extends Thread {
                 rail = toFindReversed;
             else {
                 DataLists.getRails().add(rail);
-                rail.getStation1().getIntersections().add(rail.getStation2()); // ready
+                rail.getStation1().getIntersections().add(rail.getStation2());
                 rail.getStation2().getIntersections().add(rail.getStation1());
                 Rail railRev = new Rail(station2, station1, randomVal);
                 DataLists.getRailsReversed().add(railRev);
@@ -610,25 +600,6 @@ public class Trainset extends Thread {
             this.setWholeDistance(this.getWholeDistance() + rail.getDistance());
         }
     }
-
-//    public void generateStationsForTrainset() {
-//        Random random = new Random();
-//        int randomStation1 = random.nextInt(DataLists.getStations().size() - 0) + 0;
-//        if (this.getLocomotive().getDestinationStation() == null) {
-//            if (this.getLocomotive().getSourceStation() == DataLists.getStations().get(randomStation1) || DataLists.getStations().get(randomStation1).getIntersections().size() == 0)
-//                generateStationsForTrainset();
-//            else
-//                this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation1));
-//        } else {
-//            int randomStation2 = random.nextInt(DataLists.getStations().size() - 0) + 0;
-//            if (randomStation1 == randomStation2 || DataLists.getStations().get(randomStation2).getIntersections().size() == 0)
-//                generateStationsForTrainset();
-//            else {
-//                this.getLocomotive().setSourceStation(DataLists.getStations().get(randomStation1));
-//                this.getLocomotive().setDestinationStation(DataLists.getStations().get(randomStation2));
-//            }
-//        }
-//    }
 
     @Override
     public void run() {
@@ -641,7 +612,7 @@ public class Trainset extends Thread {
                 return;
             }
         }
-        getLocomotive().setSpeed(100.0);
+        getLocomotive().setSpeed(140.0);
         double distanceWtmp = this.getWholeDistance();
 
         for (int i = 0; i < routeRails.size(); i++) {
@@ -707,7 +678,7 @@ public class Trainset extends Thread {
         this.getLocomotive().setDestinationStation(temp);
 
         try {
-            Thread.sleep(10000);
+            Thread.sleep(30000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

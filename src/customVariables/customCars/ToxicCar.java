@@ -85,6 +85,6 @@ public class ToxicCar extends HeavyFreight {
 
     @Override
     public String toString() {
-        return super.toString() + "; Current fillness: " + getFill();
+        return super.toString();
     }
 }

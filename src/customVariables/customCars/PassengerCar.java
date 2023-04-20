@@ -74,11 +74,6 @@ public class PassengerCar extends Car {
         }
     }
 
-//    public static void createPassengerCar() {
-//        PassengerCar passengerCar = new PassengerCar();
-//        DataLists.getCars().add(passengerCar);
-//    }
-
     public static Runnable createPassengerCar() {
         System.out.println("Enter name of a shipper");
         String shipper = scanner.nextLine();

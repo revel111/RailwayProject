@@ -3,11 +3,9 @@ package customVariables.customCars;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class BaggageCar extends Car {
-
     private static Scanner scanner = new Scanner(System.in);
     private final double weightNetto = 900;
     private double weightBrutto = weightNetto;

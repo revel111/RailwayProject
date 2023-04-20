@@ -2,14 +2,14 @@ package customVariables.customExtra;
 
 
 public interface HeavyFreightInter {
-    public void fillCar() throws TooManyException;
+    void fillCar() throws TooManyException;
 
-    public void emptyCar();
+    void emptyCar();
 
-    public double getFill();
-    public double getMaxFill();
+    double getFill();
+    double getMaxFill();
 
-    public static Runnable createToxicLiquid() {
+    static Runnable createToxicLiquid() {
         return null;
     }
 }

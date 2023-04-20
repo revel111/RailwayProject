@@ -17,6 +17,12 @@ public class DataLists {
     private static ArrayList<Rail> railsReversed = new ArrayList<>();
     private static ArrayList<Trainset> threads = new ArrayList<>();
 
+    public static Files files = new Files();
+
+    public static Files getFiles() {
+        return files;
+    }
+
     public static ArrayList<Rail> getRails() {
         return rails;
     }
@@ -33,10 +39,6 @@ public class DataLists {
         return threads;
     }
 
-    public static void setThreads(ArrayList<Trainset> threads) {
-        DataLists.threads = threads;
-    }
-
     public static ArrayList<Station> getStations() {
         return stations;
     }
@@ -49,7 +51,8 @@ public class DataLists {
         return trainsets;
     }
 
-    public static void initializeLists() {
+
+    public static void initializeLists() { // function for lists initialization
         locomotives = new ArrayList<>();
         stations = new ArrayList<>();
         cars = new ArrayList<>();
@@ -57,9 +60,10 @@ public class DataLists {
         rails = new ArrayList<>();
         railsReversed = new ArrayList<>();
         threads = new ArrayList<>();
+        Thread file = new Thread(files);
     }
 
-    public static String printCarsT(Trainset trainset) {
+    public static String printCarsT(Trainset trainset) { //function for creating list of cars
         StringBuilder string = new StringBuilder();
 
         for (int i = 0; i < trainset.getCars().size(); i++)
@@ -68,7 +72,7 @@ public class DataLists {
         return string.toString();
     }
 
-    public static <T> void printData(ArrayList<T> arrayList) {
+    public static <T> void printData(ArrayList<T> arrayList) { //function for printing arraylists of all types
         System.out.println();
         for (T t : arrayList)
             System.out.println(t.toString());
@@ -76,11 +80,6 @@ public class DataLists {
     }
 
     public static void sortTrainsetsByDistance() {
-        DataLists.getTrainsets().sort(new Comparator<Trainset>() {
-            @Override
-            public int compare(Trainset trainset1, Trainset trainset2) {
-                return Double.compare(trainset1.getWholeDistance(), trainset2.getWholeDistance());
-            }
-        });
+        DataLists.getTrainsets().sort(Comparator.comparingDouble(Trainset::getWholeDistance));
     }
 }

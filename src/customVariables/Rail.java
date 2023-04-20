@@ -21,8 +21,6 @@ public class Rail {
         this.distance = distance;
         this.isAvailable = true;
         currentId = "ra" + id++;
-//        station1.getIntersections().add(station2);
-//        station2.getIntersections().add(station1);
     }
 
     public String getCurrentId() {
@@ -111,12 +109,6 @@ public class Rail {
         return null;
     }
 
-    public static void deleteRailById(String id) {
-        for (int i = 0; i < DataLists.getRails().size(); i++)
-            if (id.equalsIgnoreCase(DataLists.getRails().get(i).getCurrentId()))
-                DataLists.getRails().remove(i);
-    }
-
     public static void deleteRail() {
         System.out.println("Enter id of a rail to delete");
         DataLists.printData(DataLists.getRails());
@@ -166,65 +158,36 @@ public class Rail {
                 DataLists.getRailsReversed().remove(i);
     }
 
-    public static void createRail(Station station1, Station station2, double distance) {
-//        System.out.println("Enter id of a first station");
-//        String id1 = scanner.nextLine();
-//        Station station1 = Station.findStationByID(id1);
-//        System.out.println("Enter id of a second station");
-//        String id2 = scanner.nextLine();
-//        Station station2 = Station.findStationByID(id1);
-//        System.out.println("Enter distance between stations");
-//        double distance = scanner.nextDouble();
-//        scanner.nextLine();
-//
-//        if (station1 == null || station2 == null) {
-//            System.out.println("Wrong input");
-//            System.out.println("Enter 1 if you want to try to create rail again");
-//            System.out.println("Enter 0 if you want to stop creating");
-//            String ch = scanner.nextLine();
-//            if (ch.equals("1"))
-//                createRail();
-//            else
-//                return;
-//        }
 
-        Rail rail = new Rail(station1, station2, distance);
-        Rail railRev = new Rail(station2, station1, distance);
-        station1.getIntersections().add(station2); // ready
-        station2.getIntersections().add(station1);
-        DataLists.getRails().add(rail);
-        DataLists.getRailsReversed().add(railRev);
-    }
-
-    public static Rail ifContains(Rail rail) {
+    public static Rail ifContains(Rail rail) { // extra function for finding rails by names
         for (Rail railI : DataLists.getRails())
             if (railI.isEqual(rail))
                 return railI;
         return null;
     }
 
-    public static Rail ifContainsReversed(Rail rail) {
+    public static Rail ifContainsReversed(Rail rail) { // extra function for finding reversed rails by names
         for (Rail railI : DataLists.getRailsReversed())
             if (railI.isEqual(rail))
                 return railI;
         return null;
     }
 
-    public static Rail ifContainsv2(Rail rail) {
+    public static Rail ifContainsv2(Rail rail) { //overridden function to fix bug
         for (Rail railI : DataLists.getRails())
-            if (railI.isEqual(rail))
+            if (railI.isEquiality(rail))
                 return railI;
         return null;
     }
 
-    public static Rail ifContainsReversedv2(Rail rail) {
+    public static Rail ifContainsReversedv2(Rail rail) { //overridden function to fix bug
         for (Rail railI : DataLists.getRailsReversed())
-            if (railI.isEqual(rail))
+            if (railI.isEquiality(rail))
                 return railI;
         return null;
     }
 
-    public static void createRailsRandomly() {
+    public static void createRailsRandomly() { // random connections generation
         Station.generateRandomStation();
         for (int i = 0; i < DataLists.getStations().size(); i++) {
             Random random = new Random();
@@ -233,7 +196,7 @@ public class Rail {
 
             for (int j = 0; j < randomNumber; j++) {
                 int randomStation = random.nextInt(DataLists.getStations().size()) + 0;
-                double randomValue = 50 + (400 - 50) * random.nextDouble();
+                double randomValue = 50 + (700 - 50) * random.nextDouble();
                 if (DataLists.getStations().get(i).getConnection() == maxConnections)
                     break;
                 else {
@@ -248,21 +211,21 @@ public class Rail {
                         rail.station2.getIntersections().add(rail.station1);
                         DataLists.getRails().add(rail);
                         DataLists.getRailsReversed().add(railReversed);
-                        DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1); //???
-                        DataLists.getStations().get(randomStation).setConnection(DataLists.getStations().get(randomStation).getConnection() + 1); // ydali
+                        DataLists.getStations().get(i).setConnection(DataLists.getStations().get(i).getConnection() + 1);
+                        DataLists.getStations().get(randomStation).setConnection(DataLists.getStations().get(randomStation).getConnection() + 1);
                     }
                 }
             }
         }
     }
 
-    public boolean isEquiality(Rail rail) {
+    public boolean isEquiality(Rail rail) { //check if rails are the same
         if ((this.getStation1() == rail.getStation1() && this.getStation2() == rail.getStation2()) || (this.getStation1() == rail.getStation2() && this.getStation2() == rail.getStation1()))
             return true;
         return false;
     }
 
-    public boolean isEqual(Rail rail) {
+    public boolean isEqual(Rail rail) { //check if rails are the same
         if ((rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName())))
             return true;
 
