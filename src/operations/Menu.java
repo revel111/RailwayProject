@@ -6,6 +6,7 @@ import customVariables.Station;
 import customVariables.Trainset;
 import customVariables.customCars.Car;
 import customVariables.customExtra.TooManyCarsException;
+import customVariables.customExtra.TooManyException;
 
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class Menu {
     private static final Scanner scanner = new Scanner(System.in);
     boolean isAvailable = true;
 
-    public static void menu() throws TooManyCarsException {
+    public static void menu() throws TooManyCarsException, TooManyException {
         while (true) {
             System.out.println("Choose what to do");
             System.out.println("Enter 1 if you want to create station");
@@ -78,6 +79,7 @@ public class Menu {
                     break;
                 case "14":
                     DataLists.printData(DataLists.getRails());
+                    DataLists.printData(DataLists.getRailsReversed());
                     break;
                 case "15":
                     DataLists.printData(DataLists.getLocomotives());

@@ -132,7 +132,6 @@ public class Locomotive {
         System.out.println("Enter name: ");
         String name = scanner.nextLine();
 
-
         System.out.println("Enter locomotive's home station's name");
         String shomeStation = scanner.nextLine();
 
@@ -170,16 +169,18 @@ public class Locomotive {
                 return null;
         }
 
-        Locomotive locomotive = new Locomotive(name, homeStation, sourceStation, destinationStation);
-
-        return locomotive;
+        return new Locomotive(name, homeStation, sourceStation, destinationStation);
     }
 
     public static void deleteLocomotive() {
         System.out.println("Enter id of a locomotive you want to delete");
         DataLists.printData(DataLists.getTrainsets());
+        DataLists.printData(DataLists.getLocomotives());
         String id = scanner.nextLine();
         Locomotive locomotive = findLocomotiveById(id);
+
+        if (locomotive != null)
+            DataLists.getLocomotives().remove(locomotive);
 
         for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
             if (DataLists.getTrainsets().get(i).getLocomotive().getCurrentId().equals(id)) {

@@ -46,7 +46,7 @@ public class LiquidCar extends BasicFreight {
                 throw new TooManyException("Too many liquid");
             else {
                 this.setFill(fill += gasIn);
-                this.setWeightNetto(this.getWeightBrutto() + gasIn);
+                this.setWeightBrutto(this.getWeightBrutto() + gasIn);
             }
         } catch (TooManyException e) {
             System.out.println("Enter try if you want to try to add liquid again");

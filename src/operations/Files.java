@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public class Files extends Thread {
     public static String ReadFile(String type, int number) {
         String fileName = "src/txtfiles/" + type;
         Random random = new Random();
-        int randomNumber = random.nextInt(number) + 1;//     121 station
+        int randomNumber = random.nextInt(number) + 1;
         String name = "";
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -37,7 +36,7 @@ public class Files extends Thread {
     public static String ReadFileStations(Set<String> set) {
         String fileName = "src/txtfiles/stationnames.txt";
         Random random = new Random();
-        int randomNumber = random.nextInt(121) + 1;//     121 station
+        int randomNumber = random.nextInt(121) + 1;
         String name = "";
         Station station = null;
 

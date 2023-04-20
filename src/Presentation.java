@@ -10,49 +10,50 @@ import operations.Files;
 import operations.Menu;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 public class Presentation {
     public static void main(String[] args) throws TooManyException, TooManyCarsException {
         boot();
 
+//        Rail.createRailsRandomly();
+//        DataLists.printData(DataLists.getRails());
+//        Trainset.generateTrainsetsRandomly();
         Menu.menu();
-//        Station station0 = new Station("A");
-//        Station station1 = new Station("B");
-//        Station station2 = new Station("C");
-//        Station station3 = new Station("D");
-//        Station station4 = new Station("E");
-//        Station station5 = new Station("F");
-//        Station station6 = new Station("G");
-//
-//        Rail.createRail(station0, station1, 100);
-//        Rail.createRail(station0, station2, 150);
-//        Rail.createRail(station0, station3, 200);
-//        Rail.createRail(station1, station4, 150);
-//        Rail.createRail(station5, station6, 200);
-//        Rail.createRail(station6, station4, 200);
-//
-//        Locomotive locomotive1 = new Locomotive("da", station1, station0, station1);
-//        Locomotive locomotive2 = new Locomotive("da", station1, station1, station0);
-//        ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
-//        Trainset trainset1 = new Trainset("fuck", locomotive1, cars);
-//        Trainset trainset2 = new Trainset("blya", locomotive2, cars);
-//        DataLists.getTrainsets().add(trainset1);
-//        DataLists.getTrainsets().add(trainset2);
-////        DataLists.getTrainsets().add(trainset1);
-////        trainset.createRail();
-////        trainset.printRouteSet();
-////        Rail.createRailsRandomly();
-////        DataLists.printData(DataLists.getRails());
-////        System.out.println("######################");
-////        DataLists.printData(DataLists.getRailsReversed());
-//        Thread t1 = new Thread(trainset1);
-//        Thread t2 = new Thread(trainset2);
-////        t1.start();
-////        t2.start();
-////        Files files = new Files();
-////        Thread file = new Thread(files);
-////        file.start();
+        Station station0 = new Station("A");
+        Station station1 = new Station("B");
+        Station station2 = new Station("C");
+        Station station3 = new Station("D");
+        Station station4 = new Station("E");
+        Station station5 = new Station("F");
+        Station station6 = new Station("G");
+
+        Rail.createRail(station0, station1, 100);
+        Rail.createRail(station0, station2, 150);
+        Rail.createRail(station0, station3, 200);
+        Rail.createRail(station1, station4, 150);
+        Rail.createRail(station5, station6, 200);
+        Rail.createRail(station6, station4, 200);
+
+        Locomotive locomotive1 = new Locomotive("da", station1, station0, station4);
+        Locomotive locomotive2 = new Locomotive("da", station1, station3, station0);
+        ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
+        Trainset trainset1 = new Trainset("fuck", locomotive1, cars);
+        Trainset trainset2 = new Trainset("blya", locomotive2, cars);
+        DataLists.getTrainsets().add(trainset1);
+        DataLists.getTrainsets().add(trainset2);
+//        trainset.createRail();
+//        trainset.printRouteSet();
+//        System.out.println("######################");
+//        DataLists.printData(DataLists.getRailsReversed());
+        Thread t1 = new Thread(trainset1);
+        Thread t2 = new Thread(trainset2);
+//        t1.start();
+//        t2.start();
+//        Files files = new Files();
+//        Thread file = new Thread(files);
+//        file.start();
 //        DataLists.getThreads().add(trainset1);
 //        DataLists.getThreads().add(trainset2);
 //        Trainset.generateTrainsetsRandomly();

@@ -52,7 +52,7 @@ public class Station {
         String name = scanner.nextLine();
 
         for (int i = 0; i < DataLists.getStations().size(); i++) {
-            if(DataLists.getStations().get(i).getName().equals(name)) {
+            if (DataLists.getStations().get(i).getName().equals(name)) {
                 System.out.println("There is station with such name ");
                 System.out.println("Enter 1 if you want to try to create station again");
                 System.out.println("Enter something else if you want to stop creating station");
@@ -87,7 +87,7 @@ public class Station {
         for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
             if (DataLists.getTrainsets().get(i).getRouteStations() == null)
                 continue;
-            else if (DataLists.getTrainsets().get(i).getLocomotive().getDestinationStation() == station ||  DataLists.getTrainsets().get(i).getLocomotive().getSourceStation() == station) {
+            else if (DataLists.getTrainsets().get(i).getLocomotive().getDestinationStation() == station || DataLists.getTrainsets().get(i).getLocomotive().getSourceStation() == station) {
                 System.out.println("We can not delete this station when it is source or destination station of a trainset");
                 return;
             }
@@ -127,22 +127,27 @@ public class Station {
         String ch = scanner.nextLine();
         Station station = null;
 
+        for (int i = 0; i < DataLists.getStations().size(); i++)
+            if (DataLists.getStations().get(i).getName().equalsIgnoreCase(stringName))
+                return null;
+
         switch (ch) {
-            case "1":
+            case "1" -> {
                 station = new Station(stringName);
-                break;
-            case "0":
+            }
+            case "0" -> {
                 System.out.println("You stopped creating station");
                 return null;
-            default:
+            }
+            default -> {
                 System.out.println("Wrong input");
                 System.out.println("Enter 1 if you want to try to create station again");
                 System.out.println("Enter something else if you want to stop creating station");
                 String ch1 = scanner.nextLine();
-
                 if (ch1.equals("1"))
                     Station.createStationIfNull(stringName);
                 return null;
+            }
         }
         return station;
     }
@@ -150,14 +155,13 @@ public class Station {
     public static void generateRandomStation() {
         Station station = null;
         Set<String> set = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             String string = Files.ReadFileStations(set);
         }
     }
 
     public static Station chooseRandomStation() {
         Random random = new Random();
-        Station station = null;
         int randomValue = random.nextInt(DataLists.getStations().size()) + 0;
 
         return DataLists.getStations().get(randomValue);

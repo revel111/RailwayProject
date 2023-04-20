@@ -85,6 +85,7 @@ abstract public class Car {
         menu.put("refrigerated", RefrigeratedCar::createRefrigeratedCar);
         menu.put("restaurant", RestaurantCar::createRestaurantCar);
         menu.put("toxic", ToxicCar::createToxicCar);
+        menu.put("toxicliquid", ToxicLiquidCar::createToxicLiquid);
 
         System.out.println("Choose car type to create");
 
@@ -136,6 +137,9 @@ abstract public class Car {
             case 10:
                 car = new ToxicCar(shipper);
                 break;
+            case 11:
+                car = new ToxicLiquidCar(shipper);
+                break;
         }
 
         return car;
@@ -145,7 +149,7 @@ abstract public class Car {
         ArrayList<Car> arrayList = new ArrayList<>();
         Car car = null;
         Random random = new Random();
-        int randomAmount = random.nextInt(10 - 5 - 1) + 5;
+        int randomAmount = random.nextInt(11 - 5 - 1) + 5;
 
         for (int i = 0; i < randomAmount; i++) {
             int randomNumber = random.nextInt(10 - 1 - 1) + 1;
@@ -196,27 +200,25 @@ abstract public class Car {
             case "toxic":
                 car = new ToxicCar(shipper);
                 break;
-//            case "liquidtoxic":
-//                car = new LiquidToxicCar(shipper);
-//                break;
+            case "toxicliquid":
+                car = new ToxicLiquidCar(shipper);
+                break;
             default:
                 System.out.println("Wrong input");
                 System.out.println("Enter 1 if you want to try to create car again");
                 System.out.println("Enter something else if you want to stop creating car");
                 String ch1 = scanner.nextLine();
 
-                if (ch1.equals("1")) {
+                if (ch1.equals("1"))
                     Car.createCarForTrainest();
-                    return null;
-                } else
-                    return null;
+                return null;
         }
         return car;
     }
 
     public static void deleteCar() {
         System.out.println("Enter id of a car");
-        DataLists.printData(DataLists.getStations());
+        DataLists.printData(DataLists.getCars());
         String id = scanner.nextLine();
         Car car = findCarById(id);
 
@@ -259,7 +261,7 @@ abstract public class Car {
         System.out.println("Enter \"gaseous\" to create car for gaseous material");
         System.out.println("Enter \"explosive\" to create car for explosive material");
         System.out.println("Enter \"toxic\" to create car for toxic material");
-        System.out.println("Enter \"liquidtoxic\" to create car for toxic and liquid material");
+        System.out.println("Enter \"toxicliquid\" to create car for toxic and liquid material");
         System.out.println();
     }
 

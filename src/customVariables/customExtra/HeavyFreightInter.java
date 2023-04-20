@@ -6,7 +6,10 @@ public interface HeavyFreightInter {
 
     public void emptyCar();
 
-    public double gerFill();
-
+    public double getFill();
     public double getMaxFill();
+
+    public static Runnable createToxicLiquid() {
+        return null;
+    }
 }

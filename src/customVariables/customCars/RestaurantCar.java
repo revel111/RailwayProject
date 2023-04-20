@@ -70,8 +70,8 @@ public class RestaurantCar extends Car {
     public static Runnable createRestaurantCar() {
         System.out.println("Enter name of a shipper");
         String shipper = scanner.nextLine();
-        RestaurantCar refrigeratedCar= new RestaurantCar(shipper);
-        DataLists.getCars().add(refrigeratedCar);
+        RestaurantCar restaurantCar= new RestaurantCar(shipper);
+        DataLists.getCars().add(restaurantCar);
         return null;
     }
 

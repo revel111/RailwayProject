@@ -44,7 +44,7 @@ public class RefrigeratedCar extends BasicFreight {
                 throw new TooManyException("Too many meat");
             else {
                 this.setFill(fill += meatIn);
-                this.setWeightNetto(this.getWeightBrutto() + meatIn);
+                this.setWeightBrutto(this.getWeightBrutto() + meatIn);
             }
         } catch (TooManyException e) {
             System.out.println("Enter try if you want to try to add meat again");

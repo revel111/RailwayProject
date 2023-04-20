@@ -10,6 +10,7 @@ public class ToxicCar extends HeavyFreight {
     private static Scanner scanner = new Scanner(System.in);
     private final double maxFill = 2000;
     private double fill = 0;
+
     public ToxicCar(String shipper) {
         this.setGridConnection(false);
         this.setShipper(shipper);
@@ -38,7 +39,7 @@ public class ToxicCar extends HeavyFreight {
             if (this.getWeightBrutto() + toxicIn > getMaxFill())
                 throw new TooManyException("Too many toxic");
             else {
-
+                this.fill += toxicIn;
                 this.setWeightBrutto(this.getWeightBrutto() + (toxicIn * 2));
             }
         } catch (TooManyException e) {

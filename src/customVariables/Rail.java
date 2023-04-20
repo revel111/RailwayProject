@@ -66,13 +66,13 @@ public class Rail {
     }
 
     public static void createRail() {
-        System.out.println("Enter id of a first station");
         DataLists.printData(DataLists.getStations());
+        System.out.println("Enter id of a first station");
         String id1 = scanner.nextLine();
         Station station1 = Station.findStationByID(id1);
         System.out.println("Enter id of a second station");
         String id2 = scanner.nextLine();
-        Station station2 = Station.findStationByID(id1);
+        Station station2 = Station.findStationByID(id2);
         System.out.println("Enter distance between stations");
         double distance = scanner.nextDouble();
         scanner.nextLine();
@@ -88,11 +88,20 @@ public class Rail {
         }
 
         Rail rail = new Rail(station1, station2, distance);
-        Rail railRev = new Rail(station2, station1, distance);
-        rail.station1.getIntersections().add(rail.station2); // ready
+        Rail railReversed = new Rail(station2, station1, distance);
+
+        Rail toFind = ifContainsv2(rail);
+        Rail toFindReversed = ifContainsReversedv2(railReversed);
+
+        if (toFind != null || toFindReversed != null) {
+            System.out.println("This rail already exist");
+            return;
+        }
+
+        rail.station1.getIntersections().add(rail.station2);
         rail.station2.getIntersections().add(rail.station1);
         DataLists.getRails().add(rail);
-        DataLists.getRailsReversed().add(railRev);
+        DataLists.getRailsReversed().add(railReversed);
     }
 
     public static Rail findRailById(String id) {
@@ -120,11 +129,9 @@ public class Rail {
             System.out.println("Enter something else if you want to stop deleting rail");
             String ch = scanner.nextLine();
 
-            if (ch.equals("1")) {
+            if (ch.equals("1"))
                 findRailById(id);
-                return;
-            } else
-                return;
+            return;
         }
 
         for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
@@ -203,6 +210,20 @@ public class Rail {
         return null;
     }
 
+    public static Rail ifContainsv2(Rail rail) {
+        for (Rail railI : DataLists.getRails())
+            if (railI.isEqual(rail))
+                return railI;
+        return null;
+    }
+
+    public static Rail ifContainsReversedv2(Rail rail) {
+        for (Rail railI : DataLists.getRailsReversed())
+            if (railI.isEqual(rail))
+                return railI;
+        return null;
+    }
+
     public static void createRailsRandomly() {
         Station.generateRandomStation();
         for (int i = 0; i < DataLists.getStations().size(); i++) {
@@ -220,10 +241,10 @@ public class Rail {
                     Rail railReversed = new Rail(DataLists.getStations().get(randomStation), DataLists.getStations().get(i), randomValue);
                     Rail toFind = ifContains(rail);
                     Rail toFindReversed = ifContainsReversed(railReversed);
-                    if (DataLists.getStations().get(i) == DataLists.getStations().get(randomStation) || toFind != null || toFindReversed != null || DataLists.getStations().get(randomStation).getIntersections().size() > 10)//
+                    if (DataLists.getStations().get(i) == DataLists.getStations().get(randomStation) || toFind != null || toFindReversed != null || DataLists.getStations().get(randomStation).getIntersections().size() > 10)
                         randomNumber++;
                     else {
-                        rail.station1.getIntersections().add(rail.station2); // ready
+                        rail.station1.getIntersections().add(rail.station2);
                         rail.station2.getIntersections().add(rail.station1);
                         DataLists.getRails().add(rail);
                         DataLists.getRailsReversed().add(railReversed);
@@ -235,9 +256,16 @@ public class Rail {
         }
     }
 
-    public boolean isEqual(Rail rail) {
-        if (rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName()))
+    public boolean isEquiality(Rail rail) {
+        if ((this.getStation1() == rail.getStation1() && this.getStation2() == rail.getStation2()) || (this.getStation1() == rail.getStation2() && this.getStation2() == rail.getStation1()))
             return true;
+        return false;
+    }
+
+    public boolean isEqual(Rail rail) {
+        if ((rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName())))
+            return true;
+
         return false;
     }
 
