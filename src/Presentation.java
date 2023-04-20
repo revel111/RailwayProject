@@ -53,8 +53,9 @@ public class Presentation {
 //        file.start();
         DataLists.getThreads().add(trainset1);
         DataLists.getThreads().add(trainset2);
+        Trainset.generateTrainsetsRandomly();
 //        Trainset.deleteTrainset();
-//        DataLists.printData(DataLists.getTrainsets());
+        DataLists.printData(DataLists.getTrainsets());
 //        DataLists.printData(DataLists.getRails());
 //        DataLists.printData(DataLists.getRailsReversed());
 //        Rail.deleteRail();

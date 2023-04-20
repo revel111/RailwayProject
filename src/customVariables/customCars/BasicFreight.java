@@ -20,6 +20,10 @@ abstract public class BasicFreight extends Car {
         return fill;
     }
 
+    public void setFill(double fill) {
+        this.fill = fill;
+    }
+
     @Override
     public String toString() {
         return super.toString() + "; Current filness: " + getFill();

@@ -38,11 +38,11 @@ public class MailCar extends Car {
         scanner.nextLine();
 
         try {
-            if (this.mailsWeight + weightTo > mailsWeight)
+            if (this.mailsWeight + weightTo > maxMailsWeight)
                 throw new TooManyException("Too many mails");
             else {
                 this.mailsWeight += weightTo;
-                this.setWeightBrutto(this.weightNetto + (weightTo * 2));
+                this.setWeightBrutto(this.getWeightBrutto() + (weightTo * 2));
             }
         } catch (TooManyException e) {
             System.out.println("Enter 1 if you want to try to add mails again");
@@ -51,14 +51,30 @@ public class MailCar extends Car {
 
             if (ch.equals("1"))
                 fillCar();
-            else
-                return;
         }
     }
 
     @Override
     public void emptyCar() throws TooManyException {
+        System.out.println("Enter amount of mails to delete");
+        double mailsOut = scanner.nextInt();
+        scanner.nextLine();
 
+        try {
+            if (this.mailsWeight - mailsOut < 0)
+                throw new TooManyException("There are no such amount of mails");
+            else {
+                this.mailsWeight -= mailsOut;
+                this.setWeightBrutto(this.getWeightBrutto() - (mailsOut * 2));
+            }
+        } catch (TooManyException e) {
+            System.out.println("Enter 1 if you want to try to delete mails again");
+            System.out.println("Enter something else if you don't want to delete mails");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                emptyCar();
+        }
     }
 
     public static Runnable createMailCar() {

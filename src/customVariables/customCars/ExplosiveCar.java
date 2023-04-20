@@ -3,10 +3,14 @@ package customVariables.customCars;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ExplosiveCar extends HeavyFreight {
     private static final Scanner scanner = new Scanner(System.in);
+
+    private final double maxFill = 2000;
+    private double fill = 0;
 
     public ExplosiveCar(String shipper) {
         this.setGridConnection(false);
@@ -17,14 +21,60 @@ public class ExplosiveCar extends HeavyFreight {
     }
 
     @Override
-    public void fillCar() throws TooManyException {
+    public double getFill() {
+        return fill;
+    }
 
+    public double getMaxFill() {
+        return maxFill;
+    }
+
+    @Override
+    public void fillCar() throws TooManyException {
+        System.out.println("Enter weight of explosive to add");
+        double explosiveIn = scanner.nextDouble();
+        scanner.nextLine();
+
+        try {
+            if (this.getWeightBrutto() + explosiveIn > getMaxFill())
+                throw new TooManyException("Too many explosive");
+            else {
+
+                this.setWeightBrutto(this.getWeightBrutto() + (explosiveIn * 2));
+            }
+        } catch (TooManyException e) {
+            System.out.println("Enter try if you want to try to add explosive again");
+            System.out.println("Enter exit if you don't want to add explosive");
+            String ch = scanner.nextLine();
+
+            if (Objects.equals(ch, "try"))
+                fillCar();
+        }
     }
 
     @Override
     public void emptyCar() throws TooManyException {
+        System.out.println("Enter amount of explosive to delete");
+        double explosiveOut = scanner.nextDouble();
+        scanner.nextLine();
 
+        try {
+            if (this.fill - explosiveOut < 0)
+                throw new TooManyException("There are no such explosive of gas");
+            else {
+                this.fill -= explosiveOut;
+                this.setWeightBrutto(this.getWeightBrutto() - (explosiveOut * 2));
+            }
+        } catch (TooManyException e) {
+            System.out.println("Enter 1 if you want to try to delete explosive again");
+            System.out.println("Enter something else if you don't want to delete explosive");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                emptyCar();
+        }
     }
+
 
     public static Runnable createExposiveCar() {
         System.out.println("Enter name of a shipper");

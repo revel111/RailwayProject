@@ -3,8 +3,6 @@ package customVariables.customCars;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
 
-import java.util.HashMap;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class PassengerCar extends Car {
@@ -42,17 +40,15 @@ public class PassengerCar extends Car {
                 throw new TooManyException("Too many passenger");
             else {
                 this.passengers += passengersIn;
-                this.setWeightBrutto(this.weightNetto + (passengersIn * 2));
+                this.setWeightBrutto(this.getWeightBrutto() + (passengersIn * 2));
             }
         } catch (TooManyException e) {
             System.out.println("Enter 1 if you want to try to add passengers again");
-            System.out.println("Enter something elss if you don't want to add passengers");
+            System.out.println("Enter something else if you don't want to add passengers");
             String ch = scanner.nextLine();
 
             if (ch.equals("1"))
                 fillCar();
-            else
-                return;
         }
     }
 
@@ -66,17 +62,15 @@ public class PassengerCar extends Car {
                 throw new TooManyException("There are no such amount of passengers");
             else {
                 this.passengers -= passengersOut;
-                this.setWeightBrutto(this.weightNetto - (passengersOut * 2));
+                this.setWeightBrutto(this.getWeightBrutto() - (passengersOut * 2));
             }
         } catch (TooManyException e) {
             System.out.println("Enter 1 if you want to try to delete passengers again");
-            System.out.println("Enter something elss if you don't want to delete passengers");
+            System.out.println("Enter something else if you don't want to delete passengers");
             String ch = scanner.nextLine();
 
             if (ch.equals("1"))
                 emptyCar();
-            else
-                return;
         }
     }
 

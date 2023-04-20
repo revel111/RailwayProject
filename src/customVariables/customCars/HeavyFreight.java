@@ -20,6 +20,10 @@ abstract public class HeavyFreight extends Car {
         return fill;
     }
 
+    public double getMaxFill() {
+        return maxFill;
+    }
+
     @Override
     public String toString() {
         return super.toString() + "; Current fillness: " + getFill();

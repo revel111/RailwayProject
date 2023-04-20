@@ -32,32 +32,30 @@ public class RestaurantCar extends Car {
                 throw new TooManyException("Too many visitors");
             else {
                 this.tables += visitorsIn;
-                this.setWeightBrutto(this.weightNetto + (visitorsIn * 2));
+                this.setWeightBrutto(this.getWeightBrutto() + (visitorsIn * 2));
             }
         } catch (TooManyException e) {
             System.out.println("Enter 1 if you want to try to add visitors again");
-            System.out.println("Enter something elss if you don't want to add visitors");
+            System.out.println("Enter something else if you don't want to add visitors");
             String ch = scanner.nextLine();
 
             if (ch.equals("1"))
                 fillCar();
-            else
-                return;
         }
     }
 
     @Override
     public void emptyCar() throws TooManyException {
         System.out.println("Enter amount of visitors to delete");
-        int tablseOut = scanner.nextInt();
+        int tablesOut = scanner.nextInt();
         scanner.nextLine();
 
         try {
-            if (this.tables - tablseOut < 0)
+            if (this.tables - tablesOut < 0)
                 throw new TooManyException("There are no such amount of visitors");
             else {
-                this.tables -= tablseOut;
-                this.setWeightBrutto(this.weightNetto - (tablseOut * 2));
+                this.tables -= tablesOut;
+                this.setWeightBrutto(this.getWeightBrutto() - (tablesOut * 2));
             }
         } catch (TooManyException e) {
             System.out.println("Enter 1 if you want to try to delete visitors again");
@@ -66,8 +64,6 @@ public class RestaurantCar extends Car {
 
             if (ch.equals("1"))
                 emptyCar();
-            else
-                return;
         }
     }
 

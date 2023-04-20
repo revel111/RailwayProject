@@ -41,7 +41,7 @@ public class PostOfficeCar extends Car {
                 throw new TooManyException("Too many people");
             else {
                 this.people += peopleIn;
-                this.setWeightBrutto(this.weightNetto + (peopleIn * 2));
+                this.setWeightBrutto(this.getWeightBrutto() + (peopleIn * 2));
             }
         } catch (TooManyException e) {
             System.out.println("Enter 1 if you want to try to add people again");
@@ -50,8 +50,6 @@ public class PostOfficeCar extends Car {
 
             if (ch.equals("1"))
                 fillCar();
-            else
-                return;
         }
     }
 
@@ -66,7 +64,7 @@ public class PostOfficeCar extends Car {
                 throw new TooManyException("There are no such amount of people");
             else {
                 this.people -= peopleOut;
-                this.setWeightBrutto(this.weightNetto - (peopleOut * 2));
+                this.setWeightBrutto(this.getWeightBrutto() - (peopleOut * 2));
             }
         } catch (TooManyException e) {
             System.out.println("Enter 1 if you want to try to delete people again");
@@ -75,8 +73,6 @@ public class PostOfficeCar extends Car {
 
             if (ch.equals("1"))
                 emptyCar();
-            else
-                return;
         }
     }
 

@@ -483,12 +483,7 @@ public class Trainset extends Thread {
     }
 
     public void sortCarsByWeight() {
-        cars.sort(new Comparator<Car>() {
-            @Override
-            public int compare(Car car1, Car car2) {
-                return Double.compare(car1.getWeightBrutto(), car2.getWeightBrutto());
-            }
-        });
+        cars.sort(Comparator.comparingDouble(Car::getWeightBrutto));
     }
 
     public void generateRoute() {
@@ -522,13 +517,20 @@ public class Trainset extends Thread {
             Locomotive locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
             ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
             Trainset trainset = new Trainset(string, locomotive, cars);
+            int counter = cars.size();
 
-            for (int j = 0; j < cars.size(); j++)
-                trainset.setWeight(trainset.getWeight() + cars.get(i).getWeightBrutto());
-
-            trainset.setWeight(locomotive.getWeight() + trainset.getWeight());
-            trainset.sortCarsByWeight();
-            DataLists.getTrainsets().add(trainset);
+            for (int j = 0; j < counter; j++) {
+                trainset.setWeight(trainset.getWeight() + cars.get(j).getWeightBrutto());
+                if (cars.get(j).isGridConnection())
+                    trainset.getLocomotive().setCurElecRailRoad(trainset.getLocomotive().getCurElecRailRoad() + 1);
+            }
+            if (trainset.getWeight() > trainset.getMaxWeight() || trainset.getLocomotive().getCurElecRailRoad() > trainset.getLocomotive().getMaxElectGrid())
+                counter++;
+            else {
+                trainset.setWeight(locomotive.getWeight() + trainset.getWeight());
+                trainset.sortCarsByWeight();
+                DataLists.getTrainsets().add(trainset);
+            }
         }
     }
 
@@ -616,7 +618,7 @@ public class Trainset extends Thread {
             routeRails.get(i).setAvailable(false);
             double distanceBetween = routeRails.get(i).getDistance();
             double distanceTmp = distanceBetween;
-            double distanceWhole = +routeRails.get(i).getDistance();
+            double distanceWhole = routeRails.get(i).getDistance();
 
             while (distanceBetween > 0) {
                 distanceBetween -= this.getLocomotive().getSpeed();
