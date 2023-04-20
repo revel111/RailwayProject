@@ -3,8 +3,6 @@ package customVariables;
 import operations.DataLists;
 import operations.Files;
 
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Locomotive {
@@ -52,10 +50,6 @@ public class Locomotive {
         return curElecRailRoad;
     }
 
-    public Station getHomeStation() {
-        return homeStation;
-    }
-
     public Station getSourceStation() {
         return sourceStation;
     }
@@ -84,21 +78,16 @@ public class Locomotive {
         this.destinationStation = destinationStation;
     }
 
-    public void setHomeStation(Station homeStation) {
-        this.homeStation = homeStation;
-    }
-
     public void setSourceStation(Station sourceStation) {
         this.sourceStation = sourceStation;
     }
 
     public static void createLocomotive() {
-        System.out.println("Adding new Locomotive");
         System.out.println("Enter name: ");
         String name = scanner.nextLine();
 
 
-        System.out.println("Enter locomotive's home station's id");
+        System.out.println("Enter locomotive's home station's name");
         String shomeStation = scanner.nextLine();
 
         Station homeStation;
@@ -113,7 +102,7 @@ public class Locomotive {
                 return;
         }
 
-        System.out.println("Enter locomotive's source station's id");
+        System.out.println("Enter locomotive's source station's name");
         String ssourceStation = scanner.nextLine();
 
         sourceStation = Station.findStationByID(ssourceStation);
@@ -124,7 +113,7 @@ public class Locomotive {
                 return;
         }
 
-        System.out.println("Enter locomotive's destination station's id");
+        System.out.println("Enter locomotive's destination station's name");
         String sdestinationStation = scanner.nextLine();
 
         destinationStation = Station.findStationByID(sdestinationStation);
@@ -140,12 +129,11 @@ public class Locomotive {
     }
 
     public static Locomotive createLocomotive(boolean f) { //redefined
-        System.out.println("Adding new Locomotive");
         System.out.println("Enter name: ");
         String name = scanner.nextLine();
 
 
-        System.out.println("Enter locomotive's home station's id");
+        System.out.println("Enter locomotive's home station's name");
         String shomeStation = scanner.nextLine();
 
         Station homeStation;
@@ -160,7 +148,7 @@ public class Locomotive {
                 return null;
         }
 
-        System.out.println("Enter locomotive's source station's id");
+        System.out.println("Enter locomotive's source station's name");
         String ssourceStation = scanner.nextLine();
 
         sourceStation = Station.findStationByID(ssourceStation);
@@ -171,7 +159,7 @@ public class Locomotive {
                 return null;
         }
 
-        System.out.println("Enter locomotive's destination station's id");
+        System.out.println("Enter locomotive's destination station's name");
         String sdestinationStation = scanner.nextLine();
 
         destinationStation = Station.findStationByID(sdestinationStation);
@@ -216,15 +204,12 @@ public class Locomotive {
 
             if (ch.equals("1"))
                 deleteLocomotive();
-            return;
         }
-
     }
 
 
     public static Locomotive generateLocomotiveRandomly(String name, int number) {
         String string = Files.ReadFile(name, number);
-        Random random = new Random();
         Station homeStation = Station.chooseRandomStation();
         Station sourceStation = Station.chooseRandomStation();
         Station destinationStation = Station.chooseRandomStation();

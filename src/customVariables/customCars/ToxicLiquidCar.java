@@ -4,7 +4,6 @@ import customVariables.customExtra.TooManyException;
 
 public class ToxicLiquidCar extends Car {
 
-
     @Override
     public void fillCar() throws TooManyException {
 

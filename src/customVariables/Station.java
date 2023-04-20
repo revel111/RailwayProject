@@ -51,6 +51,19 @@ public class Station {
         System.out.println("Enter the name: ");
         String name = scanner.nextLine();
 
+        for (int i = 0; i < DataLists.getStations().size(); i++) {
+            if(DataLists.getStations().get(i).getName().equals(name)) {
+                System.out.println("There is station with such name ");
+                System.out.println("Enter 1 if you want to try to create station again");
+                System.out.println("Enter something else if you want to stop creating station");
+                String ch = scanner.nextLine();
+
+                if (ch.equals("1"))
+                    createStation();
+                return;
+            }
+        }
+
         Station station = new Station(name);
     }
 
@@ -117,7 +130,6 @@ public class Station {
         switch (ch) {
             case "1":
                 station = new Station(stringName);
-                DataLists.getStations().add(station);
                 break;
             case "0":
                 System.out.println("You stopped creating station");
