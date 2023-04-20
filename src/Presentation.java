@@ -23,15 +23,15 @@ public class Presentation {
         Station station5 = new Station("F");
         Station station6 = new Station("G");
 
-        Rail.createRail(station0, station1, 400);
+        Rail.createRail(station0, station1, 100);
         Rail.createRail(station0, station2, 150);
         Rail.createRail(station0, station3, 200);
         Rail.createRail(station1, station4, 150);
         Rail.createRail(station5, station6, 200);
         Rail.createRail(station6, station4, 200);
 
-        Locomotive locomotive1 = new Locomotive("da", station1, station0, station4);
-        Locomotive locomotive2 = new Locomotive("da", station1, station1, station5);
+        Locomotive locomotive1 = new Locomotive("da", station1, station0, station1);
+        Locomotive locomotive2 = new Locomotive("da", station1, station1, station0);
         ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
         Trainset trainset1 = new Trainset("fuck", locomotive1, cars);
         Trainset trainset2 = new Trainset("blya", locomotive2, cars);
@@ -45,19 +45,23 @@ public class Presentation {
 //        System.out.println("######################");
 //        DataLists.printData(DataLists.getRailsReversed());
         Thread t1 = new Thread(trainset1);
-//        Thread t2 = new Thread(trainset2);
+        Thread t2 = new Thread(trainset2);
+//        t1.start();
+//        t2.start();
 //        Files files = new Files();
 //        Thread file = new Thread(files);
 //        file.start();
-//        t1.start();
-//        t2.start();
+        DataLists.getThreads().add(trainset1);
+        DataLists.getThreads().add(trainset2);
+//        Trainset.deleteTrainset();
+//        DataLists.printData(DataLists.getTrainsets());
 //        DataLists.printData(DataLists.getRails());
 //        DataLists.printData(DataLists.getRailsReversed());
 //        Rail.deleteRail();
-        Station.deleteStation();
-        DataLists.printData(DataLists.getStations());
-        DataLists.printData(DataLists.getRails());
-        DataLists.printData(DataLists.getRailsReversed());
+//        Station.deleteStation();
+//        DataLists.printData(DataLists.getStations());
+//        DataLists.printData(DataLists.getRails());
+//        DataLists.printData(DataLists.getRailsReversed());
 //        DataLists.printData(DataLists.getTrainsets());
 //        Trainset.createTrainset();
 //        System.out.println(trainset1);
@@ -100,5 +104,7 @@ public class Presentation {
 
     public static void boot() {
         DataLists.initializeLists();
+//        Rail.createRailsRandomly();
+//        Trainset.generateTrainsetsRandomly();
     }
 }

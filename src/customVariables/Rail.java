@@ -77,16 +77,14 @@ public class Rail {
         double distance = scanner.nextDouble();
         scanner.nextLine();
 
-        if (station1 == null || station2 == null) {
+        if (station1 == null || station2 == null || distance < 0) {
             System.out.println("Wrong input");
             System.out.println("Enter 1 if you want to try to create rail again");
             System.out.println("Enter 0 if you want to stop creating rail");
             String ch = scanner.nextLine();
-            if (ch.equals("1")) {
+            if (ch.equals("1"))
                 createRail();
-                return;
-            } else
-                return;
+            return;
         }
 
         Rail rail = new Rail(station1, station2, distance);
@@ -134,7 +132,7 @@ public class Rail {
                 continue;
             for (int j = 0; j < DataLists.getTrainsets().get(i).getRouteRails().size(); j++) {
                 if (DataLists.getTrainsets().get(i).getRouteRails().get(j) == rail) {
-                    System.out.println("We can not delete rail because it is in a route, we stopped the trainset, so enter try again later to delete");
+                    System.out.println("We can not delete rail because it is in a route, we stopped the trainset, so try again later to delete");
                     DataLists.getTrainsets().get(i).setAvailable(false);
                     return;
                 }

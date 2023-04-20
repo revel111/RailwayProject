@@ -8,9 +8,9 @@ import operations.Files;
 
 import java.util.*;
 
-public class Trainset implements Runnable {
+public class Trainset extends Thread {
     private static final Scanner scanner = new Scanner(System.in);
-    private String name;
+    private String nameT;
     private static int id = 0;
     private String currentId;
     private Locomotive locomotive;
@@ -18,25 +18,25 @@ public class Trainset implements Runnable {
     private ArrayList<Station> routeStations;
     private ArrayList<Rail> routeRails;
     private double weight = 0;
-    private boolean isAvailable;
+    private boolean isAvailable = true;
     private Rail currentRail;
     private final double maxWeight = 15000;
     private double wholeDistance = 0;
     private double currentDistance = 0;
 
-    public Trainset(String name, Locomotive locomotive, ArrayList<Car> cars) {
+    public Trainset(String nameT, Locomotive locomotive, ArrayList<Car> cars) {
         this.locomotive = locomotive;
         this.cars = cars;
-        this.name = name;
+        this.nameT = nameT;
         currentId = "trset" + id++;
+    }
+
+    public String getNameT() {
+        return nameT;
     }
 
     public String getCurrentId() {
         return currentId;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public double getWholeDistance() {
@@ -93,10 +93,6 @@ public class Trainset implements Runnable {
 
     public void setCurrentRail(Rail currentRail) {
         this.currentRail = currentRail;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setWeight(double weight) {
@@ -202,11 +198,9 @@ public class Trainset implements Runnable {
                         System.out.println("Enter something else if you want to stop creating trainset");
                         String ch1 = scanner.nextLine();
 
-                        if (ch1.equals("1")) {
+                        if (ch1.equals("1"))
                             Trainset.createTrainset();
-                            return;
-                        } else
-                            return;
+                        return;
                     } else {
                         Car.deleteCarById(car.getCurrentId());
                         try {
@@ -243,11 +237,9 @@ public class Trainset implements Runnable {
                     System.out.println("Enter 1 if you want to try to create trainset again");
                     System.out.println("Enter something else if you want to stop creating trainset");
                     String ch1 = scanner.nextLine();
-                    if (ch1.equals("1")) {
+                    if (ch1.equals("1"))
                         Trainset.createTrainset();
-                        return;
-                    } else
-                        return;
+                    return;
                 }
             }
 
@@ -268,20 +260,34 @@ public class Trainset implements Runnable {
                     System.out.println("Enter something else if you want to stop creating trainset");
                     String ch1 = scanner.nextLine();
 
-                    if (ch1.equals("1")) {
+                    if (ch1.equals("1"))
                         Trainset.createTrainset();
-                        return;
-                    } else
-                        return;
+                    return;
             }
         }
     }
 
-    public void attachCar() {
-        if (this.getRouteRails() != null) {
-            System.out.println("The train is moving so we can not attach the car");
+    public static void launchTrainset() {
+        System.out.println("Enter id of a trainset");
+        DataLists.printData(DataLists.getStations());
+        String id = scanner.nextLine();
+        Trainset trainset = findTrainsetById(id);
+
+        if (trainset == null) {
+            System.out.println("Wrong input");
+            System.out.println("Enter 1 if you want to try to launch trainset again");
+            System.out.println("Enter something else if you want to stop launching trainset");
+            String ch1 = scanner.nextLine();
+            if (ch1.equals("1"))
+                launchTrainset();
             return;
         }
+
+        DataLists.getThreads().add(trainset);
+        trainset.start();
+    }
+
+    public void attachCar() {
         System.out.println("Enter 1 if you want to create new car to attach");
         System.out.println("Enter 2 if you want to choose particular car");
         System.out.println("Enter 0 if you want to exit");
@@ -320,8 +326,7 @@ public class Trainset implements Runnable {
 
                     if (ch1.equals("1"))
                         this.attachCar();
-                    else
-                        return;
+                    return;
                 } else {
                     Car.deleteCarById(car.getCurrentId());
                     try {
@@ -348,20 +353,13 @@ public class Trainset implements Runnable {
                 System.out.println("Enter 1 if you want to try to attach car again");
                 System.out.println("Enter something else if you want to stop attaching car");
                 String ch1 = scanner.nextLine();
-                if (ch1.equals("1")) {
+                if (ch1.equals("1"))
                     this.attachCar();
-                    return;
-                } else
-                    return;
+                return;
         }
     }
 
     public void unhookCar() {
-        if (this.getRouteRails() != null) {
-            System.out.println("The trainset is moving so we can not unhook the car");
-            return;
-        }
-
         System.out.println("Enter id of car which you want to unhook");
         String id = scanner.nextLine();
         String string = DataLists.printCarsT(this);
@@ -377,18 +375,16 @@ public class Trainset implements Runnable {
             System.out.println("Enter something else if you want to stop creating trainset");
             String ch1 = scanner.nextLine();
 
-            if (ch1.equals("1")) {
+            if (ch1.equals("1"))
                 this.unhookCar();
-                return;
-            } else
-                return;
-        } else {
-            this.setWeight(this.getWeight() - car.getWeightBrutto());
-            if (car.isGridConnection())
-                this.getLocomotive().setCurElecRailRoad(this.getLocomotive().getCurElecRailRoad() - 1);
-            this.getCars().remove(car);
-            this.sortCarsByWeight();
+            return;
         }
+
+        this.setWeight(this.getWeight() - car.getWeightBrutto());
+        if (car.isGridConnection())
+            this.getLocomotive().setCurElecRailRoad(this.getLocomotive().getCurElecRailRoad() - 1);
+        this.getCars().remove(car);
+        this.sortCarsByWeight();
     }
 
     public static void deleteTrainset() {
@@ -403,18 +399,16 @@ public class Trainset implements Runnable {
             System.out.println("Enter something else if you want to stop deleting trainset");
             String ch = scanner.nextLine();
 
-            if (ch.equals("1")) {
+            if (ch.equals("1"))
                 deleteTrainset();
-                return;
-            } else
-                return;
-        }
-
-        if (trainset.getRouteRails() != null) {
-            System.out.println("We can not delete trainset because it is moving");
             return;
-        } else
-            DataLists.getTrainsets().remove(trainset);
+        }
+        if (trainset.isAlive()) {
+            trainset.setAvailable(false);
+            trainset.interrupt();
+        }
+        DataLists.getThreads().remove(trainset);
+        DataLists.getTrainsets().remove(trainset);
     }
 
     public static void deleteTrainsetById(String id) {
@@ -428,6 +422,64 @@ public class Trainset implements Runnable {
             if (id.equalsIgnoreCase(DataLists.getTrainsets().get(i).getCurrentId()))
                 return DataLists.getTrainsets().get(i);
         return null;
+    }
+
+    public static void manageTrainset() {
+        System.out.println("Enter id of a trainset you want to delete");
+        DataLists.printData(DataLists.getTrainsets());
+        String id = scanner.nextLine();
+        Trainset trainset = findTrainsetById(id);
+
+        if (trainset == null) {
+            System.out.println("There is no trainset with id " + id);
+            System.out.println("Enter 1 if you want to try to manage trainset again");
+            System.out.println("Enter something else if you want to stop managing trainset");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                manageTrainset();
+            return;
+        }
+
+        if (trainset.getRouteRails() != null) {
+            System.out.println("Enter 1 if you want to stop trainset and manage it");
+            System.out.println("Enter 0 if you want to stop managing trainset");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("0"))
+                return;
+            else if (ch.equals("1")) {
+                trainset.setAvailable(false);
+                while (true) {
+                    System.out.println("Enter 1 if you want to attach car");
+                    System.out.println("Enter 2 if you want unhook car");
+                    System.out.println("Enter 3 if you want deal with car");
+                    System.out.println("Enter 0 if you want stop managing trainset");
+                    ch = scanner.nextLine();
+                    switch (ch) {
+                        case "1":
+                            trainset.attachCar();
+                            break;
+                        case "2":
+                            trainset.unhookCar();
+                            break;
+                        case "3":
+
+                        case "0":
+                            System.out.println("You stopped managing trainset");
+                            return;
+                        default:
+                            System.out.println("Wrong input");
+                            System.out.println("Enter 1 if you want to try to manage trainset again");
+                            System.out.println("Enter something else if you want to stop managing trainset");
+                            String ch1 = scanner.nextLine();
+                            if (ch1.equals("1"))
+                                Trainset.manageTrainset();
+                            return;
+                    }
+                }
+            }
+        }
     }
 
     public void sortCarsByWeight() {
@@ -544,6 +596,7 @@ public class Trainset implements Runnable {
             this.createRail();
             if (this.getRouteRails() == null) {
                 System.out.println("Stations are not connected");
+                this.interrupt();
                 return;
             }
         }
@@ -597,9 +650,9 @@ public class Trainset implements Runnable {
             }
             routeRails.get(i).setAvailable(true);
             if (this.getLocomotive().getDestinationStation() == routeRails.get(i).getStation2())
-                System.out.println("Trainset " + this.getName() + " is on destination station " + this.getLocomotive().getDestinationStation().getName());
+                System.out.println("Trainset " + this.getNameT() + " is on destination station " + this.getLocomotive().getDestinationStation().getName());
             else
-                System.out.println("Trainset " + this.getName() + " is on station " + routeRails.get(i).getStation2().getName());
+                System.out.println("Trainset " + this.getNameT() + " is on station " + routeRails.get(i).getStation2().getName());
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -625,6 +678,6 @@ public class Trainset implements Runnable {
     @Override
     public String toString() {
         String string = DataLists.printCarsT(this);
-        return "Name: " + name + "; Id: " + currentId + "; Speed: " + locomotive.getSpeed() + "; Whole Distance %: " + wholeDistance + "; Current Distance " + currentDistance + "; Weight: " + weight + "\nLocomotive: " + "\n" + locomotive + "\nCars: " + "\n" + string;
+        return "Name: " + nameT + "; Id: " + currentId + "; Speed: " + locomotive.getSpeed() + "; Whole Distance %: " + wholeDistance + "; Current Distance " + currentDistance + "; Weight: " + weight + "\nLocomotive: " + "\n" + locomotive + "\nCars: " + "\n" + string;
     }
 }

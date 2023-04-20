@@ -1,5 +1,6 @@
 package customVariables.customCars;
 
+import customVariables.Station;
 import customVariables.Trainset;
 import customVariables.customExtra.TooManyException;
 import operations.DataLists;
@@ -211,6 +212,26 @@ abstract public class Car {
                     return null;
         }
         return car;
+    }
+
+    public static void deleteCar() {
+        System.out.println("Enter id of a car");
+        DataLists.printData(DataLists.getStations());
+        String id = scanner.nextLine();
+        Car car = findCarById(id);
+
+        if (car == null) {
+            System.out.println("There is no car with id " + id);
+            System.out.println("Enter 1 if you want to try to delete car again");
+            System.out.println("Enter something else if you want to stop deleting car");
+            String ch = scanner.nextLine();
+
+            if (ch.equals("1"))
+                deleteCar();
+            return;
+        }
+
+        DataLists.getCars().remove(car);
     }
 
     public static void deleteCarById(String id) {

@@ -13,8 +13,9 @@ public class DataLists {
     private static ArrayList<Station> stations;
     private static ArrayList<Car> cars;
     private static ArrayList<Trainset> trainsets;
-    public static ArrayList<Rail> rails = new ArrayList<>();
-    public static ArrayList<Rail> railsReversed = new ArrayList<>();
+    private static ArrayList<Rail> rails = new ArrayList<>();
+    private static ArrayList<Rail> railsReversed = new ArrayList<>();
+    private static ArrayList<Trainset> threads = new ArrayList<>();
 
     public static ArrayList<Rail> getRails() {
         return rails;
@@ -26,6 +27,14 @@ public class DataLists {
 
     public static ArrayList<Locomotive> getLocomotives() {
         return locomotives;
+    }
+
+    public static ArrayList<Trainset> getThreads() {
+        return threads;
+    }
+
+    public static void setThreads(ArrayList<Trainset> threads) {
+        DataLists.threads = threads;
     }
 
     public static ArrayList<Station> getStations() {
@@ -47,6 +56,7 @@ public class DataLists {
         trainsets = new ArrayList<>();
         rails = new ArrayList<>();
         railsReversed = new ArrayList<>();
+        threads = new ArrayList<>();
     }
 
     public static String printCarsT(Trainset trainset) {

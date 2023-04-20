@@ -193,20 +193,34 @@ public class Locomotive {
         String id = scanner.nextLine();
         Locomotive locomotive = findLocomotiveById(id);
 
+        for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
+            if (DataLists.getTrainsets().get(i).getLocomotive().getCurrentId().equals(id)) {
+                System.out.println("Locomotive is in a trainset, if you want to delete locomotive, you have to delete whole trainset");
+                System.out.println("Enter 1 if you want to delete whole trainset");
+                System.out.println("Enter something else if you want to stop deleting locomotive");
+                String ch = scanner.nextLine();
+
+                if (ch.equals("1")) {
+                    DataLists.getTrainsets().get(i).setAvailable(false);
+                    DataLists.getTrainsets().remove(DataLists.getTrainsets().get(i));
+                }
+                return;
+            }
+        }
+
         if (locomotive == null) {
-            System.out.println("There is no station with id " + id);
+            System.out.println("There is no locomotive with id " + id);
             System.out.println("Enter 1 if you want to try to delete station again");
-            System.out.println("Enter something else if you want to stop deleting station");
+            System.out.println("Enter something else if you want to stop deleting locomotive");
             String ch = scanner.nextLine();
 
-            if (ch.equals("1")) {
+            if (ch.equals("1"))
                 deleteLocomotive();
-                return;
-            } else
-                return;
+            return;
         }
 
     }
+
 
     public static Locomotive generateLocomotiveRandomly(String name, int number) {
         String string = Files.ReadFile(name, number);
