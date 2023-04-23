@@ -206,7 +206,7 @@ public class Locomotive {
 
 
     public static Locomotive generateLocomotiveRandomly(String name, int number) {
-        String string = Files.ReadFile(name, number);
+        String string = Files.readFile(name, number);
         Station homeStation = Station.chooseRandomStation();
         Station sourceStation = Station.chooseRandomStation();
         Station destinationStation = Station.chooseRandomStation();

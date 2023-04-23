@@ -12,7 +12,7 @@ import java.util.Set;
 public class Files extends Thread {
     public Files() {}
 
-    public static String ReadFile(String type, int number) { // function for convenient file reading for random generation of locomotive, shipping, trainset names
+    public static String readFile(String type, int number) { // function for convenient file reading for random generation of locomotive, shipping, trainset names
         String fileName = "src/txtfiles/" + type;
         Random random = new Random();
         int randomNumber = random.nextInt(number) + 1;
@@ -32,21 +32,20 @@ public class Files extends Thread {
         return name;
     }
 
-    public static String ReadFileStations(Set<String> set) { // function for convenient file reading for random generation of station names (names must be unique)
+    public static void readFileStations(Set<String> set) { // function for convenient file reading for random generation of station names (names must be unique)
         String fileName = "src/txtfiles/stationnames.txt";
         Random random = new Random();
         int randomNumber = random.nextInt(121) + 1;
         String name = "";
-        Station station = null;
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             int currentLine = 1;
             while ((name = br.readLine()) != null) {
                 if (currentLine == randomNumber) {
                     if (set.contains(name))
-                        Files.ReadFileStations(set);
+                        Files.readFileStations(set);
                     else {
-                        station = new Station(name);
+                        Station station = new Station(name);
                         set.add(name);
                     }
                     break;
@@ -56,8 +55,6 @@ public class Files extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return name;
     }
 
     @Override

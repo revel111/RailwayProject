@@ -27,10 +27,6 @@ public class Rail {
         return currentId;
     }
 
-    public double getLeftDistance() {
-        return leftDistance;
-    }
-
     public boolean getisAvailable() {
         return isAvailable;
     }
@@ -39,24 +35,12 @@ public class Rail {
         isAvailable = available;
     }
 
-    public void setLeftDistance(double leftDistance) {
-        this.leftDistance = leftDistance;
-    }
-
     public Station getStation1() {
         return station1;
     }
 
-    public void setStation1(Station station1) {
-        this.station1 = station1;
-    }
-
     public Station getStation2() {
         return station2;
-    }
-
-    public void setStation2(Station station2) {
-        this.station2 = station2;
     }
 
     public double getDistance() {
@@ -175,14 +159,14 @@ public class Rail {
 
     public static Rail ifContainsv2(Rail rail) { //overridden function to fix bug
         for (Rail railI : DataLists.getRails())
-            if (railI.isEquiality(rail))
+            if (railI.isEquialv2(rail))
                 return railI;
         return null;
     }
 
     public static Rail ifContainsReversedv2(Rail rail) { //overridden function to fix bug
         for (Rail railI : DataLists.getRailsReversed())
-            if (railI.isEquiality(rail))
+            if (railI.isEquialv2(rail))
                 return railI;
         return null;
     }
@@ -204,7 +188,7 @@ public class Rail {
                     Rail railReversed = new Rail(DataLists.getStations().get(randomStation), DataLists.getStations().get(i), randomValue);
                     Rail toFind = ifContains(rail);
                     Rail toFindReversed = ifContainsReversed(railReversed);
-                    if (DataLists.getStations().get(i) == DataLists.getStations().get(randomStation) || toFind != null || toFindReversed != null || DataLists.getStations().get(randomStation).getIntersections().size() > 10)
+                    if (DataLists.getStations().get(i) == DataLists.getStations().get(randomStation) || toFind != null || toFindReversed != null || DataLists.getStations().get(randomStation).getIntersections().size() == 10)
                         randomNumber++;
                     else {
                         rail.station1.getIntersections().add(rail.station2);
@@ -219,17 +203,12 @@ public class Rail {
         }
     }
 
-    public boolean isEquiality(Rail rail) { //check if rails are the same
-        if ((this.getStation1() == rail.getStation1() && this.getStation2() == rail.getStation2()) || (this.getStation1() == rail.getStation2() && this.getStation2() == rail.getStation1()))
-            return true;
-        return false;
+    public boolean isEquialv2(Rail rail) { //check if rails are the same
+        return (this.getStation1() == rail.getStation1() && this.getStation2() == rail.getStation2()) || (this.getStation1() == rail.getStation2() && this.getStation2() == rail.getStation1());
     }
 
     public boolean isEqual(Rail rail) { //check if rails are the same
-        if ((rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName())))
-            return true;
-
-        return false;
+        return rail.getStation1().getName().equals(this.getStation1().getName()) && rail.getStation2().getName().equals(this.getStation2().getName());
     }
 
     @Override

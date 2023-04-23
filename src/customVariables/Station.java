@@ -150,7 +150,7 @@ public class Station {
         Station station = null;
         Set<String> set = new HashSet<>();
         for (int i = 0; i < 100; i++) {
-            String string = Files.ReadFileStations(set);
+            Files.readFileStations(set);
         }
     }
 

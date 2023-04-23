@@ -151,7 +151,7 @@ abstract public class Car {
 
         for (int i = 0; i < randomAmount; i++) {
             int randomNumber = random.nextInt(10 - 1 - 1) + 1;
-            String string = Files.ReadFile(name, number);
+            String string = Files.readFile(name, number);
             car = Car.switchForCars(randomNumber, string);
             arrayList.add(car);
         }

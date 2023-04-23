@@ -24,6 +24,7 @@ public class Trainset extends Thread {
     private final double maxWeight = 15000;
     private double wholeDistance = 0;
     private double currentDistance = 0;
+    private boolean availableToRide = true;
 
     public Trainset(String nameT, Locomotive locomotive, ArrayList<Car> cars) {
         this.locomotive = locomotive;
@@ -52,7 +53,7 @@ public class Trainset extends Thread {
         return locomotive;
     }
 
-    public boolean isAvailable() {
+    public boolean getIsAvailable() {
         return isAvailable;
     }
 
@@ -113,8 +114,8 @@ public class Trainset extends Thread {
         System.out.println("Enter 2 if you want to choose particular locomotive for trainset");
         System.out.println("Enter 3 if you want to generate random locomotive for trainset");
         System.out.println("Enter 0 if you want to stop creating trainset");
-        Locomotive locomotive = null;
-        ArrayList<Car> cars = new ArrayList<Car>();
+        Locomotive locomotive;
+        ArrayList<Car> cars = new ArrayList<>();
 
         String ch = scanner.nextLine();
 
@@ -159,7 +160,7 @@ public class Trainset extends Thread {
             System.out.println("Enter 2 if you want to choose particular car");
             System.out.println("Enter 3 if you want to randomly generate cars");
             System.out.println("Enter 0 if you want to stop creating trainset");
-            Car car = null;
+            Car car;
             ch = scanner.nextLine();
 
             switch (ch) {
@@ -168,7 +169,7 @@ public class Trainset extends Thread {
                     if (car == null)
                         return;
                     try {
-                        if (trainset.getWeight() + car.getWeightBrutto() >= trainset.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 2)
+                        if (trainset.getWeight() + car.getWeightBrutto() >= trainset.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 10)
                             throw new TooManyCarsException();
                         else {
                             trainset.setWeight(car.getWeightBrutto() + trainset.getWeight());
@@ -284,6 +285,17 @@ public class Trainset extends Thread {
             return;
         }
 
+        if (!trainset.availableToRide) {
+            System.out.println("Train is already moving");
+            System.out.println("Enter 1 if you want to try to launch trainset again");
+            System.out.println("Enter something else if you want to stop launching trainset");
+            String ch1 = scanner.nextLine();
+            if (ch1.equals("1"))
+                launchTrainset();
+            return;
+        }
+
+        trainset.availableToRide = false;
         DataLists.getThreads().add(trainset);
         trainset.start();
     }
@@ -301,7 +313,7 @@ public class Trainset extends Thread {
                 if (car == null)
                     return;
                 try {
-                    if (this.getWeight() + car.getWeightBrutto() >= this.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 2)
+                    if (this.getWeight() + car.getWeightBrutto() >= this.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 10)
                         throw new TooManyCarsException();
                     else {
                         this.setWeight(car.getWeightBrutto() + this.getWeight());
@@ -331,7 +343,7 @@ public class Trainset extends Thread {
                 } else {
                     Car.deleteCarById(car.getCurrentId());
                     try {
-                        if (this.getWeight() + car.getWeightBrutto() >= this.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 2)
+                        if (this.getWeight() + car.getWeightBrutto() >= this.getMaxWeight() || locomotive.getCurElecRailRoad() == locomotive.getMaxElectGrid() || cars.size() == 10)
                             throw new TooManyCarsException();
                         else {
                             this.setWeight(car.getWeightBrutto() + this.getWeight());
@@ -361,12 +373,13 @@ public class Trainset extends Thread {
 
     public void unhookCar() {
         System.out.println("Enter id of car which you want to unhook");
-        String id = scanner.nextLine();
         String string = DataLists.printCarsT(this);
+        System.out.println(string);
+        String id = scanner.nextLine();
         Car car = null;
 
         for (int i = 0; i < this.getCars().size(); i++)
-            if (this.getCars().get(i).equals(id))
+            if (this.getCars().get(i).getCurrentId().equals(id))
                 car = getCars().get(i);
 
         if (car == null) {
@@ -542,7 +555,7 @@ public class Trainset extends Thread {
 
     public static void generateTrainsetsRandomly() {
         for (int i = 0; i < 25; i++) {
-            String string = Files.ReadFile("trainsetnames.txt", 50);
+            String string = Files.readFile("trainsetnames.txt", 50);
             Locomotive locomotive = Locomotive.generateLocomotiveRandomly("locomotivenames.txt", 50);
             ArrayList<Car> cars = Car.generateCarRandomly("shippingnames.txt", 100);
             Trainset trainset = new Trainset(string, locomotive, cars);
