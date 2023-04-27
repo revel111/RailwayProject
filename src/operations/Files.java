@@ -10,7 +10,8 @@ import java.util.Random;
 import java.util.Set;
 
 public class Files extends Thread {
-    public Files() {}
+    public Files() {
+    }
 
     public static String readFile(String type, int number) { // function for convenient file reading for random generation of locomotive, shipping, trainset names
         String fileName = "src/txtfiles/" + type;
@@ -62,9 +63,8 @@ public class Files extends Thread {
         while (true) {
             try (FileWriter bw = new FileWriter("src/txtfiles/AppState.txt", true)) {
                 DataLists.sortTrainsetsByDistance();
-                for (int i = 0; i < DataLists.getTrainsets().size(); i++) {
+                for (int i = 0; i < DataLists.getTrainsets().size(); i++)
                     bw.write(DataLists.getTrainsets().get(i) + "\n");
-                }
                 bw.write("\n");
             } catch (IOException e) {
                 System.out.println(" ");

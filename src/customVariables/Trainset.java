@@ -24,7 +24,6 @@ public class Trainset extends Thread {
     private final double maxWeight = 15000;
     private double wholeDistance = 0;
     private double currentDistance = 0;
-    private boolean availableToRide = true;
 
     public Trainset(String nameT, Locomotive locomotive, ArrayList<Car> cars) {
         this.locomotive = locomotive;
@@ -285,7 +284,7 @@ public class Trainset extends Thread {
             return;
         }
 
-        if (!trainset.availableToRide) {
+        if (trainset.getIsAvailable()) {
             System.out.println("Train is already moving");
             System.out.println("Enter 1 if you want to try to launch trainset again");
             System.out.println("Enter something else if you want to stop launching trainset");
@@ -295,7 +294,7 @@ public class Trainset extends Thread {
             return;
         }
 
-        trainset.availableToRide = false;
+        trainset.setAvailable(false);
         DataLists.getThreads().add(trainset);
         trainset.start();
     }
